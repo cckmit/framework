@@ -1,4 +1,4 @@
-package po;
+package org.mickey.framework.common.po;
 
 import lombok.Data;
 

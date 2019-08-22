@@ -1,4 +1,4 @@
-//package com.taimeitech.framework.common.cache;
+//package com.taimeitech.framework.org.mickey.framework.dbinspector.common.cache;
 //
 ///**
 // * Created by wiki on 17-10-31.

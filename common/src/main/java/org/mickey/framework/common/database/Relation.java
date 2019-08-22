@@ -1,7 +1,4 @@
-package database;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package org.mickey.framework.common.database;
 
 /**
  * description

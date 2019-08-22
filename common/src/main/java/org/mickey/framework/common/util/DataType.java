@@ -1,4 +1,4 @@
-package util;
+package org.mickey.framework.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -118,7 +118,7 @@ public class DataType {
     public static String toSimpleType(String typeName) {
         typeName = deletePrefix(typeName, "class ");
         typeName = deletePrefix(typeName, "java.lang.");
-        typeName = deletePrefix(typeName, "java.util.");
+        typeName = deletePrefix(typeName, "java.org.mickey.framework.org.mickey.framework.dbinspector.common.util.");
         typeName = deletePrefix(typeName, "java.sql.");
         typeName = deletePrefix(typeName, "java.math.");
         return typeName;

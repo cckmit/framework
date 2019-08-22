@@ -1,4 +1,4 @@
-package util;
+package org.mickey.framework.common.util;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;

@@ -1,6 +1,7 @@
-package database;
+package org.mickey.framework.common.database;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +14,8 @@ import java.util.Objects;
  * 05/07/2019
  */
 @Data
+@Slf4j
 public class Column implements Comparable<Column> {
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     private Table table;
     private int sqlType;
@@ -24,7 +25,7 @@ public class Column implements Comparable<Column> {
     private int precision;
     private int scale;
     private boolean nullable;
-    private boolean indexe;
+    private boolean indexed;
     private boolean unique;
     private boolean insertable = true;
     private boolean updatable = true;

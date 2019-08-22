@@ -248,7 +248,7 @@ public class ZKDbMetaInfoProvider implements DbMetaInfoProvider, InitializingBea
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.isTrue(_zkClient != null, "zk client cannot be null");
-		Assert.isTrue(StringUtil.isNotBlank(databaseName), "database name cannot be empty");
+		Assert.isTrue(StringUtil.isNotBlank(databaseName), "org.mickey.framework.org.mickey.framework.dbinspector.common.database name cannot be empty");
 		Assert.isTrue(StringUtil.isNotBlank(routingKey), "routing key name cannot be empty");
 
 		Assert.isTrue(_zkClient.getState() == CuratorFrameworkState.STARTED, "zk client must be started");

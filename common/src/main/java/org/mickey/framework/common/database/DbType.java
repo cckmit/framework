@@ -1,4 +1,4 @@
-package database;
+package org.mickey.framework.common.database;
 
 /**
  * description

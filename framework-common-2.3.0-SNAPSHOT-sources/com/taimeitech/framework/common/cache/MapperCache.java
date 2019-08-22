@@ -1,6 +1,6 @@
-//package com.taimeitech.framework.common.cache;
+//package com.taimeitech.framework.org.mickey.framework.dbinspector.common.cache;
 //
-//import java.util.List;
+//import java.org.mickey.framework.org.mickey.framework.dbinspector.common.util.List;
 //
 //public interface MapperCache {
 //	<T> CacheResult<T> get(Class<T> clazz, String primaryKey);

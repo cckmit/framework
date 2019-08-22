@@ -110,7 +110,7 @@ public class Table {
 				", sharding=" + sharding +
 				", shardingAlias='" + shardingAlias + '\'' +
 				", shardingCount=" + shardingCount +
-				", database=" + database +
+				", org.mickey.framework.org.mickey.framework.dbinspector.common.database=" + database +
 				", isExtTable=" + isExtTable +
 				", joins=" + joins +
 				'}';

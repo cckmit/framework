@@ -1,15 +1,15 @@
-//package com.taimeitech.framework.common.cache;
+//package com.taimeitech.framework.org.mickey.framework.dbinspector.common.cache;
 //
 //
 //import com.fasterxml.jackson.core.type.TypeReference;
-//import com.taimeitech.framework.common.SystemContext;
+//import com.taimeitech.framework.org.mickey.framework.dbinspector.common.SystemContext;
 //import org.apache.commons.lang.StringUtils;
 //
-//import java.util.List;
-//import java.util.Set;
+//import java.org.mickey.framework.org.mickey.framework.dbinspector.common.util.List;
+//import java.org.mickey.framework.org.mickey.framework.dbinspector.common.util.Set;
 //
-//import static com.taimeitech.framework.common.cache.CacheConst.CacheItemMetaPrefix;
-//import static com.taimeitech.framework.common.cache.CacheConst.DefaultRegion;
+//import static com.taimeitech.framework.org.mickey.framework.dbinspector.common.cache.CacheConst.CacheItemMetaPrefix;
+//import static com.taimeitech.framework.org.mickey.framework.dbinspector.common.cache.CacheConst.DefaultRegion;
 //
 //@Deprecated
 //public interface CacheProxy {

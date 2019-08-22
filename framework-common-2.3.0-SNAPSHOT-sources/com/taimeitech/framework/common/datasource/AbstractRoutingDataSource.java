@@ -55,7 +55,7 @@ public abstract class AbstractRoutingDataSource implements RoutingDataSource, Di
 	 * this <code>DataSource</code> object represents.
 	 *
 	 * @return a connection to the data source
-	 * @throws SQLException if a database access error occurs
+	 * @throws SQLException if a org.mickey.framework.org.mickey.framework.dbinspector.common.database access error occurs
 	 */
 	@Override
 	public Connection getConnection() throws SQLException {
@@ -67,11 +67,11 @@ public abstract class AbstractRoutingDataSource implements RoutingDataSource, Di
 	 * <p>Attempts to establish a connection with the data source that
 	 * this <code>DataSource</code> object represents.
 	 *
-	 * @param username the database user on whose behalf the connection is
+	 * @param username the org.mickey.framework.org.mickey.framework.dbinspector.common.database user on whose behalf the connection is
 	 *                 being made
 	 * @param password the user's password
 	 * @return a connection to the data source
-	 * @throws SQLException if a database access error occurs
+	 * @throws SQLException if a org.mickey.framework.org.mickey.framework.dbinspector.common.database access error occurs
 	 * @since 1.4
 	 */
 	@Override

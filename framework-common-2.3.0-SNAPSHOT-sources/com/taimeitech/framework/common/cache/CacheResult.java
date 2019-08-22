@@ -1,9 +1,9 @@
-//package com.taimeitech.framework.common.cache;
+//package com.taimeitech.framework.org.mickey.framework.dbinspector.common.cache;
 //
 //
 //import com.fasterxml.jackson.core.type.TypeReference;
 //
-//import java.util.Objects;
+//import java.org.mickey.framework.org.mickey.framework.dbinspector.common.util.Objects;
 //
 //public abstract class CacheResult<T> {
 //	protected TypeReference<T> valueType;

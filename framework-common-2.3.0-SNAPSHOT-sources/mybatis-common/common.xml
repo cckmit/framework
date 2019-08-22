@@ -4,7 +4,7 @@
   此文件是针对公共字段的处理的mapper
 -->
 <mapper namespace="com.taimeitech.framework.mybatis">
-	<resultMap id="resultMap" type="com.taimeitech.framework.common.po.BasePO">
+	<resultMap id="resultMap" type="com.taimeitech.framework.org.mickey.framework.dbinspector.common.org.mickey.framework.org.mickey.framework.dbinspector.common.po.BasePO">
 		<id column="id" property="id" jdbcType="VARCHAR"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>

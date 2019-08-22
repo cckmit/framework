@@ -1,4 +1,4 @@
-//package com.taimeitech.framework.common.cache;
+//package com.taimeitech.framework.org.mickey.framework.dbinspector.common.cache;
 //
 //
 //public class CacheItem<T> {

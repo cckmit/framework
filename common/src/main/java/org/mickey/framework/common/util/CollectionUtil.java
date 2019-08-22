@@ -1,10 +1,9 @@
-package util;
+package org.mickey.framework.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**

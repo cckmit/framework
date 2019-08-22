@@ -1,4 +1,4 @@
-package po;
+package org.mickey.framework.common.po;
 
 import javax.persistence.Column;
 import java.io.Serializable;

@@ -1,7 +1,7 @@
-package autoconfigure;
+package org.mickey.framework.dbinspector.autoconfigure;
 
-import common.ORMapping;
-import database.Table;
+import org.mickey.framework.dbinspector.common.ORMapping;
+import org.mickey.framework.common.database.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
