@@ -17,7 +17,8 @@ import java.util.List;
 public class JdbcDdlProcessor implements DdlProcessor {
     @Override
     public void execute(Connection connection, List<String> ddlList) throws Exception {
-        log.info(" _______  .______           __  .__   __.      _______..______    _______   ______ .___________.  ______   .______      \n" +
+        log.info("\n" +
+                " _______  .______           __  .__   __.      _______..______    _______   ______ .___________.  ______   .______      \n" +
                 "|       \\ |   _  \\         |  | |  \\ |  |     /       ||   _  \\  |   ____| /      ||           | /  __  \\  |   _  \\     \n" +
                 "|  .--.  ||  |_)  |  ______|  | |   \\|  |    |   (----`|  |_)  | |  |__   |  ,----'`---|  |----`|  |  |  | |  |_)  |    \n" +
                 "|  |  |  ||   _  <  |______|  | |  . `  |     \\   \\    |   ___/  |   __|  |  |         |  |     |  |  |  | |      /     \n" +

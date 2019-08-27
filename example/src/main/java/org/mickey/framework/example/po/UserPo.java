@@ -23,4 +23,8 @@ public class UserPo extends BasePo {
     private String password;
     @Column(columnDefinition = "varchar(50) comment 'nick name'")
     private String nickname;
+    @Column(columnDefinition = "varchar(50) comment 'phone'")
+    private String phone;
+    @Column()
+    private int age;
 }
