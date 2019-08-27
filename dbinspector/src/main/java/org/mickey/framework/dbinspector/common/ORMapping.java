@@ -7,17 +7,18 @@ import org.apache.ibatis.type.JdbcType;
 import org.mickey.framework.common.annotation.DbCustomUniqueConstraint;
 import org.mickey.framework.common.annotation.DbCustomUniqueConstraints;
 import org.mickey.framework.common.annotation.Sharding;
-import org.mickey.framework.common.database.*;
+import org.mickey.framework.common.database.JoinColumn;
 import org.mickey.framework.common.database.Table;
+import org.mickey.framework.common.database.*;
+import org.mickey.framework.common.po.BaseExtPo;
 import org.mickey.framework.common.po.CommonPo;
 import org.mickey.framework.common.util.DataType;
 import org.mickey.framework.common.util.ReflectUtils;
-import org.springframework.util.ReflectionUtils;
+import org.mickey.framework.common.util.ReflectionUtils;
 
-import javax.persistence.*;
 import javax.persistence.Column;
 import javax.persistence.Index;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.lang.annotation.Annotation;
 import java.lang.invoke.*;
 import java.lang.reflect.Field;
@@ -42,12 +43,12 @@ public class ORMapping {
     private static final Map<Class<?>, Table> orm = new ConcurrentHashMap<Class<?>, Table>();
     private static final Map<String, Class<?>> nameMap = new ConcurrentHashMap<String, Class<?>>();
 
-    public static Table get(Class<?> classzz) {
-        javax.persistence.Table clazzAnnotation = classzz.getAnnotation(javax.persistence.Table.class);
+    public static Table get(Class<?> clazz) {
+        javax.persistence.Table clazzAnnotation = clazz.getAnnotation(javax.persistence.Table.class);
         if (clazzAnnotation == null) {
             return null;
         }
-        Table jpaTable = orm.computeIfAbsent(classzz, k -> {
+        Table jpaTable = orm.computeIfAbsent(clazz, k -> {
             Table table = new Table();
             table.setSimpleJavaName(k.getSimpleName());
             table.setJavaName(k.getName());
@@ -188,7 +189,7 @@ public class ORMapping {
                 OneToMany oneToMany = field.getAnnotation(OneToMany.class);
                 Class targetEntity = oneToMany.targetEntity();
                 if (targetEntity == void.class) {
-                    targetEntity = (Class)((ParameterizedType)field.getGenericType()).getActualTypeArguments()[0];
+                    targetEntity = (Class) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
                 }
                 javax.persistence.Table targetTable = (javax.persistence.Table) targetEntity.getAnnotation(javax.persistence.Table.class);
                 if (targetTable == null) {
@@ -199,13 +200,87 @@ public class ORMapping {
                 String mappedBy = oneToMany.mappedBy();
                 if (StringUtils.isNotBlank(mappedBy)) {
                     Field targetField = ReflectionUtils.getDeclaredField(targetEntity, mappedBy);
+                    if (targetField == null) {
+                        throw new RuntimeException("can't find targetField of : " + mappedBy + " from class : " + targetEntity.getName());
+                    }
+                    List<JoinColumn> joinColumns = getJoinColumns(targetField);
+                    switchJoinColumn(table, join, joinColumns);
+                } else {
+                    List<Field> declaredFields = ReflectionUtils.getDeclaredFields(targetEntity);
+                    List<JoinColumn> joinColumns = new ArrayList<>();
+                    Field targetFieldByType = declaredFields.stream().filter(df -> df.getType().getCanonicalName().equals(clazz.getCanonicalName())).findFirst().orElse(null);
+                    if (targetFieldByType == null) {
+                        joinColumns = getJoinColumns(field);
+                    } else {
+                        joinColumns = getJoinColumns(targetFieldByType);
+                    }
+                    switchJoinColumn(table, join, joinColumns);
                 }
             });
+            if (ReflectionUtils.isSubClass(clazz, BaseExtPo.class)) {
+                table.setExtTable(true);
+            }
+            return table;
         });
+        String sqlTableName = jpaTable.getSqlName();
+        nameMap.putIfAbsent(sqlTableName, clazz);
+        return jpaTable;
+    }
+
+    private static void switchJoinColumn(Table table, Join join, List<JoinColumn> joinColumns) {
+        if (CollectionUtils.isNotEmpty(joinColumns)) {
+            joinColumns.forEach(joinColumn -> {
+                String columnName = joinColumn.getName();
+                String referencedColumnName = joinColumn.getReferencedColumnName();
+                joinColumn.setName(columnName);
+                joinColumn.setReferencedColumnName(referencedColumnName);
+            });
+            join.setJoinColumns(joinColumns);
+            table.addJoin(join);
+        }
     }
 
     private static void createJoin(Table table, Field field, Class targetEntity, Join join) {
+        List<JoinColumn> joinColumns = getJoinColumns(field);
+        if (CollectionUtils.isNotEmpty(joinColumns)) {
+            javax.persistence.Table targetTable = (javax.persistence.Table) targetEntity.getAnnotation(javax.persistence.Table.class);
+            if (targetTable == null) {
+                return;
+            }
+            join.setTargetTableName(targetTable.name());
+            join.setJoinColumns(joinColumns);
+            table.addJoin(join);
+        }
+    }
 
+    private static List<JoinColumn> getJoinColumns(Field field) {
+        List<JoinColumn> columns = new ArrayList<>();
+        JoinColumns joinColumns = field.getAnnotation(JoinColumns.class);
+        if (joinColumns == null) {
+            javax.persistence.JoinColumn joinColumn = field.getAnnotation(javax.persistence.JoinColumn.class);
+            if (joinColumn == null) {
+                return null;
+            }
+            String joinName = joinColumn.name();
+            if (StringUtils.isNotBlank(joinColumn.referencedColumnName())) {
+                columns.add(new JoinColumn(joinName, joinColumn.referencedColumnName()));
+            } else {
+                columns.add(new JoinColumn(joinName));
+            }
+        } else {
+            javax.persistence.JoinColumn[] values = joinColumns.value();
+            if (values.length > 0) {
+                for (javax.persistence.JoinColumn value : values) {
+                    String joinName = value.name();
+                    if (StringUtils.isNotBlank(value.referencedColumnName())) {
+                        columns.add(new JoinColumn(joinName, value.referencedColumnName()));
+                    } else {
+                        columns.add(new JoinColumn(joinName));
+                    }
+                }
+            }
+        }
+        return columns;
     }
 
     private static void buildConstraint(Table table, String indexName, String[] sqlColumnNames) {

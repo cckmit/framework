@@ -1,0 +1,37 @@
+package org.mickey.framework.common.dto;
+
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * description
+ *
+ * @author mickey
+ * 23/07/2019
+ */
+@Slf4j
+@Data
+public class ErrorInfo implements Serializable {
+    private boolean internationalized = false;
+    private String code;
+    private String message;
+    private List<Object> arguments;
+
+    public ErrorInfo() {
+
+    }
+    public ErrorInfo(String code) {
+        this.code = code;
+    }
+    public ErrorInfo(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+    public ErrorInfo(Integer code, String message) {
+        this.code = null != code?code.toString():null;
+        this.message = message;
+    }
+}

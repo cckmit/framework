@@ -43,6 +43,29 @@ public class Column implements Comparable<Column> {
         this.table = table;
     }
 
+    public void copyFrom(Column column) {
+        this.sqlType = column.getSqlType();
+        this.sqlTypeName = column.getSqlTypeName();
+        this.sqlName = column.getSqlName();
+        this.length = column.getLength();
+        this.precision = column.getPrecision();
+        this.scale = column.getScale();
+        this.nullable = column.isNullable();
+        this.indexed = column.isIndexed();
+        this.unique = column.isUnique();
+        this.insertable = column.isInsertable();
+        this.updatable = column.isUpdatable();
+        this.defaultValue = column.getDefaultValue();
+        this.isSharding = column.isSharding();
+        this.isPk = column.isPk();
+        this.isFk = column.isFk();
+        this.sqlComment = column.getSqlComment();
+        this.javaTypeName = column.getJavaTypeName();
+        this.javaType = column.getJavaType();
+        this.javaName = column.getJavaName();
+        this.columnDefinition = column.getColumnDefinition();
+    }
+
     @Override
     public int compareTo(Column o) {
         return this.javaName.compareTo(o.javaName);
@@ -63,5 +86,31 @@ public class Column implements Comparable<Column> {
     @Override
     public int hashCode() {
         return Objects.hash(sqlName);
+    }
+
+    @Override
+    public String toString() {
+        return "Column{" +
+                "sqlType=" + sqlType +
+                ", sqlTypeName='" + sqlTypeName + '\'' +
+                ", sqlName='" + sqlName + '\'' +
+                ", length=" + length +
+                ", precision=" + precision +
+                ", scale=" + scale +
+                ", nullable=" + nullable +
+                ", indexed=" + indexed +
+                ", unique=" + unique +
+                ", insertable=" + insertable +
+                ", updatable=" + updatable +
+                ", defaultValue='" + defaultValue + '\'' +
+                ", isSharding=" + isSharding +
+                ", isPk=" + isPk +
+                ", isFk=" + isFk +
+                ", sqlComment='" + sqlComment + '\'' +
+                ", javaTypeName='" + javaTypeName + '\'' +
+                ", javaType=" + javaType +
+                ", javaName='" + javaName + '\'' +
+                ", columnDefinition='" + columnDefinition + '\'' +
+                '}';
     }
 }

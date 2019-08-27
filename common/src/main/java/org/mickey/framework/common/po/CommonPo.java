@@ -12,17 +12,17 @@ import java.util.Date;
 public abstract class CommonPo implements Serializable, Cloneable {
 
     @Id
-    @Column(nullable = false, updatable = false, columnDefinition = "varchar(32) not null comment 'primary key id value will removed -'")
+    @Column(updatable = false, columnDefinition = "varchar(32) not null comment 'primary key id value will removed -'")
     protected String id;
 
     @Version
-    @Column(nullable = false, updatable = false, columnDefinition = "bigint not null default 0 comment 'auto inspector'")
+    @Column(updatable = false, columnDefinition = "bigint not null default 0 comment 'auto inspector'")
     protected Long version;
 
-    @Column(updatable = false, columnDefinition = "varchar(36)")
+    @Column(updatable = false, columnDefinition = "varchar(36) comment 'create by'")
     protected String createBy;
 
-    @Column(updatable = false, columnDefinition = "datetime(6)")
+    @Column(updatable = false, columnDefinition = "datetime(6) comment 'create time'")
     protected Date createTime;
 
     @Column(columnDefinition = "varchar(36)")
@@ -31,6 +31,6 @@ public abstract class CommonPo implements Serializable, Cloneable {
     @Column(columnDefinition = "datetime(6)")
     protected Date updateTime;
 
-    @Column(nullable = false, columnDefinition = "tinyint not null default 0")
+    @Column(columnDefinition = "tinyint not null default 0 comment 'is deleted ; 0 false , 1 true'")
     protected Integer isDeleted;
 }
