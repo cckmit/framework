@@ -3,6 +3,8 @@ package org.mickey.framework.common.util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.math.BigDecimal;
+
 /**
  * description
  *
@@ -11,10 +13,67 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Slf4j
 public class StringUtil extends StringUtils {
+
+    private static final String SQL_REGEX = "('.+--)|(--)|(\\|)|(%7C)";
+
     public static String formatPath(String url) {
         if (url == null) {
             return null;
         }
         return url.replace("/+/", "/");
+    }
+
+    public static String escapeSql(String sql) {
+        if (sql == null) {
+            return null;
+        }
+        return sql.replaceAll(SQL_REGEX, "");
+    }
+
+    public static String fixDecimalExponent(String dString) {
+        int ePos = dString.indexOf('E');
+
+        if (ePos == -1) {
+            ePos = dString.indexOf('e');
+        }
+
+        if (ePos != -1) {
+            if (dString.length() > (ePos + 1)) {
+                char maybeMinusChar = dString.charAt(ePos + 1);
+
+                if (maybeMinusChar != '-' && maybeMinusChar != '+') {
+                    StringBuilder strBuilder = new StringBuilder(dString.length() + 1);
+                    strBuilder.append(dString.substring(0, ePos + 1));
+                    strBuilder.append('+');
+                    strBuilder.append(dString.substring(ePos + 1, dString.length()));
+                    dString = strBuilder.toString();
+                }
+            }
+        }
+
+        return dString;
+    }
+
+    public static String consistentToString(BigDecimal decimal) {
+        if (decimal == null) {
+            return null;
+        }
+
+//        if (toPlainStringMethod != null) {
+//            try {
+//                return (String) toPlainStringMethod.invoke(decimal, (Object[]) null);
+//            } catch (InvocationTargetException invokeEx) {
+//                // that's okay, we fall-through to decimal.toString()
+//            } catch (IllegalAccessException accessEx) {
+//                // that's okay, we fall-through to decimal.toString()
+//            }
+//        }
+
+        return decimal.toString();
+    }
+
+    public static String valueOf(Object object) {
+        if (object == null) {return "";}
+        return object.toString();
     }
 }

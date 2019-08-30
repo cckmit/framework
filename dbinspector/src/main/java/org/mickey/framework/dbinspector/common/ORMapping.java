@@ -43,6 +43,10 @@ public class ORMapping {
     private static final Map<Class<?>, Table> orm = new ConcurrentHashMap<Class<?>, Table>();
     private static final Map<String, Class<?>> nameMap = new ConcurrentHashMap<String, Class<?>>();
 
+    public static Class<?> getPoClazz(String sqlTableName){
+        return nameMap.get(sqlTableName);
+    }
+
     public static Table get(Class<?> clazz) {
         javax.persistence.Table clazzAnnotation = clazz.getAnnotation(javax.persistence.Table.class);
         if (clazzAnnotation == null) {

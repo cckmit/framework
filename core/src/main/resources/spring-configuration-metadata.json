@@ -1,0 +1,162 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "name": "org.mickey.framework",
+      "type": "org.mickey.framework.core.autoconfigure.CommonProperties"
+    },
+    {
+      "sourceType": "org.mickey.framework.dbinspector.DbInspectorProperties",
+      "name": "org.mickey.framework",
+      "type": "org.mickey.framework.dbinspector.DbInspectorProperties"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper",
+      "type": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "defaultValue": false,
+      "name": "org.mickey.framework.auto-wrap-response",
+      "description": "是否加上返回结果自动包装",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "defaultValue": true,
+      "name": "org.mickey.framework.context-filter",
+      "description": "是否加上context过滤器",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "name": "org.mickey.framework.context-filter-app-id",
+      "description": "contextFilter过滤pattern",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "defaultValue": "*",
+      "name": "org.mickey.framework.context-filter-pattern",
+      "description": "contextFilter过滤pattern",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.dbinspector.DbInspectorProperties",
+      "defaultValue": false,
+      "name": "org.mickey.framework.db-inspector.async",
+      "description": "是否同步检查表结构",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "org.mickey.framework.dbinspector.DbInspectorProperties",
+      "defaultValue": "jdbcDdlProcessor",
+      "name": "org.mickey.framework.db-inspector.ddl-processor-bean-name",
+      "description": "处理ddl语句的实现类，默认是consoleDdlProcessor 直接将ddl打印在控制台\n 如果想自动执行ddl语句，可以将此值设置为jdbcDdlProcessor",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.dbinspector.DbInspectorProperties",
+      "name": "org.mickey.framework.db-inspector.dialect-class",
+      "description": "数据库方言，默认mysql",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.dbinspector.DbInspectorProperties",
+      "defaultValue": true,
+      "name": "org.mickey.framework.db-inspector.enabled",
+      "description": "是否自动启用，默认启用",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "defaultValue": false,
+      "name": "org.mickey.framework.enable-db-unique-check",
+      "description": "是否打开唯一索引",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "defaultValue": "",
+      "name": "org.mickey.framework.mapper-config-locations",
+      "description": "映射器配置文件路径",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "name": "org.mickey.framework.thread-pool",
+      "description": "线程池配置",
+      "type": "org.mickey.framework.core.autoconfigure.ThreadPoolProperties"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.CommonProperties",
+      "name": "org.mickey.framework.zk-address",
+      "description": "zk地址",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.auto-dialect",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.auto-runtime-dialect",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.close-conn",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.dialect",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.helper-dialect",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.offset-as-page-num",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.page-size-zero",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.params",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.properties",
+      "type": "java.util.Properties"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.reasonable",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.row-bounds-with-count",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "org.mickey.framework.core.autoconfigure.mybatis.PageHelperProperties",
+      "name": "pagehelper.support-methods-arguments",
+      "type": "java.lang.String"
+    }
+  ]
+}

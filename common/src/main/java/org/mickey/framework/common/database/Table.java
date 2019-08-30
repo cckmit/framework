@@ -70,4 +70,12 @@ public class Table {
         }
         this.uqConstraintMap.put(uqConstraint.getName(), uqConstraint);
     }
+
+    public boolean hasVersionColumn() {
+        return versionColumn != null;
+    }
+
+    public boolean hasUniqueCOnstraint() {
+        return  uqConstraintMap.size() > 0;
+    }
 }

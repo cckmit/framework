@@ -10,5 +10,5 @@ import java.io.Serializable;
 public class BasePo extends CommonPo implements Serializable, Cloneable {
 
     @Column(nullable = false, updatable = false, length = 50)
-    protected String companyId;
+    protected String tenantId;
 }

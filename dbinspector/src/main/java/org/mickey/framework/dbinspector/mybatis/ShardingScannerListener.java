@@ -1,6 +1,5 @@
 package org.mickey.framework.dbinspector.mybatis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.database.Table;
 import org.mickey.framework.dbinspector.DbInspectListener;
 import org.mickey.framework.dbinspector.mybatis.sharding.table.po.ShardingMapping;

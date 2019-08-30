@@ -1,0 +1,8 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.mickey.framework.core.autoconfigure.mybatis.MybatisListenerAutoConfiguration,\
+org.mickey.framework.core.autoconfigure.MapperAutoConfiguration,\
+org.mickey.framework.core.autoconfigure.GenericConfiguration,\
+org.mickey.framework.core.autoconfigure.mybatis.ChainedMybatisInterceptorConfiguration,\
+org.mickey.framework.core.autoconfigure.mybatis.PageHelperAutoConfiguration,\
+org.mickey.framework.core.autoconfigure.datasource.DatasourceAutoConfiguration
