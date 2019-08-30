@@ -5,7 +5,7 @@
     <parent>
         <artifactId>framework</artifactId>
         <groupId>org.mickey.framework</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${org.mickey.framework.versioin}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.mickey.framework</groupId>
             <artifactId>common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${org.mickey.framework.versioin}</version>
             <scope>compile</scope>
         </dependency>
 

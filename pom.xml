@@ -7,7 +7,7 @@
     <groupId>org.mickey.framework</groupId>
     <artifactId>framework</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${org.mickey.framework.versioin}</version>
     <modules>
         <module>common</module>
         <module>dbinspector</module>
@@ -21,11 +21,12 @@
         <version>1.5.12.RELEASE</version>
     </parent>
 
-    <profiles>
+    <properties>
         <!--        <maven.compiler.source>1.8</maven.compiler.source>-->
         <!--        <maven.compiler.target>1.8</maven.compiler.target>-->
         <!--        <log4j2.version>2.11.0</log4j2.version>-->
-    </profiles>
+        <org.mickey.framework.versioin>1.0</org.mickey.framework.versioin>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -222,5 +223,13 @@
 
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>kangce-snapshots</id>
+            <name>kangce snapshots repos</name>
+            <url>http://192.168.31.144:8081/repository/kangce-snapshots/</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 
 </project>

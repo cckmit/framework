@@ -2,6 +2,7 @@ package org.mickey.framework.example.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mickey.framework.common.SystemContext;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,5 +26,10 @@ public class BaseSpringTest {
         SystemContext.setUserId("test_user_id");
         SystemContext.setUserName("test_user_name");
         SystemContext.setAppId("test_app_id");
+    }
+
+    @Test
+    public void test() {
+        log.info("base spring test method");
     }
 }
