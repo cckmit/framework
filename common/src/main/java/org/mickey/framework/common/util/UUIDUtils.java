@@ -46,7 +46,7 @@ public class UUIDUtils {
         part3.getChars(0, 4, dist, 16);
         part4.getChars(0, 8, dist, 20);
         part5.getChars(0, 4, dist, 28);
-        return new String(dist, 0, 32);
+        return new String(dist, 0, 32).toUpperCase();
     }
 
     protected static String format(int intval) {

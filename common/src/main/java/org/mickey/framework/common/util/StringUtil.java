@@ -76,4 +76,19 @@ public class StringUtil extends StringUtils {
         if (object == null) {return "";}
         return object.toString();
     }
+
+    public static int stringToInt(String str) {
+        int value = 0;
+        if (str == null || str.length() == 0) {
+            return value;
+        }
+
+        try {
+            value = Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            log.warn("int转换错误:" + e.getMessage());
+        }
+
+        return value;
+    }
 }

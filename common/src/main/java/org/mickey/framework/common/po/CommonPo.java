@@ -12,7 +12,7 @@ import java.util.Date;
 public abstract class CommonPo implements Serializable, Cloneable {
 
     @Id
-    @Column(updatable = false, columnDefinition = "varchar(32) not null comment 'primary key id value will removed -'")
+    @Column(updatable = false, columnDefinition = "varchar(36) not null comment 'primary key id value will removed -'")
     protected String id;
 
     @Version

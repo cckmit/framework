@@ -40,6 +40,13 @@ public class BusinessException extends RuntimeException implements Serializable 
         this.errors = new ArrayList<>();
         this.errors.addAll(Arrays.asList(errorInfo));
     }
+
+    public BusinessException(String errorMessage) {
+        super();
+        this.errors = new ArrayList<>();
+        this.errors.add(new ErrorInfo("-1", errorMessage));
+    }
+
     protected void addErrors(ErrorInfo... errorInfo) {
         if (errors == null) {
             errors = new ArrayList<>();

@@ -45,7 +45,7 @@ public class MysqlDialect implements Dialect {
         } else {
             builder.deleteCharAt(builder.length() - 1);
         }
-        builder.append(");");
+        builder.append(")");
         return builder.toString();
     }
 
@@ -86,7 +86,7 @@ public class MysqlDialect implements Dialect {
                 .append(paramIndex.getTable().getSqlName())
                 .append("(")
                 .append(paramIndex.getColumnList())
-                .append(");");
+                .append(")");
         return builder.toString();
     }
 
