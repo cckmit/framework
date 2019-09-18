@@ -30,6 +30,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * description
@@ -318,16 +319,24 @@ public class MybatisSqlBuilder {
         builder.append(BLANK);
         builder.append(getTableNameByPO(table, commonPO));
         builder.append(BLANK).append("(");
-        table.getColumns().stream().filter(Column::isInsertable).forEach(column -> {
-            builder.append(BLANK).append(column.getSqlName()).append(",");
+        List<Column> columns = table.getColumns().stream().filter(column -> column.isInsertable() && ReflectionUtils.getFieldValue(po, column.getJavaName()) != null).collect(Collectors.toList());
+        columns.forEach(column -> {
+            log.warn("print mybatis sql value : {};", ReflectionUtils.getFieldValue(po, column.getJavaName()));
+            builder.append(BLANK)
+                    .append(column.getSqlName())
+                    .append(",");
         });
         builder.deleteCharAt(builder.length() - 1);
-        builder.append(")").append(BLANK).append("values(");
-        table.getColumns().stream().filter(Column::isInsertable).forEach(column -> {
+        builder.append(")")
+                .append(BLANK)
+                .append("values(");
+        columns.forEach(column -> {
             builder.append(BLANK);
-            builder.append("#{").append(column.getJavaName())
+            builder.append("#{")
+                    .append(column.getJavaName())
                     .append(",jdbcType=")
-                    .append(column.getSqlTypeName()).append("}");
+                    .append(column.getSqlTypeName())
+                    .append("}");
             builder.append(",");
         });
         builder.deleteCharAt(builder.length() - 1);
