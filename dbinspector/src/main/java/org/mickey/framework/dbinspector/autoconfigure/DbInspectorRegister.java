@@ -5,14 +5,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.mickey.framework.common.SystemConstant;
 import org.mickey.framework.dbinspector.DbInspector;
 import org.mickey.framework.dbinspector.DbInspectorProperties;
-import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
-import org.springframework.boot.bind.RelaxedDataBinder;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -23,7 +21,6 @@ import org.springframework.util.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * description
@@ -41,10 +38,15 @@ public class DbInspectorRegister implements ImportBeanDefinitionRegistrar, Envir
     @Override
     public void setEnvironment(Environment environment) {
         this.environment = (ConfigurableEnvironment) environment;
-        RelaxedPropertyResolver resolver = new RelaxedPropertyResolver(environment);
-        Map<String, Object> properties = resolver.getSubProperties("");
-        RelaxedDataBinder binder = new RelaxedDataBinder(dbInspectorProperties, SystemConstant.FRAMEWORK_NS + SystemConstant.DOT + "db-inspector");
-        binder.bind(new MutablePropertyValues(properties));
+
+        dbInspectorProperties = Binder.get(environment)
+                .bind(SystemConstant.FRAMEWORK_NS + SystemConstant.DOT + "db-inspector", DbInspectorProperties.class)
+                .orElseCreate(DbInspectorProperties.class);
+
+//        RelaxedPropertyResolver resolver = new RelaxedPropertyResolver(environment);
+//        Map<String, Object> properties = resolver.getSubProperties("");
+//        RelaxedDataBinder binder = new RelaxedDataBinder(this.dbInspectorProperties, SystemConstant.FRAMEWORK_NS + SystemConstant.DOT + "db-inspector");
+//        binder.bind(new MutablePropertyValues(properties));
     }
 
     @Override

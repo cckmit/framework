@@ -6,7 +6,6 @@ import org.mickey.framework.common.SystemConstant;
 import org.mickey.framework.common.zookeeper.ZKDistributeLock;
 import org.mickey.framework.dbinspector.common.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;

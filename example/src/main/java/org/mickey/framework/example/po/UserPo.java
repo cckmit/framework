@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Slf4j
 @Data
-@Table(name = "user")
+@Table(name = "mick_user")
 public class UserPo extends BasePo {
     @Column(columnDefinition = "varchar(50) comment 'user name'")
     private String userName;
