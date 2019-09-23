@@ -34,8 +34,10 @@ public interface SystemConstant {
     int FilterOrder = Integer.MIN_VALUE;
 
     /*************** common header ********************/
-    String CONTEXT_HEADER_PREFIX = "MIC-Header-";
-    String HEADER_TOKEN = CONTEXT_HEADER_PREFIX + "Token";
+
+    // "MIC-Header-"
+    String CONTEXT_HEADER_PREFIX = "";
+    String HEADER_TOKEN = CONTEXT_HEADER_PREFIX + "token";
     String ENVIRONMENT_TOKEN = CONTEXT_HEADER_PREFIX + "Environment-Token";
 
     String HEADER_USER_ID = CONTEXT_HEADER_PREFIX + "UserId";

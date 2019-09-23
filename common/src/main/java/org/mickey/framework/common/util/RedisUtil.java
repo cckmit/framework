@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * 23/07/2019
  */
 @Slf4j
-@Component
+@Repository
 public class RedisUtil {
 
     @Autowired
