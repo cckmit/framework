@@ -5,7 +5,7 @@
     <parent>
         <artifactId>framework</artifactId>
         <groupId>org.mickey.framework</groupId>
-        <version>1.0</version>
+        <version>${org.mickey.framework.version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

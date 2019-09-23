@@ -6,7 +6,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporing.outputEncoding>UTF-8</project.reporing.outputEncoding>
-        <org.mickey.framework.version>1.0</org.mickey.framework.version>
+        <org.mickey.framework.version>2.0</org.mickey.framework.version>
         <org.apache.curator.version>2.11.1</org.apache.curator.version>
         <org.mybatis.spring.boot.version>2.1.0</org.mybatis.spring.boot.version>
         <org.springframework.version>5.1.7.RELEASE</org.springframework.version>
