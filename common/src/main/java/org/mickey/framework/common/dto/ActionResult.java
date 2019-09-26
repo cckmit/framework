@@ -28,7 +28,7 @@ public class ActionResult<T> implements Serializable {
      * 错误消息
      */
     private List<ErrorInfo> errors;
-    /**
+    /**ll
      * 返回数据
      */
     private T data;
