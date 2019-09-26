@@ -5,4 +5,7 @@ org.mickey.framework.core.autoconfigure.MapperAutoConfiguration,\
 org.mickey.framework.core.autoconfigure.GenericConfiguration,\
 org.mickey.framework.core.autoconfigure.mybatis.ChainedMybatisInterceptorConfiguration,\
 org.mickey.framework.core.autoconfigure.mybatis.PageHelperAutoConfiguration,\
-org.mickey.framework.core.autoconfigure.datasource.DatasourceAutoConfiguration
+org.mickey.framework.core.autoconfigure.datasource.DatasourceAutoConfiguration,\
+org.mickey.framework.core.web.BusinessInterceptor,\
+org.mickey.framework.core.web.WebConfig,\
+org.mickey.framework.core.web.BusinessExceptionAspect

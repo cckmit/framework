@@ -3,6 +3,8 @@ package org.mickey.framework.example.service.user.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
+import org.mickey.framework.common.dto.ErrorInfo;
+import org.mickey.framework.common.exception.BusinessException;
 import org.mickey.framework.common.util.StringUtil;
 import org.mickey.framework.example.mapper.UserMapper;
 import org.mickey.framework.example.po.UserPo;
@@ -26,8 +28,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void insert(UserPo user) {
-        int i = mapper.insert(user);
-        log.debug(StringUtil.valueOf(i));
+        throw new BusinessException(new ErrorInfo("10000", "test business exception throw"));
+//        int i = mapper.insert(user);
+//        log.debug(StringUtil.valueOf(i));
     }
 
     @Override

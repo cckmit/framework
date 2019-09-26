@@ -8,9 +8,10 @@ import org.mickey.framework.common.util.RedisUtil;
 import org.mickey.framework.example.po.UserPo;
 import org.mickey.framework.example.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -21,7 +22,8 @@ import java.util.List;
  * 23/07/2019
  */
 @Slf4j
-@RestController("/base")
+@Controller
+@RequestMapping("/base")
 @Api(tags = "test")
 public class BaseController {
 
@@ -50,5 +52,11 @@ public class BaseController {
         List<UserPo> poList = userService.findAll();
         redisUtil.set(Redis_key, poList);
         return new ActionResult<>(poList);
+    }
+
+    @GetMapping("/test/error")
+    public ActionResult testException() {
+        userService.insert(new UserPo());
+        return new ActionResult();
     }
 }

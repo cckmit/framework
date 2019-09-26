@@ -2,6 +2,8 @@ package org.mickey.framework.common.dto;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+import org.mickey.framework.common.util.StringUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +19,10 @@ import java.util.List;
 @Slf4j
 @Data
 public class ActionResult<T> implements Serializable {
+
+    private int code = 0;
+    private String message;
+
     private boolean success;
     /**
      * 错误消息
@@ -31,27 +37,82 @@ public class ActionResult<T> implements Serializable {
         this.success = true;
     }
 
-    public ActionResult(boolean success, T data, String errorMessage, String errorCode) {
+    public ActionResult(boolean success, String errorMessage, String errorCode) {
         this.success = success;
-        this.data = data;
         ErrorInfo error = new ErrorInfo(errorCode, errorMessage);
         this.errors = Collections.singletonList(error);
+        message = error.getMessage();
+        if (!this.success) {
+            try {
+                this.code = StringUtil.stringToInt(error.getCode());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public ActionResult(boolean success, String errorMessage) {
+        this.success = success;
+        ErrorInfo error = new ErrorInfo("10000", errorMessage);
+        this.errors = Collections.singletonList(error);
+        message = error.getMessage();
+        if (!this.success) {
+            try {
+                this.code = StringUtil.stringToInt(error.getCode());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public ActionResult(boolean success, List<ErrorInfo> errors, T data) {
         this.success = success;
         this.errors = errors;
         this.data = data;
+
+        if (!this.success) {
+            if (CollectionUtils.isNotEmpty(errors)) {
+                ErrorInfo error = errors.get(0);
+                message = error.getMessage();
+                try {
+                    this.code = StringUtil.stringToInt(error.getCode());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public ActionResult(boolean success, List<ErrorInfo> errors) {
         this.success = success;
         this.errors = errors;
+        if (!this.success) {
+            if (CollectionUtils.isNotEmpty(errors)) {
+                ErrorInfo error = errors.get(0);
+                message = error.getMessage();
+                try {
+                    this.code = StringUtil.stringToInt(error.getCode());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public ActionResult(boolean success, T data) {
         this.success = success;
         this.data = data;
+        if (!this.success) {
+            if (CollectionUtils.isNotEmpty(errors)) {
+                ErrorInfo error = errors.get(0);
+                message = error.getMessage();
+                try {
+                    this.code = StringUtil.stringToInt(error.getCode());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public ActionResult(T data) {
@@ -65,6 +126,17 @@ public class ActionResult<T> implements Serializable {
             errors = new ArrayList<>();
         }
         errors.add(errorInfo);
+        if (!this.success) {
+            if (CollectionUtils.isNotEmpty(errors)) {
+                ErrorInfo error = errors.get(0);
+                message = error.getMessage();
+                try {
+                    this.code = StringUtil.stringToInt(error.getCode());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void addErrors(List<ErrorInfo> errorInfoList) {

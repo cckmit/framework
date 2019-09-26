@@ -21,7 +21,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = {"org.mickey.framework.common.util", "org.mickey.framework.common.config", "org.mickey.framework.example.config"})
+@ComponentScan(basePackages = {"org.mickey.framework.common.util", "org.mickey.framework.common.config", "org.mickey.framework.example.config", "org.mickey.framework.example.service", "org.mickey.framework.example.api"})
 public class ExampleApp {
     public static void main(String[] args) {
         SpringApplication.run(ExampleApp.class, args);
