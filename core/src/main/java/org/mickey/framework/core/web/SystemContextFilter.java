@@ -5,10 +5,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.mickey.framework.common.SystemConstant;
 import org.mickey.framework.common.SystemContext;
 import org.mickey.framework.common.util.StringUtil;
+import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.ResponseWrapper;
 import java.io.IOException;
 import java.util.Enumeration;
 
@@ -19,6 +22,8 @@ import java.util.Enumeration;
  * 23/07/2019
  */
 @Slf4j
+@Order(99)
+@WebFilter(filterName = "systemContextFilter", urlPatterns = "/*")
 public class SystemContextFilter implements Filter {
 
     private String appId;

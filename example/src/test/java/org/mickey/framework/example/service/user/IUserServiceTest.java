@@ -23,7 +23,7 @@ public class IUserServiceTest extends BaseSpringTest {
     @Test
     public void testMapper() {
         UserPo userPo = new UserPo();
-        userPo.setUserName("mickey");
+        userPo.setUserName("mickeymickeymickeymickeymickeymickeymickeymickeymickeymickeymickeymickeymickey");
         userPo.setNickname("mickey");
         userPo.setPassword("password");
         userPo.setAge(18);

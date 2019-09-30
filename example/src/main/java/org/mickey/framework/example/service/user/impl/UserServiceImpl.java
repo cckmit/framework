@@ -28,9 +28,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void insert(UserPo user) {
-        throw new BusinessException(new ErrorInfo("10000", "test business exception throw"));
-//        int i = mapper.insert(user);
+        int i = mapper.insert(user);
 //        log.debug(StringUtil.valueOf(i));
+//        throw new BusinessException(new ErrorInfo("10000", "test business exception throw"));
     }
 
     @Override

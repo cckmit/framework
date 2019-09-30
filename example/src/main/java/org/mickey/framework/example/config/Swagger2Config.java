@@ -10,7 +10,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * description
@@ -20,7 +19,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Slf4j
 @Configuration
-@EnableSwagger2
 public class Swagger2Config {
     @Bean
     public Docket api() {
@@ -29,11 +27,13 @@ public class Swagger2Config {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("org.mickey.framework.example.api"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .groupName("Example API")
+                .useDefaultResponseMessages(Boolean.FALSE);
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Simple APIs")
+        return new ApiInfoBuilder().title("kangce APIs")
                 .description("simple apis")
                 .termsOfServiceUrl("http://www.gm.com")
                 .contact(new Contact("suliyea", "http://xxx", "suliyea@qq.com"))

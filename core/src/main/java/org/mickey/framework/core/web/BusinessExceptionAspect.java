@@ -1,18 +1,12 @@
 package org.mickey.framework.core.web;
 
-import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.mickey.framework.common.dto.ActionResult;
+import org.mickey.framework.common.dto.ErrorInfo;
 import org.mickey.framework.common.exception.BusinessException;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * description
@@ -34,30 +28,10 @@ public class BusinessExceptionAspect {
         if (ex instanceof BusinessException) {
             BusinessException businessException = (BusinessException) ex;
 
-            actionResult = new ActionResult<>(Boolean.FALSE, businessException.getErrors());
+            actionResult = ActionResult.Errors(businessException.getErrors());
         } else {
-            actionResult = new ActionResult(Boolean.FALSE, ex.getMessage());
-        }
-
-        ServletOutputStream outputStream = null;
-
-        try {
-            HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-            response.setContentType("application/json;charset=utf-8");
-            response.setStatus(417);
-            outputStream = response.getOutputStream();
-            outputStream.write(JSON.toJSONString(actionResult).getBytes("UTF-8"));
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        } finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.flush();
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            log.error("Exception Type is : {}, Exception Message is {};", ex.getClass().getTypeName(), ex.getMessage(), ex);
+            actionResult = ActionResult.Errors(new ErrorInfo(10000, ex.getMessage()));
         }
     }
 }

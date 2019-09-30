@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * description
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableAspectJAutoProxy
+@EnableSwagger2
 @ComponentScan(basePackages = {"org.mickey.framework.common.util", "org.mickey.framework.common.config", "org.mickey.framework.example.config", "org.mickey.framework.example.service", "org.mickey.framework.example.api"})
 public class ExampleApp {
     public static void main(String[] args) {
