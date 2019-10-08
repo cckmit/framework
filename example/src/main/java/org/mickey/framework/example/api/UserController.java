@@ -1,5 +1,6 @@
 package org.mickey.framework.example.api;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -7,10 +8,8 @@ import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.dto.ActionResult;
 import org.mickey.framework.common.groups.Groups;
-import org.mickey.framework.common.util.JsonUtil;
 import org.mickey.framework.example.po.UserPo;
 import org.mickey.framework.example.service.user.IUserService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +42,6 @@ public class UserController {
     public ActionResult insert(@Validated(value = Groups.Insert.class) @RequestBody UserPo user) {
         userService.insert(user);
         ActionResult result = ActionResult.Created();
-//        JsonUtil.print(result);
         return result;
     }
 
@@ -68,6 +66,13 @@ public class UserController {
     })
     public ActionResult<UserPo> query(@PathVariable String id) {
         UserPo query = userService.query(id);
+        return ActionResult.Ok(query);
+    }
+
+    @GetMapping("/")
+    @ApiOperation(value = "query all list")
+    public ActionResult<PageInfo<UserPo>> queryList(@RequestParam(required = false, defaultValue = "1") int pageNo, @RequestParam(required = false, defaultValue = "10") int pageSize) {
+        PageInfo<UserPo> query = userService.find(pageNo, pageSize);
         return ActionResult.Ok(query);
     }
 }

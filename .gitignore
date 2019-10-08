@@ -36,6 +36,12 @@ buildNumber.properties
 
 # idea
 .idea/
+.vscode/
 *.iml
+
+.project
+.classPath
+.factorypath
+.settings/
 
 logs/

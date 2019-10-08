@@ -417,15 +417,14 @@ public interface BaseMapper<T extends CommonPo> {
      * @param request 查询条件
      * @return 分页查询结果
      */
-    default PageResponse<T> findPage(PageRequest request) {
+    default PageInfo<T> findPage(PageRequest request) {
         if (request.isNeedPaging()) {
             PageHelper.startPage(request.getPageNo(), request.getPageSize(), request.isNeedCount());
         }
         List<T> list = this.findByCriteria(request.getCriteria());
         PageInfo<T> pageInfo = new PageInfo<>(list);
-        PageResponse<T> response = new PageResponse<>();
+        PageInfo<T> response = new PageInfo<>();
         response.setTotal(pageInfo.getTotal());
-        response.setRows(pageInfo.getList());
         return response;
     }
 
