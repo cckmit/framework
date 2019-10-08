@@ -178,6 +178,7 @@ public class DbInspector {
                 String javaName = table.getJavaName();
                 try (Connection connection = dataSource.getConnection()) {
                     connection.setAutoCommit(false);
+                    System.out.println(String.format("table : %s , is sharding : %s ;", table.getSqlName(), table.isSharding()));
                     if (table.isSharding()) {
                         for (int i = 1; i <= table.getShardingCount(); i++) {
                             org.mickey.framework.common.database.Table shardingTable = new org.mickey.framework.common.database.Table();

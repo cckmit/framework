@@ -1,7 +1,7 @@
 package org.mickey.framework.core.web;
 
-import com.mysql.jdbc.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.mickey.framework.common.SystemConstant;
 import org.mickey.framework.common.SystemContext;
 import org.mickey.framework.common.util.StringUtil;

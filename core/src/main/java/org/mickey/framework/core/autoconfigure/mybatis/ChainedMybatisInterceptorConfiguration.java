@@ -13,7 +13,6 @@ import org.mickey.framework.core.mybatis.unique.UqConstraintInterceptor;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +34,9 @@ public class ChainedMybatisInterceptorConfiguration implements EnvironmentAware 
     @Autowired
     private CommonProperties properties;
 
-    private RelaxedPropertyResolver resolver;
+    private Environment environment;
+
+//    private RelaxedPropertyResolver resolver;
 
     DefaultChainedInterceptor chainedInterceptor;
 
@@ -53,13 +54,17 @@ public class ChainedMybatisInterceptorConfiguration implements EnvironmentAware 
 
     @Override
     public void setEnvironment(Environment environment) {
-        resolver = new RelaxedPropertyResolver(environment, propertyPrefix);
+        this.environment = environment;
+//        resolver = new RelaxedPropertyResolver(environment, propertyPrefix);
     }
 
     private void addSaasInterceptor() {
         //mdm 配置
-        boolean enabled = Boolean.valueOf(resolver.getProperty("saas.enabled", Boolean.FALSE.toString()));
-        String ignores = resolver.getProperty("saas.ignores", "");
+        boolean enabled = Boolean.valueOf(environment.getProperty("saas.enabled"));
+        String ignores = environment.getProperty("saas.ignores");
+
+//        boolean enabled = Boolean.valueOf(resolver.getProperty("saas.enabled", Boolean.FALSE.toString()));
+//        String ignores = resolver.getProperty("saas.ignores", "");
         if (!enabled) {
             return;
         }
