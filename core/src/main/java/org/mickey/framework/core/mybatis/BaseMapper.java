@@ -389,6 +389,9 @@ public interface BaseMapper<T extends CommonPo> {
     List<T> _findByCriteria(@Param("clazz") Class<T> clazz, @Param("criteria") Criteria criteria, @Param("map") Map<String, Object> map);
 
     default List<T> findByCriteria(Criteria criteria) {
+        if (criteria == null) {
+            criteria = new Criteria();
+        }
         Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getInterfaces()[0].getGenericInterfaces()[0]).getActualTypeArguments()[0];
         if (ReflectionUtils.isSubClass(entityClass, BasePo.class)) {
             criteria.and("tenantId", Operator.equal, SystemContext.getTenantId());
@@ -423,9 +426,7 @@ public interface BaseMapper<T extends CommonPo> {
         }
         List<T> list = this.findByCriteria(request.getCriteria());
         PageInfo<T> pageInfo = new PageInfo<>(list);
-        PageInfo<T> response = new PageInfo<>();
-        response.setTotal(pageInfo.getTotal());
-        return response;
+        return pageInfo;
     }
 
     default List<T> findByProperty(String propName, Object propValue) {

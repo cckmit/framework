@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.JSON;
+
 import java.io.IOException;
 
 /**
@@ -58,7 +61,8 @@ public class BusinessInterceptor implements HandlerInterceptor {
                     }
                 }
             } else {
-                writeResponse(request, response, new ErrorInfo(-1, ex.getMessage()));
+                ErrorInfo errorInfo = new ErrorInfo(-1, ex.getMessage(), ex);
+                writeResponse(request, response, errorInfo);
             }
         }
     }
@@ -69,7 +73,8 @@ public class BusinessInterceptor implements HandlerInterceptor {
             response.setContentType(request.getContentType());
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
             outputStream = response.getOutputStream();
-            outputStream.write(errorInfo.getMessage().getBytes(request.getCharacterEncoding()));
+            // errorInfo.getMessage().getBytes(request.getCharacterEncoding())
+            outputStream.write(JSON.toJSONString(errorInfo).getBytes(request.getCharacterEncoding()));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         } finally {

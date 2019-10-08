@@ -15,10 +15,15 @@ import java.util.List;
 @Slf4j
 @Data
 public class ErrorInfo implements Serializable {
+    /**
+     *
+     */
+    //private static final long serialVersionUID = 1L;
     private boolean internationalized = false;
     private String code;
     private String message;
     private List<Object> arguments;
+    private Exception exception;
 
     public ErrorInfo() {
 
@@ -33,5 +38,11 @@ public class ErrorInfo implements Serializable {
     public ErrorInfo(Integer code, String message) {
         this.code = null != code?code.toString():null;
         this.message = message;
+    }
+
+    public ErrorInfo(Integer code, String message, Exception ex) {
+        this.code = null != code?code.toString():null;
+        this.message = message;
+        this.exception = ex;
     }
 }
