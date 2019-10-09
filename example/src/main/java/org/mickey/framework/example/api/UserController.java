@@ -75,4 +75,11 @@ public class UserController {
         PageInfo<UserPo> query = userService.find(pageNo, pageSize);
         return ActionResult.Ok(query);
     }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "delete by id")
+    public ActionResult delete(@PathVariable String id) {
+        userService.delete(id);
+        return ActionResult.Ok();
+    }
 }
