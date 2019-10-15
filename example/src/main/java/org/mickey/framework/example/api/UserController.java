@@ -35,7 +35,7 @@ public class UserController {
     @PostMapping("")
     @ApiOperation(value = "insert user", notes = "注意关注点")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Created", response = java.lang.Void.class),
+            @ApiResponse(code = 201, message = "Created"),
             @ApiResponse(code = 400, message = "字段验证失败"),
             @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
     })

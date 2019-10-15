@@ -17,8 +17,8 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author mickey
  * 23/07/2019
  */
-@Slf4j
-@Configuration
+// @Slf4j
+// @Configuration
 public class Swagger2Config {
     @Bean
     public Docket api() {
