@@ -6,7 +6,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporing.outputEncoding>UTF-8</project.reporing.outputEncoding>
-        <org.mickey.framework.version>2.0</org.mickey.framework.version>
+        <!-- <org.mickey.framework.version>2.0</org.mickey.framework.version> -->
         <org.apache.curator.version>2.11.1</org.apache.curator.version>
         <org.mybatis.spring.boot.version>2.1.0</org.mybatis.spring.boot.version>
         <org.springframework.version>5.1.7.RELEASE</org.springframework.version>
@@ -14,12 +14,22 @@
         <org.mybatis.version>3.5.2</org.mybatis.version>
         <org.mybatis.spring.version>2.0.2</org.mybatis.spring.version>
         <io.springfox.version>2.9.2</io.springfox.version>
+        <com.alibaba.fastjson>1.2.59</com.alibaba.fastjson>
+        <com.alibaba.druid>1.1.10</com.alibaba.druid>
+        <org.projectlombok.lombok>1.18.8</org.projectlombok.lombok>
+        <joda-time.version>2.10.1</joda-time.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <org.slf4j.version>1.7.26</org.slf4j.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <commons-codec.version>1.13</commons-codec.version>
+        <com.github.pagehelper.version>5.1.10</com.github.pagehelper.version>
+        <org.mybatis.spring.boot.autoconfigure.version>2.0.1</org.mybatis.spring.boot.autoconfigure.version>
     </properties>
 
     <groupId>org.mickey.framework</groupId>
     <artifactId>framework</artifactId>
     <packaging>pom</packaging>
-    <version>${org.mickey.framework.version}</version>
+    <version>2.0</version>
     <modules>
         <module>common</module>
         <module>dbinspector</module>
@@ -37,12 +47,6 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <version>2.2</version>
-        </dependency>
-
         <!-- apache -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -75,12 +79,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${org.mybatis.spring.boot.version}</version>
-        </dependency>
-        <dependency>
+
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
             <version>${org.springframework.boot.version}</version>
@@ -89,8 +89,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator-autoconfigure</artifactId>
             <version>${org.springframework.boot.version}</version>
-        </dependency>
-        <dependency>
+        </dependency> -->
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
             <version>${org.springframework.boot.version}</version>
@@ -98,7 +98,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <!--            <scope>provided</scope>-->
+                       <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -123,6 +123,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency> -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <version>${org.springframework.boot.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -174,62 +181,43 @@
             <scope>test</scope>
         </dependency>
 
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${org.mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>${org.mybatis.spring.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.59</version>
+            <version>${com.alibaba.fastjson}</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.10</version>
-        </dependency>
+        
 
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
+            <version>${org.projectlombok.lombok}</version>
         </dependency>
 
         <!-- log -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.26</version>
+            <version>${org.slf4j.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
+            <version>${commons-beanutils.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.13</version>
+            <version>${commons-codec.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.1.10</version>
+            <version>${com.github.pagehelper.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -238,21 +226,17 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
-            <version>2.0.1</version>
-        </dependency>
+        
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
+            <version>${dom4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.10.1</version>
+            <version>${joda-time.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -272,8 +256,6 @@
             <artifactId>springfox-bean-validators</artifactId>
             <version>${io.springfox.version}</version>
         </dependency>
-
-
     </dependencies>
 
     <distributionManagement>
