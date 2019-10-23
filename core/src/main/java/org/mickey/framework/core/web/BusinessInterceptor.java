@@ -70,11 +70,10 @@ public class BusinessInterceptor implements HandlerInterceptor {
     private void writeResponse(HttpServletRequest request, HttpServletResponse response, ErrorInfo errorInfo) {
         ServletOutputStream outputStream = null;
         try {
-            response.setContentType(request.getContentType());
+            response.setContentType("application/json;charset=utf-8");
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
             outputStream = response.getOutputStream();
-            // errorInfo.getMessage().getBytes(request.getCharacterEncoding())
-            outputStream.write(JSON.toJSONString(errorInfo).getBytes(request.getCharacterEncoding()));
+            outputStream.write(JSON.toJSONString(errorInfo).getBytes("utf-8"));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         } finally {

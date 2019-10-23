@@ -45,3 +45,5 @@ buildNumber.properties
 .settings/
 
 logs/
+.sts4-cache/
+*/.stsc-cache/
