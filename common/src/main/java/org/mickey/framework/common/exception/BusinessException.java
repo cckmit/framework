@@ -58,11 +58,10 @@ public class BusinessException extends RuntimeException implements Serializable 
     public String getMessage() {
         if (CollectionUtils.isNotEmpty(errors)) {
             StringBuilder builder = new StringBuilder();
-            for (ErrorInfo errorInfo :
-                    errors) {
-                builder.append(errorInfo.getCode())
-                        .append(":")
-                        .append(errorInfo.getMessage())
+            for (ErrorInfo errorInfo : errors) {
+                // .append(errorInfo.getCode())
+                //                        .append(":")
+                builder.append(errorInfo.getMessage())
                         .append("\n");
             }
             if (builder.length() > 0) {

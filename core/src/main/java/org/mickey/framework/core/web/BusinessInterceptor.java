@@ -42,9 +42,7 @@ public class BusinessInterceptor implements HandlerInterceptor {
 
         log.error("BusinessInterceptor filter; exception is :" + ex + ";", ex);
         if (ex != null) {
-            if (ex instanceof BusinessException) {
-
-            } else if (ex instanceof DataIntegrityViolationException) {
+            if (ex instanceof DataIntegrityViolationException) {
                 //字段 值过长
                 String message = ex.getMessage();
                 if(StringUtils.contains(message,"Data too long for column")){
@@ -71,9 +69,12 @@ public class BusinessInterceptor implements HandlerInterceptor {
         ServletOutputStream outputStream = null;
         try {
             response.setContentType("application/json;charset=utf-8");
+            response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+
             outputStream = response.getOutputStream();
-            outputStream.write(JSON.toJSONString(errorInfo).getBytes("utf-8"));
+            log.error(JSON.toJSONString(errorInfo));
+            outputStream.write(JSON.toJSONString(errorInfo).getBytes("UTF-8"));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         } finally {
