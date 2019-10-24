@@ -13,8 +13,6 @@ import org.mickey.framework.common.dto.Resp;
 import org.mickey.framework.common.exception.BusinessException;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.IOException;
-
 /**
  * description
  *
@@ -27,8 +25,10 @@ public class FeiginErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {
+
+        String message = "";
         try {
-            String message = Util.toString(response.body().asReader());
+            message = Util.toString(response.body().asReader());
                 if (response.status() == HttpStatus.SC_EXPECTATION_FAILED) {
                     try {
                         ActionResult actionResult = JSON.parseObject(message, ActionResult.class);
@@ -44,9 +44,10 @@ public class FeiginErrorDecoder implements ErrorDecoder {
                     }
                 }
                 return new BusinessException(message);
-        } catch (IOException ignored) {
-
+        } catch (Exception ignored) {
+            ignored.printStackTrace();
+            message = ignored.getMessage();
         }
-        return decode(methodKey, response);
+        return new BusinessException(new ErrorInfo(String.valueOf(-1), message));
     }
 }

@@ -18,7 +18,7 @@ public class ErrorInfo implements Serializable {
     /**
      *
      */
-    //private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;  
     private boolean internationalized = false;
     private String code;
     private String message;
