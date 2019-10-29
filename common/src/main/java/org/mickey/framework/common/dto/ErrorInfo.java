@@ -25,12 +25,6 @@ public class ErrorInfo implements Serializable {
     private List<Object> arguments;
     private Exception exception;
 
-    public ErrorInfo() {
-
-    }
-    public ErrorInfo(String code) {
-        this.code = code;
-    }
     public ErrorInfo(String code, String message) {
         this.code = code;
         this.message = message;
