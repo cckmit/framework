@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.dto.ActionResult;
 import org.mickey.framework.common.groups.Groups;
 import org.mickey.framework.core.api.BaseController;
+import org.mickey.framework.core.service.BaseService;
 import org.mickey.framework.example.po.Test;
 import org.mickey.framework.example.service.test.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/test", produces = APPLICATION_JSON_VALUE)
 @Api(tags = "test base api")
-public class TestController extends BaseController<TestService, Test> {
+public class TestController extends BaseController<BaseService, Test> {
 
 }
