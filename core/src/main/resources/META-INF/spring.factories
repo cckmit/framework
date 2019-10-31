@@ -10,4 +10,7 @@ org.mickey.framework.core.web.BusinessInterceptor,\
 org.mickey.framework.core.web.WebConfig,\
 org.mickey.framework.core.web.BusinessExceptionAspect,\
 org.mickey.framework.core.web.SystemContextFilter,\
-org.mickey.framework.core.web.GlobalControllerAdvice
+org.mickey.framework.core.web.GlobalControllerAdvice,\
+org.mickey.framework.core.config.feigin.FeiginErrorDecoder,\
+org.mickey.framework.common.config.OSSConfig,\
+org.mickey.framework.common.util.OssUtil

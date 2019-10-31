@@ -18,19 +18,13 @@ public class ErrorInfo implements Serializable {
     /**
      *
      */
-    //private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;  
     private boolean internationalized = false;
     private String code;
     private String message;
     private List<Object> arguments;
     private Exception exception;
 
-    public ErrorInfo() {
-
-    }
-    public ErrorInfo(String code) {
-        this.code = code;
-    }
     public ErrorInfo(String code, String message) {
         this.code = code;
         this.message = message;

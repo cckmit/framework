@@ -1,9 +1,10 @@
 package org.mickey.framework.core.web;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.mickey.framework.common.dto.ErrorInfo;
-import org.mickey.framework.common.exception.BusinessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
@@ -14,9 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.alibaba.fastjson.JSON;
-
 import java.io.IOException;
 
 /**
@@ -42,9 +40,7 @@ public class BusinessInterceptor implements HandlerInterceptor {
 
         log.error("BusinessInterceptor filter; exception is :" + ex + ";", ex);
         if (ex != null) {
-            if (ex instanceof BusinessException) {
-
-            } else if (ex instanceof DataIntegrityViolationException) {
+            if (ex instanceof DataIntegrityViolationException) {
                 //字段 值过长
                 String message = ex.getMessage();
                 if(StringUtils.contains(message,"Data too long for column")){
@@ -56,7 +52,7 @@ public class BusinessInterceptor implements HandlerInterceptor {
                         log.info("fieldName is {};", fieldName);
 
                         String showMsg = "字段["+fieldName+"]内容超出最大长度限制";
-                        ErrorInfo errorInfo = new ErrorInfo(-1, showMsg);
+                        ErrorInfo errorInfo = new ErrorInfo(-1, showMsg, ex);
                         writeResponse(request, response, errorInfo);
                     }
                 }
@@ -70,11 +66,13 @@ public class BusinessInterceptor implements HandlerInterceptor {
     private void writeResponse(HttpServletRequest request, HttpServletResponse response, ErrorInfo errorInfo) {
         ServletOutputStream outputStream = null;
         try {
-            response.setContentType(request.getContentType());
+            response.setContentType("application/json;charset=utf-8");
+            response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+
             outputStream = response.getOutputStream();
-            // errorInfo.getMessage().getBytes(request.getCharacterEncoding())
-            outputStream.write(JSON.toJSONString(errorInfo).getBytes(request.getCharacterEncoding()));
+            log.error("BusinessInterceptor writeResponse errorInfo is : " + JSON.toJSONString(errorInfo, SerializerFeature.WriteMapNullValue));
+            outputStream.write(JSON.toJSONString(errorInfo, SerializerFeature.WriteMapNullValue).getBytes("UTF-8"));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         } finally {

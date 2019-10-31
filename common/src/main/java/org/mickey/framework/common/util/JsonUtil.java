@@ -1,6 +1,7 @@
 package org.mickey.framework.common.util;
 
-import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSON;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -13,6 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 public class JsonUtil {
 
     public static void print(Object object) {
-        log.info(JSONUtils.toJSONString(object));
+        log.info(JSON.toJSONString(object));
     }
 }
