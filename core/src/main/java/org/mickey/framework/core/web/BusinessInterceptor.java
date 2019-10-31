@@ -55,6 +55,8 @@ public class BusinessInterceptor implements HandlerInterceptor {
                         ErrorInfo errorInfo = new ErrorInfo(-1, showMsg, ex);
                         writeResponse(request, response, errorInfo);
                     }
+                } else {
+                    writeResponse(request, response, new ErrorInfo(-1, ex.getMessage(), ex));
                 }
             } else {
                 ErrorInfo errorInfo = new ErrorInfo(-1, ex.getMessage(), ex);

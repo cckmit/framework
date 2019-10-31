@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * description
  *
@@ -25,7 +27,7 @@ public abstract class BaseController<S extends BaseService, T extends CommonPo> 
     private S service;
 
     @PostMapping("")
-    @ApiOperation(value = "insert user", notes = "注意关注点")
+    @ApiOperation(value = "insert po", notes = "注意关注点")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Created"),
             @ApiResponse(code = 400, message = "字段验证失败"),
@@ -37,7 +39,7 @@ public abstract class BaseController<S extends BaseService, T extends CommonPo> 
     }
 
     @PutMapping("")
-    @ApiOperation(value = "update user", notes = "注意关注点")
+    @ApiOperation(value = "update po", notes = "注意关注点")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Updated"),
             @ApiResponse(code = 400, message = "字段验证失败"),
@@ -49,7 +51,7 @@ public abstract class BaseController<S extends BaseService, T extends CommonPo> 
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "get user by id", notes = "id 不能为空")
+    @ApiOperation(value = "query po by id", notes = "id 不能为空")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "字段验证失败"),
@@ -60,11 +62,17 @@ public abstract class BaseController<S extends BaseService, T extends CommonPo> 
         return ActionResult.Ok(query);
     }
 
-    @GetMapping("/")
-    @ApiOperation(value = "query all list")
+    @GetMapping("")
+    @ApiOperation(value = "query list by page info")
     public ActionResult<PageInfo<T>> queryList(@RequestParam(required = false, defaultValue = "1") int pageNo, @RequestParam(required = false, defaultValue = "10") int pageSize) {
         PageInfo<T> query = service.find(pageNo, pageSize);
         return ActionResult.Ok(query);
+    }
+
+    @GetMapping("/all")
+    @ApiOperation(value = "query all list")
+    public ActionResult<List<T>> queryAll() {
+        return ActionResult.Ok(service.findAll());
     }
 
     @DeleteMapping("/{id}")
