@@ -8,7 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.dto.ActionResult;
 import org.mickey.framework.common.groups.Groups;
 import org.mickey.framework.common.po.CommonPo;
-import org.mickey.framework.core.service.BaseService;
+import org.mickey.framework.core.service.GenericService;
+import org.mickey.framework.core.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.List;
  * 23/07/2019
  */
 @Slf4j
-public abstract class BaseController<S extends BaseService, T extends CommonPo> {
+public abstract class BaseController<S extends IBaseService, T extends CommonPo> {
     @Autowired
     private S service;
 
