@@ -29,7 +29,7 @@ public interface SystemConstant {
     Integer TRUE = 1;
     Integer FALSE = 0;
 
-    String DEFAULT_LOCALE = Locale.SIMPLIFIED_CHINESE.toString();
+    String DEFAULT_LOCALE = Locale.SIMPLIFIED_CHINESE.toLanguageTag();
     //********************filter order******************************//
     int FilterOrder = Integer.MIN_VALUE;
 
@@ -58,7 +58,7 @@ public interface SystemConstant {
 
     String HEADER_APP_ID = CONTEXT_HEADER_PREFIX + "AppId";
 
-    String HEADER_LOCALE = CONTEXT_HEADER_PREFIX + "Locale";
+    String HEADER_LOCALE = CONTEXT_HEADER_PREFIX + "Lang";
 
     String HEADER_TIME_ZONE = CONTEXT_HEADER_PREFIX + "TimeZone";
 

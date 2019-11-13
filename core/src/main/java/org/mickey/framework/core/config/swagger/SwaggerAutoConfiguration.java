@@ -63,6 +63,7 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
                 .showExtensions(swaggerProperties.getUiConfig().getShowExtensions())
                 .tagsSorter(swaggerProperties.getUiConfig().getTagsSorter())
                 .validatorUrl(swaggerProperties.getUiConfig().getValidatorUrl())
+
                 .build();
     }
 

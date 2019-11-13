@@ -159,7 +159,7 @@ public class SystemContext {
 
     public static String getLocale() {
         String locale = get(SystemConstant.HEADER_LOCALE);
-        if (locale == null | locale.isEmpty()) {
+        if (locale == null || locale.isEmpty()) {
             return SystemConstant.DEFAULT_LOCALE;
         }
         return locale;

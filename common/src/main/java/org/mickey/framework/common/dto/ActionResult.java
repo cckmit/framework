@@ -1,5 +1,6 @@
 package org.mickey.framework.common.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
@@ -43,6 +44,7 @@ public class ActionResult<T> implements Serializable {
         return new ActionResult<>(errors);
     }
 
+    @JsonIgnore
     private HttpStatus httpStatus;
 
     private int code = 0;
@@ -57,6 +59,9 @@ public class ActionResult<T> implements Serializable {
      */
     private T data;
 
+    public ActionResult() {
+        super();
+    }
 
     private ActionResult(Boolean success, HttpStatus httpStatus) {
         fillSuccessAndCode(success);

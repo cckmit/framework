@@ -43,6 +43,7 @@ public class MybatisSqlBuilder {
     public static final String BLANK = " ";
     public final static String PATH_SEPARATOR = ".";
     public final String ROOT_TABLE_ALIAS_KEY = "_self";
+    public final String MYSQL_ESCAPES = "`";
 
     public void buildCondition(Map<String, Object> parameterMap, Map<String, String> tableAliasMap, AtomicInteger counter, SqlBuilder sql, Condition condition, Table table, Criteria criteria) {
         if (condition.hasSubCondition()) {
@@ -315,11 +316,17 @@ public class MybatisSqlBuilder {
         }
         StringBuilder builder = new StringBuilder();
         builder.append("insert into");
-        builder.append(BLANK);
+        builder.append(BLANK)
+                .append(MYSQL_ESCAPES);
         builder.append(getTableNameByPO(table, commonPO));
-        builder.append(BLANK).append("(");
+        builder.append(MYSQL_ESCAPES)
+                .append(BLANK).append("(");
         table.getColumns().stream().filter(Column::isInsertable).forEach(column -> {
-            builder.append(BLANK).append(column.getSqlName()).append(",");
+            builder.append(BLANK)
+                    .append(MYSQL_ESCAPES)
+                    .append(column.getSqlName())
+                    .append(MYSQL_ESCAPES)
+                    .append(",");
         });
         builder.deleteCharAt(builder.length() - 1);
         builder.append(")").append(BLANK).append("values(");

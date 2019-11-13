@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.dto.ActionResult;
 import org.mickey.framework.common.groups.Groups;
 import org.mickey.framework.common.po.CommonPo;
-import org.mickey.framework.core.service.GenericService;
 import org.mickey.framework.core.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

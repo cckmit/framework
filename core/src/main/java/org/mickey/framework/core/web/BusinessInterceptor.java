@@ -3,8 +3,12 @@ package org.mickey.framework.core.web;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.mickey.framework.common.SpringUtils;
 import org.mickey.framework.common.dto.ErrorInfo;
+import org.mickey.framework.common.exception.BusinessException;
+import org.mickey.framework.core.i18nClient.I18nProvider;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
@@ -43,21 +47,23 @@ public class BusinessInterceptor implements HandlerInterceptor {
             if (ex instanceof DataIntegrityViolationException) {
                 //字段 值过长
                 String message = ex.getMessage();
-                if(StringUtils.contains(message,"Data too long for column")){
+                if (StringUtils.contains(message, "Data too long for column")) {
                     String tooLongMsg = ex.getCause().getMessage();
                     String[] split = tooLongMsg.split("'");
-                    if(split.length>2){
+                    if (split.length > 2) {
                         String fieldName = split[1];
 
                         log.info("fieldName is {};", fieldName);
 
-                        String showMsg = "字段["+fieldName+"]内容超出最大长度限制";
+                        String showMsg = "字段[" + fieldName + "]内容超出最大长度限制";
                         ErrorInfo errorInfo = new ErrorInfo(-1, showMsg, ex);
                         writeResponse(request, response, errorInfo);
                     }
                 } else {
                     writeResponse(request, response, new ErrorInfo(-1, ex.getMessage(), ex));
                 }
+            } else if (ex instanceof BusinessException && CollectionUtils.isNotEmpty(((BusinessException) ex).getErrors())) {
+                    writeResponse(request, response, ((BusinessException) ex).getErrors().get(0));
             } else {
                 ErrorInfo errorInfo = new ErrorInfo(-1, ex.getMessage(), ex);
                 writeResponse(request, response, errorInfo);
@@ -71,6 +77,8 @@ public class BusinessInterceptor implements HandlerInterceptor {
             response.setContentType("application/json;charset=utf-8");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+
+            translateLang(errorInfo);
 
             outputStream = response.getOutputStream();
             log.error("BusinessInterceptor writeResponse errorInfo is : " + JSON.toJSONString(errorInfo, SerializerFeature.WriteMapNullValue));
@@ -87,5 +95,12 @@ public class BusinessInterceptor implements HandlerInterceptor {
                 }
             }
         }
+    }
+
+    private void translateLang(ErrorInfo errorInfo) {
+        I18nProvider i18nProvider = SpringUtils.getBean(I18nProvider.class);
+
+        String message = i18nProvider.get(errorInfo.getMessage());
+        errorInfo.setMessage(String.format(message, errorInfo.getArguments().toArray()));
     }
 }

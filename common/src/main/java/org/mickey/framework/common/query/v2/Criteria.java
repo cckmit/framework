@@ -6,6 +6,7 @@ import org.mickey.framework.common.dto.PropertySelector;
 import org.mickey.framework.common.query.Joint;
 import org.mickey.framework.common.query.Sort;
 import org.mickey.framework.common.query.SortProperty;
+import org.mickey.framework.common.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,6 +61,14 @@ public final class Criteria {
         return this;
     }
 
+    public Criteria and(String prop, String value) {
+        return and(new String[]{prop}, Operator.equal, value);
+    }
+
+    public Criteria and(String prop, String[] values) {
+        return and(new String[]{prop}, Operator.in, StringUtil.join(values, ","));
+    }
+
     public Criteria and(String prop, Operator operator, String value) {
         return and(new String[]{prop}, operator, value);
     }
@@ -72,6 +81,14 @@ public final class Criteria {
             }
         }
         return this;
+    }
+
+    public Criteria or(String prop, String value) {
+        return or(new String[]{prop}, Operator.equal, value);
+    }
+
+    public Criteria or(String prop, String[] values) {
+        return or(new String[]{prop}, Operator.in, StringUtil.join(values, ","));
     }
 
     public Criteria or(String prop, Operator operator, String value) {
