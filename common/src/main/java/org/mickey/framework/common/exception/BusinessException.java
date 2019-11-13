@@ -1,5 +1,6 @@
 package org.mickey.framework.common.exception;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -47,6 +48,18 @@ public class BusinessException extends RuntimeException implements Serializable 
         this.errors.add(new ErrorInfo("-1", errorMessage));
     }
 
+    public BusinessException(String errorMessage, Object object) {
+        super();
+        this.errors = new ArrayList<>();
+        this.errors.add(new ErrorInfo("-1", errorMessage, Lists.newArrayList(object)));
+    }
+
+    public BusinessException(String errorMessage, List<Object> objects) {
+        super();
+        this.errors = new ArrayList<>();
+        this.errors.add(new ErrorInfo("-1", errorMessage, objects));
+    }
+
     protected void addErrors(ErrorInfo... errorInfo) {
         if (errors == null) {
             errors = new ArrayList<>();
@@ -59,8 +72,6 @@ public class BusinessException extends RuntimeException implements Serializable 
         if (CollectionUtils.isNotEmpty(errors)) {
             StringBuilder builder = new StringBuilder();
             for (ErrorInfo errorInfo : errors) {
-                // .append(errorInfo.getCode())
-                //                        .append(":")
                 builder.append(errorInfo.getMessage())
                         .append("\n");
             }

@@ -29,9 +29,22 @@ public class ErrorInfo implements Serializable {
         this.code = code;
         this.message = message;
     }
+
     public ErrorInfo(Integer code, String message) {
         this.code = null != code?code.toString():null;
         this.message = message;
+    }
+
+    public ErrorInfo(String code, String message, List<Object> arguments) {
+        this.code = code;
+        this.message = message;
+        this.arguments = arguments;
+    }
+
+    public ErrorInfo(Integer code, String message, List<Object> arguments) {
+        this.code = null != code?code.toString():null;
+        this.message = message;
+        this.arguments = arguments;
     }
 
     public ErrorInfo(Integer code, String message, Exception ex) {

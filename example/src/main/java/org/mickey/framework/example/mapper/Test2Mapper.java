@@ -1,7 +1,7 @@
 package org.mickey.framework.example.mapper;
 
 import org.mickey.framework.core.mybatis.BaseMapper;
-import org.mickey.framework.example.po.Test;
+import org.mickey.framework.example.po.Test2;
 
 /**
  * description
@@ -9,5 +9,5 @@ import org.mickey.framework.example.po.Test;
  * @author mickey
  * 23/07/2019
  */
-public interface TestMapper extends BaseMapper<Test> {
+public interface Test2Mapper extends BaseMapper<Test2> {
 }
