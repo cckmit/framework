@@ -33,7 +33,6 @@ public class I18nProxy {
     public ActionResult<Map<String, String>> queryByAppId() {
         String uri = "http://I18N-SERVICE/api/I18nDictionary/appId/" + SystemContext.getAppId();
 
-
         ResponseEntity<ActionResult<Map<String, String>>> exchange = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<ActionResult<Map<String, String>>>() {
         });
 

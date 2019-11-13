@@ -14,4 +14,6 @@ import java.util.Map;
 public interface II18nDictionaryService extends IBaseService<I18nDictionary> {
 
     Map<String, String> queryByAppId(String appId);
+
+    Map<String, String> queryByKey(String appId, String key, String locale);
 }
