@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.mickey.framework.common.SpringUtils;
 import org.mickey.framework.common.dto.ErrorInfo;
 import org.mickey.framework.common.exception.BusinessException;
+import org.mickey.framework.common.exception.NoI18nException;
 import org.mickey.framework.core.i18nClient.I18nProvider;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -57,28 +58,30 @@ public class BusinessInterceptor implements HandlerInterceptor {
 
                         String showMsg = "字段[" + fieldName + "]内容超出最大长度限制";
                         ErrorInfo errorInfo = new ErrorInfo(-1, showMsg, ex);
-                        writeResponse(request, response, errorInfo);
+                        writeResponse(request, response, errorInfo, ex);
                     }
                 } else {
-                    writeResponse(request, response, new ErrorInfo(-1, ex.getMessage(), ex));
+                    writeResponse(request, response, new ErrorInfo(-1, ex.getMessage(), ex), ex);
                 }
             } else if (ex instanceof BusinessException && CollectionUtils.isNotEmpty(((BusinessException) ex).getErrors())) {
-                    writeResponse(request, response, ((BusinessException) ex).getErrors().get(0));
+                writeResponse(request, response, ((BusinessException) ex).getErrors().get(0), ex);
             } else {
                 ErrorInfo errorInfo = new ErrorInfo(-1, ex.getMessage(), ex);
-                writeResponse(request, response, errorInfo);
+                writeResponse(request, response, errorInfo, ex);
             }
         }
     }
 
-    private void writeResponse(HttpServletRequest request, HttpServletResponse response, ErrorInfo errorInfo) {
+    private void writeResponse(HttpServletRequest request, HttpServletResponse response, ErrorInfo errorInfo, Exception ex) {
         ServletOutputStream outputStream = null;
         try {
             response.setContentType("application/json;charset=utf-8");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
 
-            translateLang(errorInfo);
+            if (!(ex instanceof NoI18nException)) {
+                translateLang(errorInfo);
+            }
 
             outputStream = response.getOutputStream();
             log.error("BusinessInterceptor writeResponse errorInfo is : " + JSON.toJSONString(errorInfo, SerializerFeature.WriteMapNullValue));
@@ -99,8 +102,13 @@ public class BusinessInterceptor implements HandlerInterceptor {
 
     private void translateLang(ErrorInfo errorInfo) {
         I18nProvider i18nProvider = SpringUtils.getBean(I18nProvider.class);
+        String message;
+        try {
+            message = i18nProvider.get(errorInfo.getMessage());
+        } catch (Exception ex) {
+            message = ex.getMessage();
+        }
 
-        String message = i18nProvider.get(errorInfo.getMessage());
         errorInfo.setMessage(String.format(message, errorInfo.getArguments().toArray()));
     }
 }

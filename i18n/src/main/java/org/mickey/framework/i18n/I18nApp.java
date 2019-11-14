@@ -1,12 +1,16 @@
 package org.mickey.framework.i18n;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mickey.framework.common.SystemContext;
 import org.mickey.framework.core.config.swagger.EnableSwagger2Doc;
+import org.mickey.framework.core.web.SystemRestTemplate;
 import org.mickey.framework.dbinspector.autoconfigure.DbInspect;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -28,7 +32,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class I18nApp {
     public static void main(String[] args) {
         SpringApplication.run(I18nApp.class, args);
-
         log.info("I18nApp started");
+    }
+
+    @Bean
+    @LoadBalanced
+    public SystemRestTemplate restTemplate() {
+        return new SystemRestTemplate();
     }
 }
