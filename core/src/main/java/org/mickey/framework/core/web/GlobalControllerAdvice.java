@@ -39,9 +39,9 @@ public class GlobalControllerAdvice implements ResponseBodyAdvice<Object> {
             serverHttpResponse.setStatusCode(actionResult.getHttpStatus());
             serverHttpResponse.getHeaders().set("Content-Type", "application/json;charset=utf-8");
 
-            if (actionResult.getHttpStatus().value() >200 && actionResult.getHttpStatus().value() <300) {
-                return null;
-            }
+//            if (actionResult.getHttpStatus().value() >200 && actionResult.getHttpStatus().value() <300) {
+//                return null;
+//            }
             return actionResult;
         } else {
             return object;
