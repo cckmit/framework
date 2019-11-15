@@ -64,7 +64,7 @@ public class ORMapping {
             if (StringUtils.isBlank(name)) {
                 name = k.getSimpleName();
             }
-            table.setSqlName(name);
+            table.setSqlName(camelToUnderline(name));
             table.setCatalog(tableAnnotation.catalog());
             table.setSchema(tableAnnotation.schema());
 

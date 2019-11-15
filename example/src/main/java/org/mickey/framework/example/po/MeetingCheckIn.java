@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Slf4j
 @Data
-@Table(name = "pv_meeting_check_in")
+@Table
 public class MeetingCheckIn extends BasePo {
     @Column(columnDefinition = "varchar(36) not null comment '会议ID'")
     private String meetingId;
