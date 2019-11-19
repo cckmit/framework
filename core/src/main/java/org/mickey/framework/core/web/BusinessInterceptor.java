@@ -109,6 +109,9 @@ public class BusinessInterceptor implements HandlerInterceptor {
             message = ex.getMessage();
         }
 
-        errorInfo.setMessage(String.format(message, errorInfo.getArguments().toArray()));
+        if (errorInfo != null && errorInfo.getArguments() != null) {
+            errorInfo.setMessage(String.format(message, errorInfo.getArguments().toArray()));
+        }
+        errorInfo.setMessage(message);
     }
 }
