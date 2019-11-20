@@ -3,6 +3,7 @@ package org.mickey.framework.core.i18nClient;
 import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.SystemContext;
 import org.mickey.framework.common.dto.ActionResult;
+import org.mickey.framework.common.dto.ErrorInfo;
 import org.mickey.framework.common.exception.BusinessException;
 import org.mickey.framework.core.web.SystemRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,9 @@ public class I18nProxy {
 
         ResponseEntity<ActionResult<Map<String, String>>> exchange = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<ActionResult<Map<String, String>>>() {
         });
-
+        log.info("I18nProxy queryByAppId exchange is : " + exchange.toString());
         if (exchange.getStatusCode() == HttpStatus.OK) return exchange.getBody();
-        throw new BusinessException(exchange.toString());
+//        throw new BusinessException(exchange.toString());
+        return ActionResult.Errors(new ErrorInfo(exchange.getStatusCodeValue(), exchange.toString()));
     }
 }
