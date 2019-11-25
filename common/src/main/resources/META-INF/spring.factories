@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 org.mickey.framework.common.config.OSSConfig,\
-org.mickey.framework.common.util.OssUtil
+org.mickey.framework.common.util.OssUtil,\
+org.mickey.framework.common.config.SystemDateFormatConfig
