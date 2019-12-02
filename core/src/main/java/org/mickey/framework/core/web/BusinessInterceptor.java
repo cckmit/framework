@@ -39,7 +39,6 @@ public class BusinessInterceptor implements HandlerInterceptor {
 
     }
 
-
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
 
@@ -106,9 +105,14 @@ public class BusinessInterceptor implements HandlerInterceptor {
         try {
             message = i18nProvider.get(errorInfo.getMessage());
         } catch (Exception ex) {
-            message = ex.getMessage();
+            ex.printStackTrace();
+//            message = ex.getMessage();
+            message = errorInfo.getMessage();
         }
-
-        errorInfo.setMessage(String.format(message, errorInfo.getArguments().toArray()));
+        log.error("BusinessInterceptor writeResponse errorInfo is : " + JSON.toJSONString(errorInfo, SerializerFeature.WriteMapNullValue));
+        if (errorInfo != null && errorInfo.getArguments() != null) {
+            errorInfo.setMessage(String.format(message, errorInfo.getArguments().toArray()));
+        }
+        errorInfo.setMessage(message);
     }
 }
