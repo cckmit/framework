@@ -1,4 +1,4 @@
-name: Dev Build
+name: Release 2.0 Build
 
 on: [push]
 
