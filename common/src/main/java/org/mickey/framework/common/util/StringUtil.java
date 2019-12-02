@@ -91,4 +91,22 @@ public class StringUtil extends StringUtils {
 
         return value;
     }
+
+    public static String camelToUnderline(String s) {
+        if (s == null || "".equals(s.trim())) {
+            return "";
+        }
+        int len = s.length();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = s.charAt(i);
+            if (Character.isUpperCase(c)) {
+                sb.append("_");
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 }

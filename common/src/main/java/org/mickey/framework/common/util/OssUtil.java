@@ -1,18 +1,12 @@
 package org.mickey.framework.common.util;
 
-import com.aliyun.oss.common.utils.DateUtil;
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.config.OSSConfig;
 import org.mickey.framework.common.config.OssFileTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.aliyun.oss.OSSClient;
-import com.aliyun.oss.model.GetObjectRequest;
-import com.aliyun.oss.model.ListObjectsRequest;
-import com.aliyun.oss.model.OSSObject;
-import com.aliyun.oss.model.OSSObjectSummary;
-import com.aliyun.oss.model.ObjectListing;
-
 
 import javax.annotation.PostConstruct;
 import java.io.*;

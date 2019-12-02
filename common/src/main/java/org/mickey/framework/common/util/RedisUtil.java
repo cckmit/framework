@@ -1,11 +1,11 @@
 package org.mickey.framework.common.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Repository
 public class RedisUtil {
 
-    @Resource
+    @Autowired
     private RedisTemplate<String,Object> redisTemplate;
     /**
      *

@@ -29,13 +29,15 @@ public interface SystemConstant {
     Integer TRUE = 1;
     Integer FALSE = 0;
 
-    String DEFAULT_LOCALE = Locale.SIMPLIFIED_CHINESE.toString();
+    String DEFAULT_LOCALE = Locale.SIMPLIFIED_CHINESE.toLanguageTag();
     //********************filter order******************************//
     int FilterOrder = Integer.MIN_VALUE;
 
     /*************** common header ********************/
-    String CONTEXT_HEADER_PREFIX = "MIC-Header-";
-    String HEADER_TOKEN = CONTEXT_HEADER_PREFIX + "Token";
+
+    // "MIC-Header-"
+    String CONTEXT_HEADER_PREFIX = "";
+    String HEADER_TOKEN = CONTEXT_HEADER_PREFIX + "token";
     String ENVIRONMENT_TOKEN = CONTEXT_HEADER_PREFIX + "Environment-Token";
 
     String HEADER_USER_ID = CONTEXT_HEADER_PREFIX + "UserId";
@@ -56,7 +58,7 @@ public interface SystemConstant {
 
     String HEADER_APP_ID = CONTEXT_HEADER_PREFIX + "AppId";
 
-    String HEADER_LOCALE = CONTEXT_HEADER_PREFIX + "Locale";
+    String HEADER_LOCALE = CONTEXT_HEADER_PREFIX + "Lang";
 
     String HEADER_TIME_ZONE = CONTEXT_HEADER_PREFIX + "TimeZone";
 

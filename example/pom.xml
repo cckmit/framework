@@ -2,10 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <artifactId>framework</artifactId>
         <groupId>org.mickey.framework</groupId>
-        <version>${org.mickey.framework.version}</version>
+        <version>2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,22 +15,67 @@
         <dependency>
             <groupId>org.mickey.framework</groupId>
             <artifactId>core</artifactId>
-            <version>${org.mickey.framework.version}</version>
+            <version>2.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.mickey.framework</groupId>
             <artifactId>dbinspector</artifactId>
-            <version>${org.mickey.framework.version}</version>
+            <version>2.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.mickey.framework</groupId>
             <artifactId>common</artifactId>
-            <version>${org.mickey.framework.version}</version>
+            <version>2.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${com.alibaba.druid}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>${spring-cloud-starter-netflix-eureka-client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+            <version>${spring-cloud-starter-netflix-eureka-client.version}</version>
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mickey.framework</groupId>
+                <artifactId>core</artifactId>
+                <version>2.0</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mickey.framework</groupId>
+                <artifactId>dbinspector</artifactId>
+                <version>2.0</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mickey.framework</groupId>
+                <artifactId>common</artifactId>
+                <version>2.0</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

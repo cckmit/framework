@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.mickey.framework.example.po.UserPo;
 import org.mickey.framework.example.test.BaseSpringTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 
@@ -16,13 +17,13 @@ import javax.annotation.Resource;
 @Slf4j
 public class IUserServiceTest extends BaseSpringTest {
 
-    @Resource
+    @Autowired
     private IUserService userService;
 
     @Test
     public void testMapper() {
         UserPo userPo = new UserPo();
-        userPo.setUserName("mickey");
+        userPo.setUserName("mickeymickeymickeymickeymickeymickeymickeymickeymickeymickeymickeymickeymickey");
         userPo.setNickname("mickey");
         userPo.setPassword("password");
         userPo.setAge(18);

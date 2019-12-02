@@ -1,5 +1,6 @@
 package org.mickey.framework.example.service.user;
 
+import com.github.pagehelper.PageInfo;
 import org.mickey.framework.example.po.UserPo;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface IUserService {
     void delete(String id);
     UserPo query(String id);
     List<UserPo> findAll();
+
+    PageInfo<UserPo> find(int pageNumber, int pageSize);
 }

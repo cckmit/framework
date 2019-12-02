@@ -15,6 +15,7 @@ import org.mickey.framework.common.po.CommonPo;
 import org.mickey.framework.common.util.DataType;
 import org.mickey.framework.common.util.ReflectUtils;
 import org.mickey.framework.common.util.ReflectionUtils;
+import org.mickey.framework.common.util.StringUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Index;
@@ -64,7 +65,7 @@ public class ORMapping {
             if (StringUtils.isBlank(name)) {
                 name = k.getSimpleName();
             }
-            table.setSqlName(name);
+            table.setSqlName(StringUtil.camelToUnderline(name));
             table.setCatalog(tableAnnotation.catalog());
             table.setSchema(tableAnnotation.schema());
 
@@ -95,7 +96,7 @@ public class ORMapping {
 
                 String columnName = columnAnnotation.name();
                 if (StringUtils.isBlank(columnName)) {
-                    columnName = camelToUnderline(field.getName());
+                    columnName = StringUtil.camelToUnderline(field.getName());
                 }
                 column.setSqlName(columnName);
                 String definition = columnAnnotation.columnDefinition();
@@ -391,24 +392,6 @@ public class ORMapping {
         }
     }
 
-    private static String camelToUnderline(String s) {
-        if (s == null || "".equals(s.trim())) {
-            return "";
-        }
-        int len = s.length();
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
-            char c = s.charAt(i);
-            if (Character.isUpperCase(c)) {
-                sb.append("_");
-                sb.append(Character.toLowerCase(c));
-            } else {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
-    }
-
     private static List<org.mickey.framework.common.database.Column> getAnnotationsFromGetMethod(final Class clazz, Table table) {
         String methodName = "get";
         List<org.mickey.framework.common.database.Column> columns = new ArrayList<>();
@@ -461,7 +444,7 @@ public class ORMapping {
 
                 String sqlName = columnAnnotation.name();
                 if (StringUtils.isBlank(sqlName)) {
-                    sqlName = camelToUnderline(fieldName);
+                    sqlName = StringUtil.camelToUnderline(fieldName);
                 }
                 column.setSqlName(sqlName);
                 String definition = columnAnnotation.columnDefinition();

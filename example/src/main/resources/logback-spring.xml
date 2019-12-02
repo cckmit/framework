@@ -12,9 +12,9 @@
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
-        <file>../logs/logger.log</file>
+        <file>./logs/example/logger.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>../logs/logger.log.%i</fileNamePattern>
+            <fileNamePattern>./logs/example/logger.log.%i</fileNamePattern>
         </rollingPolicy>
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>1MB</MaxFileSize>
@@ -24,6 +24,7 @@
     <springProfile name="dev">
         <root level="DEBUG">
             <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
         </root>
     </springProfile>
 
