@@ -35,14 +35,16 @@ public class BusinessInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception {
-        log.info("postHandle ModelAndView is : {};", modelAndView);
+//        log.info("postHandle ModelAndView is : {};", modelAndView);
 
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
 
-        log.error("BusinessInterceptor filter; exception is :" + ex + ";", ex);
+        if (ex != null) {
+            log.error("BusinessInterceptor filter; exception is :" + ex + ";", ex);
+        }
         if (ex != null) {
             if (ex instanceof DataIntegrityViolationException) {
                 //字段 值过长

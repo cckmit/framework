@@ -30,7 +30,6 @@ public class GlobalControllerAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object object, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        log.error("GlobalControllerAdvice methodParameter is : {} ;", methodParameter.getGenericParameterType());
 
         if (methodParameter.getMethod().getReturnType().equals(ActionResult.class)) {
 
@@ -44,6 +43,7 @@ public class GlobalControllerAdvice implements ResponseBodyAdvice<Object> {
 //            }
             return actionResult;
         } else {
+            log.error("GlobalControllerAdvice methodParameter is : {} ;", methodParameter.getGenericParameterType());
             return object;
         }
     }
