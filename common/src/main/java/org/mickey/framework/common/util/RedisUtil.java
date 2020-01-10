@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * description
+ * Redis 工具类
  *
  * @author mickey
  * 23/07/2019
@@ -22,98 +22,107 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil {
 
     @Autowired
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
+
     /**
-     *
      * @param key
      * @param value
      */
-    public void set(String key,Object value) {
+    public void set(String key, Object value) {
         redisTemplate.opsForValue().set(key, value);
     }
 
 
     /**
      * 设置有效时间
+     *
      * @param key
      * @param value
      * @param time
      * @param timeUnit
      */
     public void set(String key, Object value, long time, TimeUnit timeUnit) {
-        redisTemplate.opsForValue().set(key, value,time,timeUnit);
+        redisTemplate.opsForValue().set(key, value, time, timeUnit);
     }
 
 
     /**
      * 创建Set类型数据
+     *
      * @param key
      * @param datas
      */
-    public void buildSetData(String key, HashSet<Object> datas){
-        redisTemplate.opsForSet().add(key,datas);
+    public void buildSetData(String key, HashSet<Object> datas) {
+        redisTemplate.opsForSet().add(key, datas);
     }
 
     /**
      * 创建Set类型数据
+     *
      * @param key
      * @param data
      */
-    public void buildSetData(String key,Object data){
-        redisTemplate.opsForSet().add(key,data);
+    public void buildSetData(String key, Object data) {
+        redisTemplate.opsForSet().add(key, data);
     }
 
     /**
      * 创建ZSet类型数据
+     *
      * @param key
      * @param tuples
      */
-    public void buildZSetData(String key, Set<ZSetOperations.TypedTuple<Object>> tuples){
-        redisTemplate.opsForZSet().add(key,tuples);
+    public void buildZsetData(String key, Set<ZSetOperations.TypedTuple<Object>> tuples) {
+        redisTemplate.opsForZSet().add(key, tuples);
     }
 
 
     /**
      * 创建ZSet类型数据
+     *
      * @param key
      * @param weigth
      * @param data
      */
-    public void buildZSetData(String key,double weigth,Object data){
-        redisTemplate.opsForZSet().add(key,data,weigth);
+    public void buildZsetData(String key, double weigth, Object data) {
+        redisTemplate.opsForZSet().add(key, data, weigth);
     }
 
     /**
      * 创建Hash类型数据
+     *
      * @param key
      * @param datas
      */
-    public void buildHashData(String key, Map<String,Object> datas){
-        redisTemplate.opsForHash().putAll(key,datas);
+    public void buildHashData(String key, Map<String, Object> datas) {
+        redisTemplate.opsForHash().putAll(key, datas);
     }
 
     /**
      * 创建Hash类型数据
+     *
      * @param key
      * @param data
      */
-    public void buildHashData(String key,String dateKey,Object data){
-        redisTemplate.opsForHash().put(key,dateKey,data);
+    public void buildHashData(String key, String dateKey, Object data) {
+        redisTemplate.opsForHash().put(key, dateKey, data);
     }
 
 
     /**
      * 判断是否存在元素
+     *
      * @param key
      * @param member
      * @return
      */
-    public boolean isMember(String key,Object member){
-        return redisTemplate.opsForSet().isMember(key,member);
+    public boolean isMember(String key, Object member) {
+        return redisTemplate.opsForSet().isMember(key, member);
     }
 
     /**
      * 获取Set数据
+     *
      * @param key
      * @return
      */
@@ -123,16 +132,18 @@ public class RedisUtil {
 
     /**
      * 获取ZSet数据
+     *
      * @param key
      * @return
      */
-    public Set<ZSetOperations.TypedTuple<Object>> getFirstZSetValue(String key) {
-        return redisTemplate.opsForZSet().rangeWithScores(key,0,0);
+    public Set<ZSetOperations.TypedTuple<Object>> getFirstZsetValue(String key) {
+        return redisTemplate.opsForZSet().rangeWithScores(key, 0, 0);
     }
 
 
     /**
      * 获取Map数据
+     *
      * @param key
      * @return
      */
@@ -142,7 +153,6 @@ public class RedisUtil {
 
 
     /**
-     *
      * @param key
      * @return
      */
@@ -152,16 +162,15 @@ public class RedisUtil {
 
 
     /**
-     *
      * @param key
      * @return
      */
-    public Object get(String key,String ... args) {
-        String k = String.format(key,args);
+    public Object get(String key, String... args) {
+        String k = String.format(key, args);
         return redisTemplate.opsForValue().get(k);
     }
+
     /**
-     *
      * @param key
      */
     public void delete(String key) {
@@ -170,16 +179,16 @@ public class RedisUtil {
 
     /**
      * 删除key
+     *
      * @param key
      * @param args
      */
-    public void delete(String key,String ... args){
-        String k = String.format(key,args);
+    public void delete(String key, String... args) {
+        String k = String.format(key, args);
         redisTemplate.delete(k);
     }
 
     /**
-     *
      * @param key
      */
     public boolean hasKey(String key) {

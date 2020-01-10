@@ -8,7 +8,7 @@ import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.plugin.Invocation;
 import org.mickey.framework.common.database.Column;
 import org.mickey.framework.common.database.Table;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.common.util.ReflectionUtils;
 import org.mickey.framework.common.util.StringUtil;
 
@@ -95,7 +95,7 @@ public interface BatchOperation {
         int[] resultArr = null;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             for (Object o : poList) {
-                preparePoForInsert(ps, (CommonPo) o, columns);
+                preparePoForInsert(ps, (AbstractCommonPo) o, columns);
             }
             resultArr = ps.executeBatch();
         }
@@ -110,7 +110,7 @@ public interface BatchOperation {
         }
     }
 
-    default void preparePoForInsert(PreparedStatement ps, CommonPo po, List<Column> columns) throws SQLException {
+    default void preparePoForInsert(PreparedStatement ps, AbstractCommonPo po, List<Column> columns) throws SQLException {
         for (int i = 0; i < columns.size(); i++) {
             Column column = columns.get(i);
             ps.setObject(i + 1, ReflectionUtils.getFieldValue(po, column.getJavaName()), column.getSqlType());
@@ -119,7 +119,7 @@ public interface BatchOperation {
     }
 
     default String buildUpdateSelective(List<Column> columns, StringBuilder builder, String tableSqlName,
-                                        CommonPo po, Table table, Set<String> includeColumns) {
+                                        AbstractCommonPo po, Table table, Set<String> includeColumns) {
         boolean hasInclude = CollectionUtils.isNotEmpty(includeColumns);
         builder.append("update")
                 .append(BLANK)
@@ -154,7 +154,7 @@ public interface BatchOperation {
     }
 
     default String buildUpdate(List<Column> columns, StringBuilder builder, String tableSqlName,
-                               CommonPo po, Table table, Set<String> includeColumns) {
+                               AbstractCommonPo po, Table table, Set<String> includeColumns) {
         boolean hasInclude = CollectionUtils.isNotEmpty(includeColumns);
         builder.append("update")
                 .append(BLANK)

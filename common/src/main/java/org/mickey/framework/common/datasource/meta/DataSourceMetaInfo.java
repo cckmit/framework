@@ -3,6 +3,7 @@ package org.mickey.framework.common.datasource.meta;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.mickey.framework.common.SystemConstant;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,33 +24,37 @@ public class DataSourceMetaInfo implements Serializable {
     private String password;
     private int weight;
 
-    public void autoDetecDriverClass() {
+    public void autoDetectDriverClass() {
         if (StringUtils.isBlank(this.driverClass)) {
-            if (jdbcUrl.toLowerCase().startsWith("jdbc:postgresql")) {
-                this.driverClass = "org.postgresql.Driver";
-            } else if (jdbcUrl.toLowerCase().startsWith("jdbc:mysql")) {
-                this.driverClass = "com.mysql.jdbc.Driver";
-            } else if (jdbcUrl.toLowerCase().startsWith("jdbc:oracle")) {
-                this.driverClass = "oracle.jdbc.driver.OracleDriver";
-            } else if (jdbcUrl.toLowerCase().startsWith("jdbc:jtds:sqlserver")) {
-                this.driverClass = "net.sourceforge.jtds.jdbc.Driver";
+            if (jdbcUrl.toLowerCase().startsWith(SystemConstant.jdbcUrlWithPostgresql)) {
+                this.driverClass = SystemConstant.jdbcDriverClass4Postgresql;
+            } else if (jdbcUrl.toLowerCase().startsWith(SystemConstant.jdbcUrlWithMysql)) {
+                this.driverClass = SystemConstant.jdbcDriverClass4Mysql;
+            } else if (jdbcUrl.toLowerCase().startsWith(SystemConstant.jdbcUrlWithOracle)) {
+                this.driverClass = SystemConstant.jdbcDriverClass4Oracle;
+            } else if (jdbcUrl.toLowerCase().startsWith(SystemConstant.jdbcUrlWithJtdsSqlServer)) {
+                this.driverClass = SystemConstant.jdbcDriverClass4JtdsSqlServer;
             }
         }
     }
 
     public String getDatabaseKey() {
-        return driverClass + ";" + jdbcUrl + ";" +userName;
+        return driverClass + ";" + jdbcUrl + ";" + userName;
     }
 
     public void setJdbcUrl(String jdbcUrl) {
         this.jdbcUrl = jdbcUrl;
-        autoDetecDriverClass();
+        autoDetectDriverClass();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) { return true;}
-        if (o == null || getClass() != o.getClass()) { return false;}
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DataSourceMetaInfo that = (DataSourceMetaInfo) o;
         return Objects.equals(dataBaseName, that.dataBaseName)
                 && Objects.equals(driverClass, that.driverClass)
@@ -63,7 +68,7 @@ public class DataSourceMetaInfo implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "DataSourceMetaInfo{" +
                 ", appId='" + dataBaseName + '\'' +
                 ", driverClass='" + driverClass + '\'' +

@@ -3,7 +3,7 @@ package org.mickey.framework.core.service;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.dto.PageRequest;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.core.mybatis.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * 23/07/2019
  */
 @Slf4j
-public abstract class GenericService<M extends BaseMapper<T>, T extends CommonPo> {
+public abstract class GenericService<M extends BaseMapper<T>, T extends AbstractCommonPo> {
 
     @Autowired
     private M mapper;

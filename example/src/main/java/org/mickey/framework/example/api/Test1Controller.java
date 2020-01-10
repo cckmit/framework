@@ -47,6 +47,6 @@ public class Test1Controller extends BaseController<ITest1Service, Test1> {
 
         throw new BusinessException("hello %s", Arrays.asList(name));
 
-//        return ActionResult.Ok(i18nProvider.get());
+//        return ActionResult.ok(i18nProvider.get());
     }
 }

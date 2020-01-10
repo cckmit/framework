@@ -22,7 +22,7 @@ import java.util.List;
 public class BusinessException extends RuntimeException implements Serializable {
     private List<ErrorInfo> errors;
 
-    public BusinessException(){
+    public BusinessException() {
         super();
     }
 

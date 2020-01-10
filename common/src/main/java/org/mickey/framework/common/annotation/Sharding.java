@@ -15,6 +15,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Sharding {
     int count() default 10;
+
     String alias() default "";
+
     String[] columns();
 }

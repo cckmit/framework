@@ -11,7 +11,7 @@ import org.mickey.framework.common.database.JoinColumn;
 import org.mickey.framework.common.database.Table;
 import org.mickey.framework.common.database.*;
 import org.mickey.framework.common.po.BaseExtPo;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.common.util.DataType;
 import org.mickey.framework.common.util.ReflectUtils;
 import org.mickey.framework.common.util.ReflectionUtils;
@@ -296,7 +296,7 @@ public class ORMapping {
             if (any.isPresent()) {
                 constrainColumns.add(any.get());
             } else {
-                throw new NoColumnFoundForUniqueConstaint(indexName, sqlColumnName);
+                throw new NoColumnFoundForUniqueException(indexName, sqlColumnName);
             }
         }
         if (CollectionUtils.isNotEmpty(constrainColumns)) {
@@ -340,7 +340,7 @@ public class ORMapping {
                     getterHandle,
                     MethodType.methodType(String.class, targetClass));
 
-            Function<CommonPo, String> function = (Function<CommonPo, String>) valueCallSite.getTarget().invokeExact();
+            Function<AbstractCommonPo, String> function = (Function<AbstractCommonPo, String>) valueCallSite.getTarget().invokeExact();
             result = new UqConstraint();
             result.setName(name);
             result.setLambda(function);

@@ -15,20 +15,36 @@ import java.util.List;
 @Slf4j
 @Data
 public class Pagination<T> implements Serializable {
-    //是否自动计算总行数
+    /**
+     * 是否自动计算总行数
+     */
     private boolean counting = true;
-    //是否自动分页
+    /**
+     * 是否自动分页
+     */
     private boolean paging = true;
-    //每页记录数
+    /**
+     * 每页记录数
+     */
     private int pageSize = 10;
-    //页码号
+    /**
+     * 页码号
+     */
     private int pageNo = 1;
-    //起始记录数 默认-1
+    /**
+     * 起始记录数 默认-1
+     */
     private int start = 0;
-    //最大记录数 默认-1
+    /**
+     * 最大记录数 默认-1
+     */
     private long count = 0;
-    //结果记录
+    /**
+     * 结果记录
+     */
     private List<T> rows;
-    //查询条件
+    /**
+     * 查询条件
+     */
     private Criteria criteria;
 }

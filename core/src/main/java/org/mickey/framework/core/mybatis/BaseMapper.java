@@ -7,10 +7,9 @@ import org.apache.ibatis.annotations.*;
 import org.mickey.framework.common.SystemContext;
 import org.mickey.framework.common.database.Table;
 import org.mickey.framework.common.dto.PageRequest;
-import org.mickey.framework.common.dto.PageResponse;
 import org.mickey.framework.common.po.BasePo;
 import org.mickey.framework.common.po.BaseProjectPo;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.common.query.v2.Condition;
 import org.mickey.framework.common.query.v2.Criteria;
 import org.mickey.framework.common.query.v2.Operator;
@@ -31,7 +30,7 @@ import java.util.*;
  * 23/07/2019
  */
 @SuppressWarnings({"unchecked", "Duplicates"})
-public interface BaseMapper<T extends CommonPo> {
+public interface BaseMapper<T extends AbstractCommonPo> {
 
     @InsertProvider(type = MybatisSqlBuilder.class, method = "insert")
     int _insert(T po);

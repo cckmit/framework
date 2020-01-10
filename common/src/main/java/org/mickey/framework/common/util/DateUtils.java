@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.mickey.framework.common.SystemConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,10 +37,10 @@ public class DateUtils {
     public static final String fullPatternSSS = "yyyyMMddHHmmssSSS";
     public static final String YDMW = "yyyy-MM-dd";
     public static final String YMW = "yyyy-MM";
-    public static final String YYYYMMDDX ="yyyy/MM/dd";
-    public static final String YYYYMMDDX_HHmmss ="yyyy/MM/dd HH:mm:ss";
-    public static final String DDMMYYYYX ="dd/MM/yyyy";
-    public static final String DDMMYYYYX_HHmmss ="dd/MM/yyyy HH:mm:ss";
+    public static final String YYYYMMDDX = "yyyy/MM/dd";
+    public static final String YYYYMMDDX_HHmmss = "yyyy/MM/dd HH:mm:ss";
+    public static final String DDMMYYYYX = "dd/MM/yyyy";
+    public static final String DDMMYYYYX_HHmmss = "dd/MM/yyyy HH:mm:ss";
     public static final Pattern PATTERN_YYYYMMDDW = Pattern.compile("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-9])))");
     public static final Pattern PATTERN_YYYYMMDDX = Pattern.compile("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})/(((0[13578]|1[02])/(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)/(0[1-9]|[12][0-9]|30))|(02/(0[1-9]|[1][0-9]|2[0-9])))");
     public static final Pattern PATTERN_YYYYMDX = Pattern.compile("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})/((([13578]|1[02])/([12][0-9]|3[01]|[1-9]))|(([469]|11)/([12][0-9]|30|[1-9]))|(2/([1][0-9]|2[0-9]|[1-9])))");
@@ -108,7 +109,7 @@ public class DateUtils {
 
     public static void main(String[] args) {
 
-        System.out.println(formatString("22/06/1234",checkDatePattern("22/06/1234")));
+        System.out.println(formatString("22/06/1234", checkDatePattern("22/06/1234")));
         System.out.println(e2bDateImportConvert("20141011120000"));
         System.out.println(e2bDateImportConvert("20141011120000+06"));
         System.out.println(e2bDateImportConvert("2014"));
@@ -202,18 +203,20 @@ public class DateUtils {
      * YYYY/M/D 2014/2/3<br/>
      * DD/MM/YYYY 10/09/2018<br/>
      * 默认格式 YYYY-MM-DD 2018-02-03
+     *
      * @return
      */
-    public static String convertDateString(String date){
+    public static String convertDateString(String date) {
         String pattern = checkDatePattern(date);
-        if (pattern == null){
+        if (pattern == null) {
             return null;
         }
-        if (DateUtils.YDMW.equals(pattern)){
+        if (DateUtils.YDMW.equals(pattern)) {
             return date;
         }
-        return format(formatString(date,pattern),DateUtils.YDMW);
+        return format(formatString(date, pattern), DateUtils.YDMW);
     }
+
     /**
      * 自动识别字符串格式，并格式化为Date
      * 支持格式<br/>
@@ -228,42 +231,43 @@ public class DateUtils {
      * YYYY/M/D hh:mm:ss 2014/2/3 22:22:22 <br/>
      * DD/MM/YYYY hh:mm:ss 10/09/2018 22:22:22 <br/>
      */
-    public static Date formatString(String date){
+    public static Date formatString(String date) {
         String pattern = checkDatePattern(date);
-        if (pattern == null){
+        if (pattern == null) {
             return null;
         }
-        return formatString(date,pattern);
+        return formatString(date, pattern);
     }
+
     /**
      * 正则匹配获取日期串的格式
-     * @param date
-     * 支持格式 <br/>
-     * YYYY-MM-DD 2018-02-03 <br/>
-     * YYYY-M-D 2018-2-21 <br/>
-     * YYYY/MM/DD 2018/02/03 <br/>
-     * YYYY/M/D 2014/2/3 <br/>
-     * DD/MM/YYYY 10/09/2018 <br/>
-     * YYYY-MM-DD hh:mm:ss 2018-02-03 22:22:22<br/>
-     * YYYY-M-D hh:mm:ss 2018-2-21 22:22:22<br/>
-     * YYYY/MM/DD hh:mm:ss 2018/02/03 22:22:22 <br/>
-     * YYYY/M/D hh:mm:ss 2014/2/3 22:22:22 <br/>
-     * DD/MM/YYYY hh:mm:ss 10/09/2018 22:22:22 <br/>
+     *
+     * @param date 支持格式 <br/>
+     *             YYYY-MM-DD 2018-02-03 <br/>
+     *             YYYY-M-D 2018-2-21 <br/>
+     *             YYYY/MM/DD 2018/02/03 <br/>
+     *             YYYY/M/D 2014/2/3 <br/>
+     *             DD/MM/YYYY 10/09/2018 <br/>
+     *             YYYY-MM-DD hh:mm:ss 2018-02-03 22:22:22<br/>
+     *             YYYY-M-D hh:mm:ss 2018-2-21 22:22:22<br/>
+     *             YYYY/MM/DD hh:mm:ss 2018/02/03 22:22:22 <br/>
+     *             YYYY/M/D hh:mm:ss 2014/2/3 22:22:22 <br/>
+     *             DD/MM/YYYY hh:mm:ss 10/09/2018 22:22:22 <br/>
      * @return
      */
-    public static String checkDatePattern(String date){
-        if (date == null||"".equals(date)) {
+    public static String checkDatePattern(String date) {
+        if (date == null || "".equals(date)) {
             return null;
         }
         Matcher matcher;
         //2018-01-31 21:21:21
         matcher = PATTERN_YYYYMMDDW_HHmmss.matcher(date);
-        if (matcher.matches()){
+        if (matcher.matches()) {
             return datefullPatternWithLine;
         }
         // 2018-1-31 21:21:21
         matcher = PATTERN_YYYYMDW_HHmmss.matcher(date);
-        if (matcher.matches()){
+        if (matcher.matches()) {
             return datefullPatternWithLine;
         }
         // 2018-1-31
@@ -286,19 +290,19 @@ public class DateUtils {
             return DDMMYYYYX_HHmmss;
         }
         matcher = PATTERN_YYYYMMDDW.matcher(date);
-        if (matcher.matches()){
+        if (matcher.matches()) {
             return YDMW;
         }
         matcher = PATTERN_YYYYMMDDX.matcher(date);
-        if (matcher.matches()){
+        if (matcher.matches()) {
             return YYYYMMDDX;
         }
         matcher = PATTERN_YYYYMDX.matcher(date);
-        if (matcher.matches()){
+        if (matcher.matches()) {
             return YYYYMMDDX;
         }
         matcher = PATTERN_DDMMYYX.matcher(date);
-        if (matcher.matches()){
+        if (matcher.matches()) {
             return DDMMYYYYX;
         }
         return null;
@@ -307,14 +311,15 @@ public class DateUtils {
 
     /**
      * 从给定字符串中截取 YYYY-MM-DD格式的日期
+     *
      * @param date
      * @return
      */
-    public static String subDateStr(String date){
+    public static String subDateStr(String date) {
         Matcher matcher = PATTERN_YYYYMMDDW.matcher(date);
         if (matcher.find()) {
-            return  matcher.group();
-        }else {
+            return matcher.group();
+        } else {
             return "";
         }
     }
@@ -380,12 +385,8 @@ public class DateUtils {
         return calendar.getTime();
     }
 
-    public static String convertMonthEng(String month) {
-        return convertMonthEng(StringUtil.stringToInt(month));
-    }
-
     public static String convertMonthEng(int month) {
-        Map<Integer, String> monthDic = new HashMap<>();
+        Map<Integer, String> monthDic = new HashMap<>(MapUtils.getInitialCapacity(12));
         monthDic.put(1, "Jan");
         monthDic.put(2, "Feb");
         monthDic.put(3, "Mar");
@@ -423,32 +424,36 @@ public class DateUtils {
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_MONTH);
     }
-    public static String addDay(String date,int interval){
-        Date source = formatString(date,DateUtils.datefullPatternWithLine);
+
+    public static String addDay(String date, int interval) {
+        Date source = formatString(date, DateUtils.datefullPatternWithLine);
         Date target = addDay(source, interval);
-        return format(target,DateUtils.datefullPatternWithLine);
+        return format(target, DateUtils.datefullPatternWithLine);
     }
-    public static Date addDay(Date date,int interval){
+
+    public static Date addDay(Date date, int interval) {
         if (date == null) {
             return null;
         }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.DATE,interval);
+        calendar.add(Calendar.DATE, interval);
         return calendar.getTime();
     }
 
     /**
      * 一年的最早时间
+     *
      * @return
      */
-    public static String getCurrentYearFirstTime(){
-        return DateTime.now().toString(Y)+"-01-01 00:00:00";
+    public static String getCurrentYearFirstTime() {
+        return DateTime.now().toString(Y) + "-01-01 00:00:00";
     }
 
 
     /**
-     *  yyyy-MM-dd格式的字符串format为 dd-MM-yyyy,可以包含uk
+     * yyyy-MM-dd格式的字符串format为 dd-MM-yyyy,可以包含uk
+     *
      * @param strDate
      * @return
      */
@@ -456,12 +461,12 @@ public class DateUtils {
         if (StringUtils.isBlank(strDate)) {
             return "";
         }
-        if (strDate.contains("uk") || strDate.contains("unkw")) {
+        if (strDate.contains(SystemConstant.monthUnknowValue) || strDate.contains(SystemConstant.yearUnknowValue)) {
             String[] split = strDate.split("-");
             if (split.length < 3) {
                 return StringUtils.EMPTY;
             }
-            if (!"uk".equals(split[1])) {
+            if (!SystemConstant.monthUnknowValue.equals(split[1])) {
                 String mouth = formatString(split[1], "MM", "MMM", Locale.ENGLISH);
                 return String.format("%s-%s-%s", split[2], mouth, split[0]);
             }

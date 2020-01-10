@@ -2,9 +2,7 @@ package org.mickey.framework.core.mybatis.listener.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.SystemContext;
-import org.mickey.framework.common.po.BasePo;
-import org.mickey.framework.common.po.BaseProjectPo;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.core.mybatis.listener.spi.PreUpdateListener;
 
 import java.util.Date;
@@ -22,8 +20,8 @@ public class DefaultPreUpdateListener implements PreUpdateListener {
         if (object == null) {
             return true;
         }
-        if (object instanceof CommonPo) {
-            CommonPo po = (CommonPo) object;
+        if (object instanceof AbstractCommonPo) {
+            AbstractCommonPo po = (AbstractCommonPo) object;
             if (po.getUpdateBy() == null) {
                 po.setUpdateBy(SystemContext.getUserId());
             }

@@ -109,7 +109,7 @@ public class SaasUpdateMdmInterceptor extends BaseSaasInterceptor {
             }
             String id = basePO.getId();
             if (StringUtil.isBlank(id)) {
-                String uuid = UUIDUtils.getUUID();
+                String uuid = UUIDUtils.getUuid();
                 basePO.setId(uuid);
             }
             if (insert) {

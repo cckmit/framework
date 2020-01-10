@@ -49,14 +49,9 @@ public class DataType {
     public static final int DT_DateTime = 25;
     public static final int DT_Clob = 26;
     public static final int DT_Blob = 27;
-    // public static final int DT_array = 9;
     public static final int DT_Array = 30;
     public static final int DT_List = 31;
-    // public static final int DT_ArrayList = 32;
-    // public static final int DT_LinkedList = 33;
     public static final int DT_Map = 34;
-    // public static final int DT_HashMap = 35;
-    // public static final int DT_Hashtable = 36;
     public static final int DT_Set = 37;
     public static final int DT_Object = 40;
     public static final int DT_Class = 41;
@@ -74,7 +69,6 @@ public class DataType {
     public static final String CHAR_bool_y = "y";
     public static final String CHAR_bool_true_chs = "正确";
     public static final String CHAR_bool_num = "1";
-    public static final String CHAR_ = "";
 
 
     static {
@@ -152,7 +146,7 @@ public class DataType {
     public static int getDataType(String typeName) {
         typeName = toSimpleType(typeName);
 
-        if (CHAR_leftBracket.equals(typeName.charAt(0))) {
+        if (CHAR_leftBracket.equalsIgnoreCase(StringUtil.valueOf(typeName.charAt(0)))) {
             return DT_Array;
         }
 
@@ -264,8 +258,9 @@ public class DataType {
 
     /**
      * obj 数据类型转换
-     * @param value 需要转换的数据
-     * @param srcType 原始类型
+     *
+     * @param value      需要转换的数据
+     * @param srcType    原始类型
      * @param targetType 目标类型
      * @return 转换后的数据
      */

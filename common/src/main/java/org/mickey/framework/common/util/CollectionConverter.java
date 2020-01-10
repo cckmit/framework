@@ -25,7 +25,7 @@ public class CollectionConverter {
 
     }
 
-    public static <K, T> Map<K, List<T>> groupListToMap(List<T> list, Function<? super T, ? extends K> classifier){
+    public static <K, T> Map<K, List<T>> groupListToMap(List<T> list, Function<? super T, ? extends K> classifier) {
         if (list != null) {
             Map<K, List<T>> listMap = list.stream().collect(Collectors.groupingBy(classifier));
             return listMap;
@@ -38,7 +38,6 @@ public class CollectionConverter {
             return null;
         }
         List result = new ArrayList();
-
 
 
         CollectionUtil.forEach(source, item -> {
@@ -72,7 +71,7 @@ public class CollectionConverter {
     }
 
     public static <K, V> Map<K, V> list2Map(Collection<V> sourceList, ListToMapConverter<K, V> converter) {
-        Map<K, V> newMap = new HashMap<K, V>(sourceList.size());
+        Map<K, V> newMap = new HashMap<>(MapUtils.getInitialCapacity(sourceList.size()));
         for (V item : sourceList) {
             newMap.put(converter.getKey(item), item);
         }
@@ -107,7 +106,7 @@ public class CollectionConverter {
      */
     public static <T> Map<String, T> listToMap(List<T> list, String[] keys) {
         if (list != null) {
-            Map<String, T> m = new HashMap<>(list.size());
+            Map<String, T> m = new HashMap<>(MapUtils.getInitialCapacity(list.size()));
             for (T t : list) {
                 String combineKey = buildCombineKey(t, keys);
                 m.put(combineKey, t);
@@ -120,7 +119,7 @@ public class CollectionConverter {
 
     public static <T, K, U> Map<K, U> listToMap(List<T> list, java.util.function.Function<? super T, ? extends K> keyMapper,
                                                 java.util.function.Function<? super T, ? extends U> valueMapper) {
-        if(CollectionUtils.isEmpty(list)){
+        if (CollectionUtils.isEmpty(list)) {
             return new HashMap<>(0);
         }
         return list.stream().filter(t -> keyMapper.apply(t) != null).filter(t -> valueMapper.apply(t) != null).collect(Collectors.toMap(keyMapper, valueMapper, (o, o2) -> o));
@@ -129,12 +128,14 @@ public class CollectionConverter {
 
     /**
      * list to map converter
+     *
      * @param <K> key
      * @param <V> value
      */
     public interface ListToMapConverter<K, V> {
         /**
          * item of list get key
+         *
          * @param item item
          * @return key
          */

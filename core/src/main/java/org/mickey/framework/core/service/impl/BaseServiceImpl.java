@@ -1,12 +1,8 @@
 package org.mickey.framework.core.service.impl;
 
-import com.github.pagehelper.PageInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.mickey.framework.common.po.CommonPo;
-import org.mickey.framework.core.service.IBaseService;
-
-import java.util.List;
+import org.mickey.framework.common.po.AbstractCommonPo;
 
 /**
  * description
@@ -16,7 +12,7 @@ import java.util.List;
  */
 @Data
 @Slf4j
-public class BaseServiceImpl<T extends CommonPo>  {
+public class BaseServiceImpl<T extends AbstractCommonPo>  {
 
     //implements IBaseService<T>
 

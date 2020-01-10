@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * description
+ * 错误消息Bean
  *
  * @author mickey
  * 23/07/2019
@@ -15,10 +15,6 @@ import java.util.List;
 @Slf4j
 @Data
 public class ErrorInfo implements Serializable {
-    /**
-     *
-     */
-    //private static final long serialVersionUID = 1L;  
     private boolean internationalized = false;
     private String code;
     private String message;
@@ -31,7 +27,7 @@ public class ErrorInfo implements Serializable {
     }
 
     public ErrorInfo(Integer code, String message) {
-        this.code = null != code?code.toString():null;
+        this.code = null != code ? code.toString() : null;
         this.message = message;
     }
 
@@ -42,13 +38,13 @@ public class ErrorInfo implements Serializable {
     }
 
     public ErrorInfo(Integer code, String message, List<Object> arguments) {
-        this.code = null != code?code.toString():null;
+        this.code = null != code ? code.toString() : null;
         this.message = message;
         this.arguments = arguments;
     }
 
     public ErrorInfo(Integer code, String message, Exception ex) {
-        this.code = null != code?code.toString():null;
+        this.code = null != code ? code.toString() : null;
         this.message = message;
         this.exception = ex;
     }

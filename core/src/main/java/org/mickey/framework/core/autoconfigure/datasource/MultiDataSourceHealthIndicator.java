@@ -35,11 +35,11 @@ public class MultiDataSourceHealthIndicator extends DataSourceHealthIndicator
         implements InitializingBean {
     private static final String DEFAULT_QUERY = "SELECT 1";
 
-    // _1 -> dataSource    2 -> query
+    // getE1 -> dataSource    2 -> query
     private List<Tuple2<DataSource,String>> dataSources;
 
 
-    // _1 -> jdbcTemplate    2 -> query
+    // getE1 -> jdbcTemplate    2 -> query
     private List<Tuple2<JdbcTemplate,String>> jdbcTemplates = new ArrayList<>();
 
     /**
@@ -57,8 +57,8 @@ public class MultiDataSourceHealthIndicator extends DataSourceHealthIndicator
     public MultiDataSourceHealthIndicator(List<Tuple2<DataSource,String>> dataSources) {
         this.dataSources = dataSources;
         dataSources.forEach(dataSource -> {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource._1());
-            String query = dataSource._2();
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource.getE1());
+            String query = dataSource.getE2();
             jdbcTemplates.add(new Tuple2<JdbcTemplate,String>(jdbcTemplate,query));
         });
     }
@@ -81,13 +81,13 @@ public class MultiDataSourceHealthIndicator extends DataSourceHealthIndicator
 
     private void doDataSourceHealthCheck(Health.Builder builder) throws Exception {
         jdbcTemplates.forEach(jdbcTemplate -> {
-            String product = getProduct(jdbcTemplate._1());
+            String product = getProduct(jdbcTemplate.getE1());
             builder.up().withDetail("database", product);
-            String validationQuery = getValidationQuery(product,jdbcTemplate._2());
+            String validationQuery = getValidationQuery(product,jdbcTemplate.getE2());
             if (StringUtils.hasText(validationQuery)) {
                 try {
                     // Avoid calling getObject as it breaks MySQL on Java 7
-                    List<Object> results = jdbcTemplate._1().query(validationQuery,
+                    List<Object> results = jdbcTemplate.getE1().query(validationQuery,
                             new MultiDataSourceHealthIndicator.SingleColumnRowMapper());
                     Object result = DataAccessUtils.requiredSingleResult(results);
                     builder.withDetail("hello", result);
@@ -127,8 +127,8 @@ public class MultiDataSourceHealthIndicator extends DataSourceHealthIndicator
     public void setDataSource(List<Tuple2<DataSource,String>> dataSources) {
         this.dataSources = dataSources;
         dataSources.forEach(dataSource -> {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource._1());
-            String query = dataSource._2();
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource.getE1());
+            String query = dataSource.getE2();
             jdbcTemplates.add(new Tuple2<JdbcTemplate, String>(jdbcTemplate,query));
         });
     }

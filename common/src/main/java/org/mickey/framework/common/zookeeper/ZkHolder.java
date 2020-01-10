@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 23/07/2019
  */
 @Slf4j
-public class ZKHolder {
+public class ZkHolder {
     private static Lock lock = new ReentrantLock();
     private static Map<String, CuratorFramework> zkClientMap = new ConcurrentHashMap<>();
 

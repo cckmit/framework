@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.SystemContext;
 import org.mickey.framework.common.po.BasePo;
 import org.mickey.framework.common.po.BaseProjectPo;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.common.util.StringUtil;
 import org.mickey.framework.common.util.UUIDUtils;
 import org.mickey.framework.core.mybatis.listener.spi.PreInsertListener;
@@ -25,10 +25,10 @@ public class DefaultPreInsertListener implements PreInsertListener {
             return true;
         }
 
-        if (object instanceof CommonPo) {
-            CommonPo po = (CommonPo) object;
+        if (object instanceof AbstractCommonPo) {
+            AbstractCommonPo po = (AbstractCommonPo) object;
             if (StringUtil.isBlank(po.getId())) {
-                po.setId(UUIDUtils.getUUID());
+                po.setId(UUIDUtils.getUuid());
             }
             po.setVersion(0L);
             if (po.getCreateTime() == null) {

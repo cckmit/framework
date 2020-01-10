@@ -15,5 +15,6 @@ import java.lang.annotation.Target;
 public @interface DbCustomUniqueConstraint {
 
     String name() default "";
+
     String valueGetter();
 }

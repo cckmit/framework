@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.SystemContext;
 import org.mickey.framework.common.dto.ActionResult;
 import org.mickey.framework.common.dto.ErrorInfo;
-import org.mickey.framework.common.exception.BusinessException;
 import org.mickey.framework.core.web.SystemRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
@@ -40,6 +38,6 @@ public class I18nProxy {
         if (exchange.getStatusCode() == HttpStatus.OK) {
             return exchange.getBody();
         }
-        return ActionResult.Errors(new ErrorInfo(exchange.getStatusCodeValue(), exchange.toString()));
+        return ActionResult.errors(new ErrorInfo(exchange.getStatusCodeValue(), exchange.toString()));
     }
 }

@@ -3,19 +3,16 @@ package org.mickey.framework.common.util;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetAddress;
-import java.util.UUID;
 
 /**
- * description
+ * UUID工具类
  *
  * @author mickey
  * 23/07/2019
  */
 @Slf4j
 public class UUIDUtils {
-    private static final String sep = "";
     private static final int IP;
-    //    private static AtomicLong counter = new AtomicLong(0);
     private static final int JVM = (int) (System.currentTimeMillis() >>> 8);
     private static short counter = (short) 0;
 
@@ -34,9 +31,9 @@ public class UUIDUtils {
      *
      * @return
      */
-    public static String getUUID() {
-        String part1 = format(getIP());
-        String part2 = format(getJVM());
+    public static String getUuid() {
+        String part1 = format(getIp());
+        String part2 = format(getJvm());
         String part3 = format(getHiTime());
         String part4 = format(getLoTime());
         String part5 = format(getCount());
@@ -49,27 +46,19 @@ public class UUIDUtils {
         return new String(dist, 0, 32).toUpperCase();
     }
 
-    protected static String format(int intval) {
-        String formatted = Integer.toHexString(intval);
-//        StringBuilder buf = new StringBuilder("00000000");
-//        buf.replace( 8-formatted.length(), 8, formatted );
+    protected static String format(int intValue) {
+        String formatted = Integer.toHexString(intValue);
         char[] init = "00000000".toCharArray();
-//        if(formatted.length()>4) System.out.println(shortval);
         int length = formatted.length();
         formatted.getChars(0, length, init, 8 - length);
-        //   buf.replace( 4-formatted.length(), 4, formatted );
         return new String(init, 0, 8);
-//        return buf.toString();
     }
 
-    protected static String format(short shortval) {
-        String formatted = Integer.toHexString(shortval);
-        // StringBuilder buf = new StringBuilder("0000");
+    protected static String format(short shortValue) {
+        String formatted = Integer.toHexString(shortValue);
         char[] init = "0000".toCharArray();
-//        if(formatted.length()>4) System.out.println(shortval);
         int length = formatted.length();
         formatted.getChars(0, length, init, 4 - length);
-        //   buf.replace( 4-formatted.length(), 4, formatted );
         return new String(init, 0, 4);
     }
 
@@ -77,7 +66,7 @@ public class UUIDUtils {
      * Unique across JVMs on this machine (unless they load this class
      * in the same quater second - very unlikely)
      */
-    protected static int getJVM() {
+    protected static int getJvm() {
         return JVM;
     }
 
@@ -92,13 +81,12 @@ public class UUIDUtils {
             }
             return counter++;
         }
-//        return (short)counter.incrementAndGet();
     }
 
     /**
      * Unique in a local network
      */
-    protected static int getIP() {
+    protected static int getIp() {
         return IP;
     }
 

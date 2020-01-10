@@ -3,7 +3,7 @@ package org.mickey.framework.common;
 import java.util.Locale;
 
 /**
- * description
+ * 打算用作系统常量接口
  *
  * @author mickey
  * 23/07/2019
@@ -30,12 +30,15 @@ public interface SystemConstant {
     Integer FALSE = 0;
 
     String DEFAULT_LOCALE = Locale.SIMPLIFIED_CHINESE.toLanguageTag();
+
     //********************filter order******************************//
+
     int FilterOrder = Integer.MIN_VALUE;
 
     /*************** common header ********************/
 
     // "MIC-Header-"
+
     String CONTEXT_HEADER_PREFIX = "";
     String HEADER_TOKEN = CONTEXT_HEADER_PREFIX + "token";
     String ENVIRONMENT_TOKEN = CONTEXT_HEADER_PREFIX + "Environment-Token";
@@ -80,12 +83,41 @@ public interface SystemConstant {
 
     /**
      * local properties file path for using ConfigService(see com.ctrip.framework.apollo.internals.DefaultConfig)
-     * */
+     */
     String CONFIG_CENTER_LOCAL_PROPERTIES = "com.mickey.configCenter.localProperties";
 
     String TRACE_LOGGER_NAME = "traceLogger";
 
+    /**
+     * token key name
+     * @return token key
+     */
     static String tokenName() {
         return "token";
     }
+
+    // region jdbc driver class with
+
+    String jdbcUrlWithPostgresql = "jdbc:postgresql";
+    String jdbcDriverClass4Postgresql = "org.postgresql.Driver";
+    String jdbcUrlWithMysql = "jdbc:mysql";
+    String jdbcDriverClass4Mysql = "com.mysql.jdbc.Driver";
+    String jdbcUrlWithOracle = "jdbc:oracle";
+    String jdbcDriverClass4Oracle = "oracle.jdbc.driver.OracleDriver";
+    String jdbcUrlWithJtdsSqlServer = "jdbc:jtds:sqlserver";
+    String jdbcDriverClass4JtdsSqlServer = "net.sourceforge.jtds.jdbc.Driver";
+
+    // endregion
+
+    // region system date unknow string
+
+    String yearUnknowValue = "unkw";
+    String monthUnknowValue = "uk";
+
+    // endregion
+
+    /**
+     * 编码项的中间分隔符
+     */
+    String Encoding_intermediate_symbol = " ";
 }

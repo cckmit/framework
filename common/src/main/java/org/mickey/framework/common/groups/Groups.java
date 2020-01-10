@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Groups {
-    public interface Insert {}
-    public interface Update {}
+    public interface Insert {
+    }
+
+    public interface Update {
+    }
 }

@@ -1,7 +1,7 @@
 package org.mickey.framework.core.service;
 
 import com.github.pagehelper.PageInfo;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author mickey
  * 23/07/2019
  */
-public interface IBaseService<T extends CommonPo> {
+public interface IBaseService<T extends AbstractCommonPo> {
 
     int insert(T dto);
 

@@ -42,6 +42,6 @@ public class I18nDictionaryController extends BaseController<II18nDictionaryServ
             @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
     })
     public ActionResult<Map<String, String>> queryByAppId(@PathVariable String appId) {
-        return ActionResult.Ok(i18nService.queryByAppId(appId));
+        return ActionResult.ok(i18nService.queryByAppId(appId));
     }
 }

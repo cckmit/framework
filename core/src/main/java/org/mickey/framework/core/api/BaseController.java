@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.dto.ActionResult;
 import org.mickey.framework.common.groups.Groups;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.core.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -22,32 +22,32 @@ import java.util.List;
  * 23/07/2019
  */
 @Slf4j
-public abstract class BaseController<S extends IBaseService, T extends CommonPo> {
+public abstract class BaseController<S extends IBaseService, T extends AbstractCommonPo> {
     @Autowired
     private S service;
 
     @PostMapping("")
     @ApiOperation(value = "insert po", notes = "注意关注点")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 201, message = "created"),
             @ApiResponse(code = 400, message = "字段验证失败"),
             @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
     })
     public ActionResult insert(@Validated(value = Groups.Insert.class) @RequestBody T dto) {
         service.insert(dto);
-        return ActionResult.Created();
+        return ActionResult.created();
     }
 
     @PutMapping("")
     @ApiOperation(value = "update po", notes = "注意关注点")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Updated"),
+            @ApiResponse(code = 204, message = "updated"),
             @ApiResponse(code = 400, message = "字段验证失败"),
             @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
     })
     public ActionResult update(@Validated(value = Groups.Update.class) @RequestBody T dto) {
         service.update(dto);
-        return ActionResult.Updated();
+        return ActionResult.updated();
     }
 
     @GetMapping("/{id}")
@@ -59,26 +59,26 @@ public abstract class BaseController<S extends IBaseService, T extends CommonPo>
     })
     public ActionResult<T> query(@PathVariable String id) {
         T query = (T)service.query(id);
-        return ActionResult.Ok(query);
+        return ActionResult.ok(query);
     }
 
     @GetMapping("")
     @ApiOperation(value = "query list by page info")
     public ActionResult<PageInfo<T>> queryList(@RequestParam(required = false, defaultValue = "1") int pageNo, @RequestParam(required = false, defaultValue = "10") int pageSize) {
         PageInfo<T> query = service.find(pageNo, pageSize);
-        return ActionResult.Ok(query);
+        return ActionResult.ok(query);
     }
 
     @GetMapping("/all")
     @ApiOperation(value = "query all list")
     public ActionResult<List<T>> queryAll() {
-        return ActionResult.Ok(service.findAll());
+        return ActionResult.ok(service.findAll());
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "delete by id")
     public ActionResult delete(@PathVariable String id) {
         service.delete(id);
-        return ActionResult.Ok();
+        return ActionResult.ok();
     }
 }

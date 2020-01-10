@@ -14,8 +14,12 @@ import java.util.List;
 @Slf4j
 @Data
 public class PageResponse<T> {
-    //结果记录
+    /**
+     * 结果记录
+     */
     private List<T> rows;
-    //总记录数
+    /**
+     * 总记录数
+     */
     private long total;
 }

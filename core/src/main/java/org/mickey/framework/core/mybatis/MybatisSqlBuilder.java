@@ -10,7 +10,7 @@ import org.mickey.framework.common.database.Column;
 import org.mickey.framework.common.database.Join;
 import org.mickey.framework.common.database.Table;
 import org.mickey.framework.common.dto.PropertySelector;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.common.query.Joint;
 import org.mickey.framework.common.query.SortProperty;
 import org.mickey.framework.common.query.v2.Condition;
@@ -305,10 +305,10 @@ public class MybatisSqlBuilder {
     }
 
     public String insert(Object po) {
-        if (!(po instanceof CommonPo)) {
+        if (!(po instanceof AbstractCommonPo)) {
             return null;
         }
-        CommonPo commonPO = (CommonPo) po;
+        AbstractCommonPo commonPO = (AbstractCommonPo) po;
         Class<?> poClass = po.getClass();
         Table table = ORMapping.get(poClass);
         if (table == null) {
@@ -350,10 +350,10 @@ public class MybatisSqlBuilder {
     }
 
     public String update(@Param("po") Object po, @Param("columns") Set<String> columns) {
-        if (!(po instanceof CommonPo)) {
+        if (!(po instanceof AbstractCommonPo)) {
             return null;
         }
-        CommonPo commonPO = (CommonPo) po;
+        AbstractCommonPo commonPO = (AbstractCommonPo) po;
         if (commonPO.getId() == null) {
             throw new RuntimeException("id is null when update");
         }
@@ -365,7 +365,7 @@ public class MybatisSqlBuilder {
         StringBuilder builder = new StringBuilder();
         builder.append("update");
         builder.append(BLANK);
-        builder.append(getTableNameById(table, ((CommonPo) po).getId()));
+        builder.append(getTableNameById(table, ((AbstractCommonPo) po).getId()));
         builder.append(BLANK).append("set").append(BLANK);
         if (table.hasVersionColumn()) {
             Column versionColumn = table.getVersionColumn();
@@ -397,10 +397,10 @@ public class MybatisSqlBuilder {
     }
 
     public String updateSelective(@Param("po") Object po, @Param("versionable") boolean versionable, @Param("columns") Set<String> includeColumns) {
-        if (!(po instanceof CommonPo)) {
+        if (!(po instanceof AbstractCommonPo)) {
             return null;
         }
-        CommonPo commonPO = (CommonPo) po;
+        AbstractCommonPo commonPO = (AbstractCommonPo) po;
         if (commonPO.getId() == null) {
             throw new RuntimeException("id is null when update");
         }
@@ -412,7 +412,7 @@ public class MybatisSqlBuilder {
         StringBuilder builder = new StringBuilder();
         builder.append("update");
         builder.append(BLANK);
-        builder.append(getTableNameById(table, ((CommonPo) po).getId()));
+        builder.append(getTableNameById(table, ((AbstractCommonPo) po).getId()));
         builder.append(BLANK);
         builder.append("set").append(BLANK);
         if (table.hasVersionColumn()) {
@@ -451,13 +451,13 @@ public class MybatisSqlBuilder {
         return builder.toString();
     }
 
-    public String batchUpdateSelective(@Param("clazz") Class<? extends CommonPo> clazz
-            , @Param("list") List<? extends CommonPo> poList, @Param("includeColumns") Set<String> columns) {
+    public String batchUpdateSelective(@Param("clazz") Class<? extends AbstractCommonPo> clazz
+            , @Param("list") List<? extends AbstractCommonPo> poList, @Param("includeColumns") Set<String> columns) {
         return BatchType.BatchUpdateSelective.name();
     }
 
-    public String batchUpdate(@Param("clazz") Class<? extends CommonPo> clazz
-            , @Param("list") List<? extends CommonPo> poList, @Param("includeColumns") Set<String> columns) {
+    public String batchUpdate(@Param("clazz") Class<? extends AbstractCommonPo> clazz
+            , @Param("list") List<? extends AbstractCommonPo> poList, @Param("includeColumns") Set<String> columns) {
         return BatchType.BatchUpdate.name();
     }
 
@@ -521,7 +521,7 @@ public class MybatisSqlBuilder {
     }
 
     public String get(@Param("clazz") Class clazz, @Param("id") String id) {
-        if (!ReflectionUtils.isSubClass(clazz, CommonPo.class)) {
+        if (!ReflectionUtils.isSubClass(clazz, AbstractCommonPo.class)) {
             return null;
         }
         Table table = ORMapping.get(clazz);
@@ -546,7 +546,7 @@ public class MybatisSqlBuilder {
 
 
     public String findByCriteria(@Param("clazz") Class clazz, @Param("criteria") Criteria criteria, @Param("map") Map<String, Object> map) {
-        if (!ReflectionUtils.isSubClass(clazz, CommonPo.class)) {
+        if (!ReflectionUtils.isSubClass(clazz, AbstractCommonPo.class)) {
             return null;
         }
         Table table = ORMapping.get(clazz);
@@ -635,7 +635,7 @@ public class MybatisSqlBuilder {
     }
 
     public String countByCondition(@Param("clazz") Class clazz, @Param("criteria") Criteria criteria, @Param("map") Map<String, Object> map) {
-        if (!ReflectionUtils.isSubClass(clazz, CommonPo.class)) {
+        if (!ReflectionUtils.isSubClass(clazz, AbstractCommonPo.class)) {
             return null;
         }
         Table table = ORMapping.get(clazz);
@@ -688,7 +688,7 @@ public class MybatisSqlBuilder {
         return shardingManager.getShardingTableNameById(table, id);
     }
 
-    private String getTableNameByPO(Table table, CommonPo object) {
+    private String getTableNameByPO(Table table, AbstractCommonPo object) {
         if (!table.isSharding()) {
             return table.getSqlName();
         }

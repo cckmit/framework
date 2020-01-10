@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.mickey.framework.common.SystemConstant;
 import org.mickey.framework.common.exception.BusinessException;
 
 
@@ -16,7 +17,7 @@ import java.util.regex.Matcher;
 import static org.apache.commons.beanutils.BeanUtils.getSimpleProperty;
 
 /**
- * description
+ * 提供PV使用的反射工具
  *
  * @author mickey
  * 23/07/2019
@@ -84,13 +85,16 @@ public class ReflectionUtil {
             PropertyUtils.setSimpleProperty(sourceObj, propName, null);
             return;
         }
+        if (propertyType == null) {
+            return;
+        }
         if (propertyType.equals(value.getClass())) {
             PropertyUtils.setSimpleProperty(sourceObj, propName, value);
             return;
         }
 
-        String simpleName = propertyType.getSimpleName() == null ? "" : propertyType.getSimpleName();
-        if ("Meddrafidldinfo".equalsIgnoreCase(className) && simpleName.contains(" ")) {
+        String simpleName = propertyType.getSimpleName();
+        if ("Meddrafidldinfo".equalsIgnoreCase(className) && simpleName.contains(SystemConstant.Encoding_intermediate_symbol)) {
             String[] split = simpleName.split(" ");
 
         } else {
@@ -104,10 +108,10 @@ public class ReflectionUtil {
                     Date d = DateUtils.formatString(String.valueOf(value));
                     PropertyUtils.setSimpleProperty(sourceObj, propName, d);
                 }
-            } else if ("Byte".equals(simpleName) || ("byte".equals(simpleName)) && value != null) {
+            } else if ("byte".equalsIgnoreCase(simpleName) && value != null) {
                 PropertyUtils.setSimpleProperty(sourceObj, propName, Byte.valueOf(value.toString()));
             } else if ("Integer".equalsIgnoreCase(simpleName) || "int".equalsIgnoreCase(simpleName)) {
-                String tempInteger = ObjectUtils.toString(value);
+                String tempInteger = StringUtil.valueOf(value);
                 Matcher matcher = FixedValue.ZERO_FLOAT_INTEGER.matcher(tempInteger);
                 if (matcher.matches()) {
                     if (tempInteger.contains(".")) {

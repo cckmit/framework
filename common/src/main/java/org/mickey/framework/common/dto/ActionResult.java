@@ -20,27 +20,27 @@ import java.util.List;
 @Data
 public class ActionResult<T> implements Serializable {
 
-    public static ActionResult Ok() {
+    public static ActionResult ok() {
         return new ActionResult(Boolean.TRUE, HttpStatus.OK);
     }
 
-    public static <T> ActionResult<T> Ok(T obj) {
+    public static <T> ActionResult<T> ok(T obj) {
         return new ActionResult<>(Boolean.TRUE, HttpStatus.OK, obj);
     }
 
-    public static ActionResult Created() {
+    public static ActionResult created() {
         return new ActionResult(Boolean.TRUE, HttpStatus.CREATED);
     }
 
-    public static ActionResult Updated() {
+    public static ActionResult updated() {
         return new ActionResult(Boolean.TRUE, HttpStatus.NO_CONTENT);
     }
 
-    public static ActionResult Errors(ErrorInfo errorInfo) {
+    public static ActionResult errors(ErrorInfo errorInfo) {
         return new ActionResult<>(errorInfo);
     }
 
-    public static ActionResult Errors(List<ErrorInfo> errors) {
+    public static ActionResult errors(List<ErrorInfo> errors) {
         return new ActionResult<>(errors);
     }
 
@@ -54,7 +54,8 @@ public class ActionResult<T> implements Serializable {
      * 错误消息
      */
     private List<ErrorInfo> errors;
-    /**ll
+    /**
+     * ll
      * 返回数据
      */
     private T data;
@@ -88,6 +89,7 @@ public class ActionResult<T> implements Serializable {
 
     /**
      * 为了兼容旧的前端代码，将success与code同步下值
+     *
      * @param success boolean success
      */
     private void fillSuccessAndCode(Boolean success) {

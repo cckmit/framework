@@ -3,7 +3,7 @@ package org.mickey.framework.common.database;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.springframework.util.Assert;
 
 import java.util.TreeSet;
@@ -25,7 +25,7 @@ public class UqConstraint {
     private Pattern pattern;
     private TreeSet<String> javaColumnNames = new TreeSet<>();
     private TreeSet<Column> columns = new TreeSet<>();
-    private Function<CommonPo, String> lambda;
+    private Function<AbstractCommonPo, String> lambda;
 
     public static String getUniqueTableName(Table table) {
         return table.getSqlName() + UqConstraint.Post_Table_Fix;

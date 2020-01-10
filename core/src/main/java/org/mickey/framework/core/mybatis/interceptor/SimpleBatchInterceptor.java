@@ -11,7 +11,7 @@ import org.apache.ibatis.plugin.Signature;
 import org.mickey.framework.common.SpringUtils;
 import org.mickey.framework.common.database.Column;
 import org.mickey.framework.common.database.Table;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.common.util.BatchUtils;
 import org.mickey.framework.common.util.ReflectionUtils;
 import org.mickey.framework.core.mybatis.BatchOperationException;
@@ -154,8 +154,8 @@ public class SimpleBatchInterceptor extends BaseBatchInterceptor {
     private void sortPoList(List poList) {
         if (poList != null) {
             poList.sort((o1, o2) -> {
-                if (o1 instanceof CommonPo && o2 instanceof CommonPo) {
-                    return ((CommonPo) o1).getId().compareTo(((CommonPo) o2).getId());
+                if (o1 instanceof AbstractCommonPo && o2 instanceof AbstractCommonPo) {
+                    return ((AbstractCommonPo) o1).getId().compareTo(((AbstractCommonPo) o2).getId());
                 } else {
                     return o1.hashCode() - o2.hashCode();
                 }
@@ -203,7 +203,7 @@ public class SimpleBatchInterceptor extends BaseBatchInterceptor {
         for (List batch : batches) {
             try (Statement statement = conn.createStatement()) {
                 for (Object o : batch) {
-                    CommonPo po = (CommonPo) o;
+                    AbstractCommonPo po = (AbstractCommonPo) o;
                     if (po.getId() == null) {
                         throw new BatchOperationException("id is null when update");
                     }
@@ -230,7 +230,7 @@ public class SimpleBatchInterceptor extends BaseBatchInterceptor {
         for (List batch : batches) {
             try (Statement statement = conn.createStatement()) {
                 for (Object o : batch) {
-                    CommonPo po = (CommonPo) o;
+                    AbstractCommonPo po = (AbstractCommonPo) o;
                     if (po.getId() == null) {
                         throw new BatchOperationException("id is null when update");
                     }

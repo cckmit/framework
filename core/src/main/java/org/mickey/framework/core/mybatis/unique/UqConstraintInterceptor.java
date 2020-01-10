@@ -14,7 +14,7 @@ import org.apache.ibatis.plugin.Signature;
 import org.mickey.framework.common.database.Column;
 import org.mickey.framework.common.database.Table;
 import org.mickey.framework.common.database.UqConstraint;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.common.util.BatchUtils;
 import org.mickey.framework.common.util.ReflectionUtils;
 import org.mickey.framework.common.util.StringUtil;
@@ -167,7 +167,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
             try (PreparedStatement ps = conn.prepareStatement("update " + right.getSqlName() + Update_Sql)) {
                 UqConstraint uqConstraint = entry.getValue();
                 for (Object o : poList) {
-                    CommonPo po = (CommonPo) o;
+                    AbstractCommonPo po = (AbstractCommonPo) o;
                     Assert.notNull(po.getId(), "po id cannot be null");
                     if (uqConstraint.isCustom()
                             ||
@@ -204,7 +204,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
             try (PreparedStatement ps = conn.prepareStatement("insert " + right.getSqlName() + Insert_Sql)) {
                 UqConstraint uqConstraint = entry.getValue();
                 for (Object o : poList) {
-                    CommonPo po = (CommonPo) o;
+                    AbstractCommonPo po = (AbstractCommonPo) o;
                     Assert.notNull(po.getId(), "po id cannot be null");
                     ps.setString(1, getUCValue(po, uqConstraint));
                     ps.setString(2, uqConstraint.getName());
@@ -253,7 +253,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
 
     private void doUpdate(Invocation invocation, Pair<UpdateType, Table> context) throws SQLException, UniqueConstaintCustomExecution {
         final Object[] args = invocation.getArgs();
-        CommonPo po = getPoFromMyBatisArgs(args);
+        AbstractCommonPo po = getPoFromMyBatisArgs(args);
         Object includedColumns = getObjFromMyBatisArgs(args, "columns");
         List<String> columnsToSelect = includedColumns == null ? new ArrayList<>() : (List<String>) includedColumns;
         Table right = context.getRight();
@@ -291,7 +291,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
 
     private void doInsert(Invocation invocation, Pair<UpdateType, Table> context) throws SQLException, UniqueConstaintCustomExecution {
         final Object[] args = invocation.getArgs();
-        CommonPo po = getPoFromMyBatisArgs(args);
+        AbstractCommonPo po = getPoFromMyBatisArgs(args);
         Table right = context.getRight();
         Executor executor = (Executor) invocation.getTarget();
         Connection conn = executor.getTransaction().getConnection();
@@ -335,7 +335,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
         if (updateType == UpdateType.UpdateSelective) {
             Object includedColumns = getObjFromMyBatisArgs(args, "columns");
             List<String> columnsToSelect = includedColumns == null ? new ArrayList<>() : (List<String>) includedColumns;
-            CommonPo po = getPoFromMyBatisArgs(args);
+            AbstractCommonPo po = getPoFromMyBatisArgs(args);
             if (po == null) {
                 return;
             }
@@ -353,7 +353,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
                 return;
             }
             for (Object o : poList) {
-                CommonPo po = (CommonPo) o;
+                AbstractCommonPo po = (AbstractCommonPo) o;
                 for (UqConstraint uqConstraint : uqConstraints.values()) {
                     checkOneConstraintForUpdateSelective(columnsToSelect, uqConstraint, po);
                 }
@@ -363,7 +363,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
     }
 
 
-    private long appliedConstraintSelectiveColumnSize(List<String> columnsToSelect, UqConstraint uqConstraint, CommonPo po) {
+    private long appliedConstraintSelectiveColumnSize(List<String> columnsToSelect, UqConstraint uqConstraint, AbstractCommonPo po) {
         TreeSet<Column> uqConstraintColumns = uqConstraint.getColumns();
         long count = uqConstraintColumns.stream().filter(c -> columnsToSelect.contains(c.getJavaName()) || ReflectionUtils.getFieldValue(po, c.getJavaName()) != null).count();
         return count;
@@ -378,7 +378,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
         return count;
     }
 
-    private void checkOneConstraintForUpdateSelective(List<String> columnsToSelect, UqConstraint uqConstraint, CommonPo po) throws UniqueConstaintUpdateIntegrityCheckException {
+    private void checkOneConstraintForUpdateSelective(List<String> columnsToSelect, UqConstraint uqConstraint, AbstractCommonPo po) throws UniqueConstaintUpdateIntegrityCheckException {
         if (uqConstraint.isCustom()) {
             return;
         }
@@ -398,7 +398,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
         }
     }
 
-    public String getUCValue(CommonPo po, UqConstraint uqConstraint) throws UniqueConstaintCustomExecution {
+    public String getUCValue(AbstractCommonPo po, UqConstraint uqConstraint) throws UniqueConstaintCustomExecution {
         if (uqConstraint.isCustom()) {
             String ucValue;
             try {
@@ -448,7 +448,7 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
     @Override
     protected boolean shouldApply(Invocation invocation, Pair<UpdateType, Table> context) {
         Table right = context.getRight();
-        boolean c = right != null && right.hasUniqueCOnstraint();
+        boolean c = right != null && right.hasUniqueConstraint();
         return c;
     }
 
@@ -464,14 +464,14 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
             case BatchInsert:
             case BatchUpdateSelective:
                 final Object[] args = invocation.getArgs();
-                CommonPo po = getPoFromMyBatisArgs(args);
+                AbstractCommonPo po = getPoFromMyBatisArgs(args);
                 Class<?> targetClass = null;
                 if (po == null) {
                     List poList = getPoListFromMyBatisArgs(args);
                     if (CollectionUtils.isNotEmpty(poList)) {
                         Object obj1 = poList.get(0);
-                        if (obj1 instanceof CommonPo) {
-                            po = (CommonPo) obj1;
+                        if (obj1 instanceof AbstractCommonPo) {
+                            po = (AbstractCommonPo) obj1;
                         }
                     }
                 }
@@ -503,15 +503,15 @@ public class UqConstraintInterceptor extends BaseMiddleInterceptor<Pair<UpdateTy
         return null;
     }
 
-    private CommonPo getPoFromMyBatisArgs(Object[] args) {
+    private AbstractCommonPo getPoFromMyBatisArgs(Object[] args) {
         Object arg = args[1];
-        if (arg instanceof CommonPo) {
-            return (CommonPo) arg;
+        if (arg instanceof AbstractCommonPo) {
+            return (AbstractCommonPo) arg;
         }
         if (arg instanceof Map) {
             Map argMap = (Map) arg;
             try {
-                return (CommonPo) argMap.get("po");
+                return (AbstractCommonPo) argMap.get("po");
             } catch (BindingException be) {
                 if (log.isDebugEnabled()) {
                     log.error("expected mybatis exception", be);

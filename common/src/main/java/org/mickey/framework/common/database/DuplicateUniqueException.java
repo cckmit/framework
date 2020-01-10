@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
  * 23/07/2019
  */
 @Slf4j
-public class DuplicateUniqueConstaint extends RuntimeException {
-    public DuplicateUniqueConstaint(String name) {
+public class DuplicateUniqueException extends RuntimeException {
+    public DuplicateUniqueException(String name) {
         super(name + " Duplicate definition");
     }
 }

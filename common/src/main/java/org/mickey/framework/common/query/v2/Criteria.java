@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * description
+ * 查询规则
  *
  * @author mickey
  * 23/07/2019
@@ -21,13 +21,21 @@ import java.util.List;
 @Slf4j
 @Data
 public final class Criteria {
-    //对象名称
+    /**
+     * 对象名称
+     */
     private String entityName;
-    //筛选条件
+    /**
+     * 筛选条件
+     */
     private List<Condition> conditions = new ArrayList<>();
-    //排序属性列
+    /**
+     * 排序属性列
+     */
     private List<SortProperty> sortProperties;
-    //属性选择器
+    /**
+     * 属性选择器
+     */
     private PropertySelector selector;
 
     public static Criteria create() {

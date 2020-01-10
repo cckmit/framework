@@ -2,8 +2,6 @@ package org.mickey.framework.common.database;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,8 +60,8 @@ public class Table {
     }
 
     public void addUqConstraint(UqConstraint uqConstraint) {
-        if (this.uqConstraintMap.containsKey(uqConstraint)) {
-            throw new DuplicateUniqueConstaint(uqConstraint.getName());
+        if (this.uqConstraintMap.containsKey(uqConstraint.getName())) {
+            throw new DuplicateUniqueException(uqConstraint.getName());
         }
         if (log.isDebugEnabled()) {
             log.debug("add constraint {} for table {}", uqConstraint.getName(), getSqlName());
@@ -75,7 +73,7 @@ public class Table {
         return versionColumn != null;
     }
 
-    public boolean hasUniqueCOnstraint() {
-        return  uqConstraintMap.size() > 0;
+    public boolean hasUniqueConstraint() {
+        return uqConstraintMap.size() > 0;
     }
 }

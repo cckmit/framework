@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.mickey.framework.common.datasource.RoutingDataSource;
-import org.mickey.framework.common.zookeeper.ZKDistributeLock;
+import org.mickey.framework.common.zookeeper.ZkDistributeLock;
 import org.mickey.framework.dbinspector.common.ORMapping;
 import org.mickey.framework.dbinspector.common.ThreadPoolExecutor;
 import org.mickey.framework.dbinspector.dialect.Dialect;
@@ -49,7 +49,7 @@ public class DbInspector {
     @Autowired
     private DataSource dataSource;
     @Autowired(required = false)
-    private ZKDistributeLock zkDistributeLock;
+    private ZkDistributeLock zkDistributeLock;
     @Autowired(required = false)
     private List<DbInspectListener> listenerList;
     private ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();

@@ -3,6 +3,7 @@ package org.mickey.framework.common;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.mickey.framework.common.util.MapUtils;
 
 import java.time.ZoneOffset;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class SystemContext {
         }
         Map<String, String> contextMap = getContextMap();
         if (contextMap == null) {
-            contextMap = new HashMap<>(16);
+            contextMap = new HashMap<>(MapUtils.getInitialCapacity(16));
             SystemContext.contextMap.set(contextMap);
         }
         if (contextMap.size() > Max_Capacity) {
@@ -146,6 +147,7 @@ public class SystemContext {
     public static String getUserName() {
         return get(SystemConstant.HEADER_USER_NAME);
     }
+
     public static void setUserName(String userName) {
         put(SystemConstant.HEADER_USER_NAME, userName);
     }
@@ -153,6 +155,7 @@ public class SystemContext {
     public static String getTenantId() {
         return get(SystemConstant.HEADER_TENANT_ID);
     }
+
     public static void setTenantId(String tenantId) {
         put(SystemConstant.HEADER_TENANT_ID, tenantId);
     }

@@ -59,21 +59,13 @@ public class StringUtil extends StringUtils {
             return null;
         }
 
-//        if (toPlainStringMethod != null) {
-//            try {
-//                return (String) toPlainStringMethod.invoke(decimal, (Object[]) null);
-//            } catch (InvocationTargetException invokeEx) {
-//                // that's okay, we fall-through to decimal.toString()
-//            } catch (IllegalAccessException accessEx) {
-//                // that's okay, we fall-through to decimal.toString()
-//            }
-//        }
-
         return decimal.toString();
     }
 
     public static String valueOf(Object object) {
-        if (object == null) {return "";}
+        if (object == null) {
+            return "";
+        }
         return object.toString();
     }
 

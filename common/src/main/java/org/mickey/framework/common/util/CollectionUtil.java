@@ -2,12 +2,13 @@ package org.mickey.framework.common.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -21,30 +22,28 @@ import java.util.stream.Collectors;
  * 05/07/2019
  */
 public class CollectionUtil {
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     public static <T> void add(List<T> list, T instance) {
-        if (list == null) {
-            list = new ArrayList<>();
+        if (list != null) {
+            list.add(instance);
         }
-        list.add(instance);
     }
 
     public static boolean isNotEmpty(@Nullable Collection<?> collection) {
         return !org.springframework.util.CollectionUtils.isEmpty(collection);
     }
 
-    public static <R> void forEach(Collection<R> collection, Consumer<? super R> action){
+    public static <R> void forEach(Collection<R> collection, Consumer<? super R> action) {
         if (CollectionUtil.isNotEmpty(collection)) {
             collection.forEach(action);
         }
     }
 
-    public static <R> void forEach(Collection<R> collection, BiConsumer<Integer, ? super R> action){
+    public static <R> void forEach(Collection<R> collection, BiConsumer<Integer, ? super R> action) {
         if (CollectionUtil.isNotEmpty(collection)) {
             int index = 0;
             for (R t : collection) {
-                action.accept(index,t);
+                action.accept(index, t);
                 index++;
             }
         }
@@ -82,20 +81,20 @@ public class CollectionUtil {
         return collection.parallelStream().anyMatch(predicate);
     }
 
-    public static <R>boolean all(Collection<R> collection,Predicate<R> function) {
+    public static <R> boolean all(Collection<R> collection, Predicate<R> function) {
         return collection.parallelStream().allMatch(function);
     }
 
-    public static List intersection (List... params){
-        if (params.length==0) {
+    public static List intersection(List... params) {
+        if (params.length == 0) {
             return null;
         }
-        if (params.length==1) {
+        if (params.length == 1) {
             return params[0];
         }
 
         Set a = Sets.newHashSet(params[0]);
-        for (int i=1;i<params.length;i++){
+        for (int i = 1; i < params.length; i++) {
             Set b = Sets.newHashSet(params[i]);
             a = Sets.intersection(a, b);
         }

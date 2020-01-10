@@ -16,14 +16,15 @@ import java.util.function.Consumer;
  * 23/07/2019
  */
 @Slf4j
-public class ZKDistributeLock {
+public class ZkDistributeLock {
     private final CuratorFramework zkClient;
     private final String LOCK_PATH = "/lock";
 
-    public ZKDistributeLock(String zkAddress) {
-        this.zkClient = ZKHolder.get(zkAddress);
+    public ZkDistributeLock(String zkAddress) {
+        this.zkClient = ZkHolder.get(zkAddress);
     }
-    public ZKDistributeLock(CuratorFramework zkClient) {
+
+    public ZkDistributeLock(CuratorFramework zkClient) {
         this.zkClient = zkClient;
     }
 

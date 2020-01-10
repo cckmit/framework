@@ -28,11 +28,20 @@ public class JdbcDdlProcessor implements DdlProcessor {
                 "");
         log.info("DB-INFO:" + connection.getMetaData().getURL());
         Statement statement = connection.createStatement();
-        for (String ddl : ddlList) {
-            statement.addBatch(ddl);
-            log.info(ddl + ";");
+        try {
+            for (String ddl : ddlList) {
+                statement.addBatch(ddl);
+                log.info(ddl + ";");
+            }
+            statement.executeBatch();
         }
-        statement.executeBatch();
+        catch (Exception e) {
+            log.error("JdbcDdlProcessor execute exception", e);
+        }
+        finally {
+            statement.close();
+        }
+
         log.info("==========================================END OF DB-INSPECTOR==========================================");
     }
 }

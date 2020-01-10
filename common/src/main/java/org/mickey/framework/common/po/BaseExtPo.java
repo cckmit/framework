@@ -14,6 +14,6 @@ import java.util.Map;
  */
 @Data
 public abstract class BaseExtPo extends BasePo implements Serializable {
-    protected Map<String, Object> extMap =new HashMap<>();
+    protected Map<String, Object> extMap = new HashMap<>();
 
 }

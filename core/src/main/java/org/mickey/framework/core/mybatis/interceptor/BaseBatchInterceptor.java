@@ -6,7 +6,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.plugin.Invocation;
 import org.mickey.framework.common.database.Table;
-import org.mickey.framework.common.po.CommonPo;
+import org.mickey.framework.common.po.AbstractCommonPo;
 import org.mickey.framework.core.mybatis.BatchOperation;
 import org.mickey.framework.core.mybatis.BatchOperationException;
 import org.mickey.framework.core.mybatis.BatchType;
@@ -57,10 +57,10 @@ public abstract class BaseBatchInterceptor extends BasePreProcessInterceptor<Tri
             return Triple.of(batchType, poList, null);
         }
         Object firstPo = poList.get(0);
-        if (!(firstPo instanceof CommonPo)) {
+        if (!(firstPo instanceof AbstractCommonPo)) {
             throw new RuntimeException("batch insert doesn't contain a BasePO class");
         }
-        CommonPo commonPO = (CommonPo) poList.get(0);
+        AbstractCommonPo commonPO = (AbstractCommonPo) poList.get(0);
         Table table = ORMapping.get(commonPO.getClass());
         if (table == null) {
             throw new RuntimeException("not a jpa standard class:" + commonPO.getClass().getName());

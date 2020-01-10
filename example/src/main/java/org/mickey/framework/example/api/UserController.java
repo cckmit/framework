@@ -35,26 +35,26 @@ public class UserController {
     @PostMapping("")
     @ApiOperation(value = "insert user", notes = "注意关注点")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 201, message = "created"),
             @ApiResponse(code = 400, message = "字段验证失败"),
             @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
     })
     public ActionResult insert(@Validated(value = Groups.Insert.class) @RequestBody UserPo user) {
         userService.insert(user);
-        ActionResult result = ActionResult.Created();
+        ActionResult result = ActionResult.created();
         return result;
     }
 
     @PutMapping("")
     @ApiOperation(value = "update user", notes = "注意关注点")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Updated"),
+            @ApiResponse(code = 204, message = "updated"),
             @ApiResponse(code = 400, message = "字段验证失败"),
             @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
     })
     public ActionResult update(@Validated(value = Groups.Update.class) @RequestBody UserPo user) {
         userService.update(user);
-        return ActionResult.Updated();
+        return ActionResult.updated();
     }
 
     @GetMapping("/{id}")
@@ -66,20 +66,20 @@ public class UserController {
     })
     public ActionResult<UserPo> query(@PathVariable String id) {
         UserPo query = userService.query(id);
-        return ActionResult.Ok(query);
+        return ActionResult.ok(query);
     }
 
     @GetMapping("/")
     @ApiOperation(value = "query all list")
     public ActionResult<PageInfo<UserPo>> queryList(@RequestParam(required = false, defaultValue = "1") int pageNo, @RequestParam(required = false, defaultValue = "10") int pageSize) {
         PageInfo<UserPo> query = userService.find(pageNo, pageSize);
-        return ActionResult.Ok(query);
+        return ActionResult.ok(query);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "delete by id")
     public ActionResult delete(@PathVariable String id) {
         userService.delete(id);
-        return ActionResult.Ok();
+        return ActionResult.ok();
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "oss.config")
 @Data
-public class OSSConfig {
+public class OssConfig {
 
     private String endpoint;
     private String accessKeyId;

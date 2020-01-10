@@ -3,7 +3,7 @@ package org.mickey.framework.core.autoconfigure;
 import lombok.extern.slf4j.Slf4j;
 import org.mickey.framework.common.SpringUtils;
 import org.mickey.framework.common.SystemConstant;
-import org.mickey.framework.common.zookeeper.ZKDistributeLock;
+import org.mickey.framework.common.zookeeper.ZkDistributeLock;
 import org.mickey.framework.dbinspector.common.ThreadPoolExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -40,8 +40,8 @@ public class GenericConfiguration {
 
     @Bean
     @ConditionalOnProperty(prefix = SystemConstant.FRAMEWORK_NS, name = "zkAddress")
-    public ZKDistributeLock distributeLock() {
-        return new ZKDistributeLock(properties.getZkAddress());
+    public ZkDistributeLock distributeLock() {
+        return new ZkDistributeLock(properties.getZkAddress());
     }
 
     @Bean

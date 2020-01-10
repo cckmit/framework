@@ -79,7 +79,7 @@ public class Column implements Comparable<Column> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Column column = (Column)o;
+        Column column = (Column) o;
         return Objects.equals(sqlName, column.sqlName);
     }
 
