@@ -37,8 +37,9 @@ public class I18nProxy {
         ResponseEntity<ActionResult<Map<String, String>>> exchange = restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<ActionResult<Map<String, String>>>() {
         });
         log.info("I18nProxy queryByAppId exchange is : " + exchange.toString());
-        if (exchange.getStatusCode() == HttpStatus.OK) return exchange.getBody();
-//        throw new BusinessException(exchange.toString());
+        if (exchange.getStatusCode() == HttpStatus.OK) {
+            return exchange.getBody();
+        }
         return ActionResult.Errors(new ErrorInfo(exchange.getStatusCodeValue(), exchange.toString()));
     }
 }

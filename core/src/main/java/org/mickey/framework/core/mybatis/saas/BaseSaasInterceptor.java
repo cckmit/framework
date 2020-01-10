@@ -75,7 +75,7 @@ public class BaseSaasInterceptor extends InterceptorAdaptor  {
                 return false;
             }
 
-            if (providerType.getName().equals("com.taimeitech.framework.sharding.mybatis.ShardingSqlBuilder")
+            if ("com.taimeitech.framework.sharding.mybatis.ShardingSqlBuilder".equals(providerType.getName())
                     && shardingProviderMethodNameSet.contains(providerMethod.getName())) {
                 return false;
             }

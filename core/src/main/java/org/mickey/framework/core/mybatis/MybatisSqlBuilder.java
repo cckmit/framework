@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
- * description
+ * mybatis sql 构建器
  *
  * @author mickey
  * 23/07/2019

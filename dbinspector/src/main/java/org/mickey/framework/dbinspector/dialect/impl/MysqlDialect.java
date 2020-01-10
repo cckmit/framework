@@ -17,6 +17,7 @@ import org.mickey.framework.dbinspector.dialect.Dialect;
 @Slf4j
 public class MysqlDialect implements Dialect {
 
+    @Override
     public String buildCreateTableClause(Table paramTable) {
         StringBuilder builder = new StringBuilder();
         builder.append("create table `")
@@ -49,6 +50,7 @@ public class MysqlDialect implements Dialect {
         return builder.toString();
     }
 
+    @Override
     public String buildAddColumnClause(Column paramColumn) {
         if (paramColumn == null) {
             return null;
@@ -63,6 +65,7 @@ public class MysqlDialect implements Dialect {
         return builder.toString();
     }
 
+    @Override
     public String buildUpdateColumnClause(Column paramColumn) {
         if (paramColumn == null) {return null;}
         StringBuilder builder = new StringBuilder();
@@ -75,6 +78,7 @@ public class MysqlDialect implements Dialect {
         return builder.toString();
     }
 
+    @Override
     public String buildIndexClause(Index paramIndex) {
         if (paramIndex == null) {return null;}
         StringBuilder builder = new StringBuilder();
@@ -151,6 +155,7 @@ public class MysqlDialect implements Dialect {
         return definition;
     }
 
+    @Override
     public String buildPrimaryKeyClause(Class<?> paramClass) {
         return null;
     }

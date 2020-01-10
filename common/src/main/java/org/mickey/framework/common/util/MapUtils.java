@@ -49,8 +49,9 @@ public class MapUtils {
     }
 
     public static Map<String, Object> toMap(Object object) throws IntrospectionException, InvocationTargetException, IllegalAccessException {
-        if(object == null)
+        if(object == null) {
             return null;
+        }
 
         Map<String, Object> map = new HashMap<>();
 

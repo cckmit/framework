@@ -37,7 +37,9 @@ public class I18nDictionaryServiceImpl extends GenericService<I18nDictionaryMapp
 
     @Override
     public Map<String, String> queryByAppId(String appId) {
-        if (StringUtil.isBlank(SystemContext.getLocale())) throw new BusinessException();
+        if (StringUtil.isBlank(SystemContext.getLocale())) {
+            throw new BusinessException();
+        }
 
         List<I18nDictionary> byConditionBase = mapper.findByConditionBase(new Criteria()
                 .and("appId", appId)
@@ -50,7 +52,9 @@ public class I18nDictionaryServiceImpl extends GenericService<I18nDictionaryMapp
 
     @Override
     public Map<String, String> queryByKey(String appId, String key, String locale) {
-        if (StringUtil.isBlank(SystemContext.getLocale())) throw new BusinessException();
+        if (StringUtil.isBlank(SystemContext.getLocale())) {
+            throw new BusinessException();
+        }
 
         List<I18nDictionary> byConditionBase = mapper.findByConditionBase(new Criteria()
                 .and("appId", appId)

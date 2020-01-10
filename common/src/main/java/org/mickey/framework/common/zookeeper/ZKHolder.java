@@ -25,8 +25,8 @@ public class ZKHolder {
         if (zkClientMap.get(address) != null) {
             return zkClientMap.get(address);
         }
+        lock.lock();
         try {
-            lock.lock();
             if (zkClientMap.get(address) != null) {
                 return zkClientMap.get(address);
             }

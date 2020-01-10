@@ -54,6 +54,7 @@ public class SystemRestTemplate extends RestTemplate {
     }
 
 
+    @Override
     protected ClientHttpRequest createRequest(URI url, HttpMethod method) throws IOException {
         ClientHttpRequest request = super.createRequest(url, method);
 

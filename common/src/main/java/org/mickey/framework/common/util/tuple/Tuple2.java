@@ -39,13 +39,15 @@ public class Tuple2<E1,E2> extends Tuple {
 
     @Override
     protected boolean elementEquals(Tuple tuple) {
-        if(!(tuple instanceof Tuple2))
+        if(!(tuple instanceof Tuple2)) {
             return false;
+        }
 
         Tuple2 tuple2 = (Tuple2) tuple;
-        if (this.e1.equals(tuple2._1()) && this.e2.equals(tuple2._2()))
+        if (this.e1.equals(tuple2._1()) && this.e2.equals(tuple2._2())) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 }

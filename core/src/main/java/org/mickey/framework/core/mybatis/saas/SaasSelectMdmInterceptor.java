@@ -166,14 +166,18 @@ public class SaasSelectMdmInterceptor extends BaseSaasInterceptor {
     boolean hasTenantId(Table table) {
         String name = table.getName();
         Class<?> poClazz = ORMapping.getPoClazz(name);
-        if (poClazz == null) return false;
+        if (poClazz == null) {
+            return false;
+        }
         return ReflectionUtils.isSubClass(poClazz, BasePo.class);
     }
 
     boolean hasProjectId(Table table) {
         String name = table.getName();
         Class<?> poClazz = ORMapping.getPoClazz(name);
-        if (poClazz == null) return false;
+        if (poClazz == null) {
+            return false;
+        }
         return ReflectionUtils.isSubClass(poClazz, BaseProjectPo.class);
     }
 }

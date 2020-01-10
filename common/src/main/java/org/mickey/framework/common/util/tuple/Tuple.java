@@ -25,10 +25,12 @@ public abstract class Tuple {
     @Override
     public boolean equals(Object object){
         boolean rv = false;
-        if(!(object instanceof Tuple))
+        if(!(object instanceof Tuple)) {
             return false;
-        if(object == this)
+        }
+        if(object == this) {
             return true;
+        }
 
         Tuple tuple = (Tuple)object;
         rv = elementEquals(tuple);

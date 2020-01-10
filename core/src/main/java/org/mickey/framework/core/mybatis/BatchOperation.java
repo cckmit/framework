@@ -1,8 +1,6 @@
 package org.mickey.framework.core.mybatis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -18,7 +16,6 @@ import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.sql.*;
-import java.sql.Date;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -49,31 +46,7 @@ public interface BatchOperation {
         } catch (IllegalArgumentException ex) {
             return BatchType.None;
         }
-
-//		if (BatchType.BatchInsert.name().equals(sql)) {
-//			return BatchType.BatchInsert;
-//		} else if (BatchType.BatchUpdateSelective.name().equals(sql)) {
-//			return BatchType.BatchUpdateSelective;
-//		} else if (BatchType.BatchUpdate.name().equals(sql)) {
-//			return BatchType.BatchUpdate;
-//		}
-//		return BatchType.None;
     }
-
-//	default BatchType getBatchType(SqlSource sqlSource) {
-//		if (sqlSource instanceof ProviderSqlSource) {
-//			ProviderSqlSource providerSqlSource = (ProviderSqlSource) sqlSource;
-//			Class<?> providerType = (Class<?>) ReflectionUtils.getFieldValue(providerSqlSource, "providerType");
-//			Method providerMethod = (Method) ReflectionUtils.getFieldValue(providerSqlSource, "providerMethod");
-//			if (providerType.getName().equals("com.taimeitech.framework.common.mybatis.MybatisSqlBuilder") || (providerType.getName().equals("com.taimeitech.framework.sharding.mybatis.ShardingSqlBuilder"))) {
-//				if ((Objects.equals(providerMethod.getName(), "batchInsert") || Objects.equals(providerMethod.getName(), "_batchInsert")))
-//					return BatchType.Insert;
-//				if ((Objects.equals(providerMethod.getName(), "batchUpdateSelective")))
-//					return BatchType.UpdateSelective;
-//			}
-//		}
-//		return BatchType.None;
-//	}
 
     default UpdateType getUpdateType(Invocation invocation) {
         final Object[] args = invocation.getArgs();
@@ -87,7 +60,7 @@ public interface BatchOperation {
             ProviderSqlSource providerSqlSource = (ProviderSqlSource) sqlSource;
             Class<?> providerType = (Class<?>) ReflectionUtils.getFieldValue(providerSqlSource, "providerType");
             Method providerMethod = (Method) ReflectionUtils.getFieldValue(providerSqlSource, "providerMethod");
-            if ("com.taimeitech.framework.common.mybatis.MybatisSqlBuilder".equals(providerType.getName()) || ("com.taimeitech.framework.sharding.mybatis.ShardingSqlBuilder".equals(providerType.getName()))) {
+            if ("org.mickey.framework.core.mybatis.MybatisSqlBuilder".equals(providerType.getName()) || ("org.mickey.framework.core.sharding.mybatis.ShardingSqlBuilder".equals(providerType.getName()))) {
 
                 if ((Objects.equals(providerMethod.getName(), "insert"))) {
                     return UpdateType.Insert;

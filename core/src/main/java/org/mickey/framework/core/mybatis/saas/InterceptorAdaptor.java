@@ -34,10 +34,12 @@ public class InterceptorAdaptor implements Interceptor {
         return null;
     }
 
+    @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
     }
 
+    @Override
     public void setProperties(Properties properties) {
         //设置忽略的statementId
         String ignoreIds = properties.getProperty("ignoreIds");

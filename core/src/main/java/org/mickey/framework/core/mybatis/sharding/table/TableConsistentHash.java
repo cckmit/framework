@@ -26,8 +26,8 @@ public class TableConsistentHash {
         if (tableConsistentHashContainer.containsKey(tableName)) {
             return tableConsistentHashContainer.get(tableName);
         }
+        lock.lock();
         try {
-            lock.lock();
             if (tableConsistentHashContainer.containsKey(tableName)) {
                 return tableConsistentHashContainer.get(tableName);
             }

@@ -36,10 +36,6 @@ public class DataType {
     public static final int DT_Short = 11;
     public static final int DT_Integer = 12;
 
-    /*public static Object toType(Object value, int srcType, String targetTypeName) {
-        // int targetType =
-        return null;
-    }*/
     public static final int DT_Long = 13;
     public static final int DT_Float = 14;
     public static final int DT_Double = 15;
@@ -64,11 +60,21 @@ public class DataType {
     public static final int DT_Set = 37;
     public static final int DT_Object = 40;
     public static final int DT_Class = 41;
-    //�������?���?
     public static final int DT_ENUM = 42;
     public static final int DT_UserDefine = 50;
     private static Map<String, Integer> dataTypeMap = new Hashtable<String, Integer>();
     private static Pattern timePattern = Pattern.compile("(\\d{4}-\\d{2}-\\d{2}\\s\\d{2}:\\d{2}:\\d{2}\\.\\d{3})(\\d{0,3})");
+
+    public static final String CHAR_leftBracket = "[";
+    public static final String CHAR_semicolon = ";";
+    public static final String CHAR_null = "null";
+    public static final String CHAR_bool_true = "true";
+    public static final String CHAR_bool_t = "t";
+    public static final String CHAR_bool_yes = "yes";
+    public static final String CHAR_bool_y = "y";
+    public static final String CHAR_bool_true_chs = "正确";
+    public static final String CHAR_bool_num = "1";
+    public static final String CHAR_ = "";
 
 
     static {
@@ -146,7 +152,7 @@ public class DataType {
     public static int getDataType(String typeName) {
         typeName = toSimpleType(typeName);
 
-        if (typeName.charAt(0) == '[') {
+        if (CHAR_leftBracket.equals(typeName.charAt(0))) {
             return DT_Array;
         }
 
@@ -194,12 +200,11 @@ public class DataType {
                     return "double";
                 // [Ljava.lang.Integer;
                 case 'L':
-                    if (typeName.charAt(typeName.length() - 1) == ';') {
+                    if (CHAR_semicolon.equals(typeName.charAt(typeName.length() - 1))) {
                         return typeName.substring(2, typeName.length() - 1);
                     } else {
                         return typeName.substring(2);
                     }
-                    // [[I
                 case '[':
                     return typeName.substring(1);
                 default:
@@ -212,14 +217,13 @@ public class DataType {
         for (int i = 0; i <= itemIndex; i++) {
             str = matchBracket(str, "<", ">", false);
             int iLen1 = str.length();
-            if (iLen1 == iLen) { // �������?����������������������
+            if (iLen1 == iLen) {
                 break;
             } else {
                 iLen = iLen1;
             }
         }
 
-        // ����������?����������
         int iBegin = 0, iEnd = str.length();
         int iPos = 0;
         for (int i = 0; i < itemIndex + 1; i++) {
@@ -246,7 +250,6 @@ public class DataType {
                                          int itemIndex) {
         return getDataType(getElementTypeName(collectionTypeName, itemIndex));
     }
-    // public static final int DT_HashSet = 38;
 
     public static Object toType(Object value, String targetType) {
         int destType = getDataType(targetType);
@@ -259,21 +262,28 @@ public class DataType {
         return toType(value, srcType, targetType);
     }
 
+    /**
+     * obj 数据类型转换
+     * @param value 需要转换的数据
+     * @param srcType 原始类型
+     * @param targetType 目标类型
+     * @return 转换后的数据
+     */
     public static Object toType(Object value, int srcType, int targetType) {
+        if (value == null) {
+            return null;
+        }
+
         srcType = toObjectType(srcType);
         targetType = toObjectType(targetType);
         if (srcType == targetType) {
             return value;
         }
 
-        if (value == null) {
-            return null;
-        }
-
         Object retObj = null;
         if (srcType == DT_String) {
             String str = ((String) value).trim();
-            if (str.length() < 1 || "null".equalsIgnoreCase(str)) {
+            if (str.length() < 1 || CHAR_null.equalsIgnoreCase(str)) {
                 return null;
             }
         }
@@ -284,7 +294,7 @@ public class DataType {
         if (targetType >= DT_byte && targetType <= DT_boolean) {
             targetType += DT_Byte - DT_byte;
         }
-        //�����?����������?�
+
         if (srcType == targetType) {
             return value;
         }
@@ -677,17 +687,17 @@ public class DataType {
                             break;
                         case DT_String:
                             String strValue = (String) value;
-                            if ("true".equalsIgnoreCase(strValue)) {
+                            if (CHAR_bool_true.equalsIgnoreCase(strValue)) {
                                 retObj = true;
-                            } else if ("t".equalsIgnoreCase(strValue)) {
+                            } else if (CHAR_bool_t.equalsIgnoreCase(strValue)) {
                                 retObj = true;
-                            } else if ("yes".equalsIgnoreCase(strValue)) {
+                            } else if (CHAR_bool_yes.equalsIgnoreCase(strValue)) {
                                 retObj = true;
-                            } else if ("y".equalsIgnoreCase(strValue)) {
+                            } else if (CHAR_bool_y.equalsIgnoreCase(strValue)) {
                                 retObj = true;
-                            } else if ("���".equalsIgnoreCase(strValue)) {
+                            } else if (CHAR_bool_true_chs.equalsIgnoreCase(strValue)) {
                                 retObj = true;
-                            } else if ("1".equalsIgnoreCase(strValue)) {
+                            } else if (CHAR_bool_num.equalsIgnoreCase(strValue)) {
                                 retObj = true;
                             } else {
                                 retObj = false;
@@ -752,13 +762,8 @@ public class DataType {
                 case DT_Date:
                     switch (srcType) {
                         case DT_String:
-                            // sdf.applyPattern("yyyy-MM-dd");
-                            // date = sdf.parse((String)value);
-                            // retObj = new java.sql.Date(date.getTime());
-                            // java �������?�3��?���������������,������ 2018-07-24 10:09:54.355000,java���parse���������350000����������?��������������?�6��?��?��������������������?�������?������?
-                            // �����?�������??�?���������������?��� (\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d{3})(\d{0,3})
                             String timeString = value.toString();
-                            if (NumberUtils.isNumber(timeString)) {
+                            if (StringUtil.isNumeric(timeString)) {
                                 retObj = new Date(NumberUtils.createLong(timeString));
                                 break;
                             }
@@ -787,10 +792,6 @@ public class DataType {
                             } else {
                                 cal.setTimeInMillis((Integer) value);
                             }
-//							cal.set(Calendar.HOUR_OF_DAY, 0);
-//							cal.set(Calendar.MINUTE, 0);
-//							cal.set(Calendar.SECOND, 0);
-//							cal.set(Calendar.MILLISECOND, 0);
                             retObj = cal.getTime();
                             break;
                         default:
@@ -800,10 +801,7 @@ public class DataType {
                 case DT_Time:
                     switch (srcType) {
                         case DT_String:
-                            // sdf.applyPattern("HH:mm:ss");
-                            // date = sdf.parse((String)value);
-                            // retObj = new java.sql.Time(date.getTime());
-                            if (NumberUtils.isNumber((String) value)) {
+                            if (StringUtil.isNumeric((String) value)) {
                                 retObj = new Date(Long.valueOf(String.valueOf(value)));
                             } else {
                                 retObj = java.sql.Time.valueOf((String) value);
@@ -820,10 +818,6 @@ public class DataType {
                             } else {
                                 cal.setTimeInMillis((Integer) value);
                             }
-//							cal.set(Calendar.YEAR, 0);
-//							cal.set(Calendar.MONTH, 0);
-//							cal.set(Calendar.DAY_OF_MONTH, 0);
-//							cal.set(Calendar.MILLISECOND, 0);
                             retObj = cal.getTime();
                             break;
                         default:
@@ -833,9 +827,7 @@ public class DataType {
                 case DT_DateTime:
                     switch (srcType) {
                         case DT_String:
-                            // date = sdf.parse((String)value);
-                            // retObj = new java.sql.Timestamp(date.getTime());
-                            if (NumberUtils.isNumber((String) value)) {
+                            if (StringUtil.isNumeric((String) value)) {
                                 retObj = new Date(Long.valueOf(String.valueOf(value)));
                             } else {
                                 retObj = DateUtils.parseDate(String.valueOf(value), new String[]{
@@ -914,16 +906,16 @@ public class DataType {
             }
         }
 
-        if (bFindMatch) { // �����������?
-            if (bGet) { // ����?������?����?���������?���
+        if (bFindMatch) {
+            if (bGet) {
                 return str.substring(iBeginPos + 1, iEndPos);
-            } else { // �����������?����?�������������
+            } else {
                 return str.substring(0, iBeginPos) + str.substring(iEndPos + 1);
             }
-        } else { // ��������������?
-            if (bGet) { // ����?������?����?���������?���
+        } else {
+            if (bGet) {
                 return "";
-            } else { // �����������?����?�������������
+            } else {
                 return str;
             }
         }
