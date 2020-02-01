@@ -7,19 +7,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporing.outputEncoding>UTF-8</project.reporing.outputEncoding>
         <!-- <org.mickey.framework.version>2.0</org.mickey.framework.version> -->
-        <org.apache.curator.version>2.11.1</org.apache.curator.version>
+        <org.apache.curator.version>4.1.0</org.apache.curator.version>
         <org.mybatis.spring.boot.version>2.1.0</org.mybatis.spring.boot.version>
-        <org.springframework.version>5.1.7.RELEASE</org.springframework.version>
+        <org.springframework.version>5.1.9.RELEASE</org.springframework.version>
         <org.springframework.boot.version>2.1.8.RELEASE</org.springframework.boot.version>
         <org.mybatis.version>3.5.2</org.mybatis.version>
         <org.mybatis.spring.version>2.0.2</org.mybatis.spring.version>
         <io.springfox.version>2.9.2</io.springfox.version>
         <com.alibaba.fastjson>1.2.59</com.alibaba.fastjson>
         <com.alibaba.druid>1.1.16</com.alibaba.druid>
-        <org.projectlombok.lombok>1.18.8</org.projectlombok.lombok>
+        <org.projectlombok.lombok>1.18.10</org.projectlombok.lombok>
         <joda-time.version>2.10.1</joda-time.version>
         <dom4j.version>1.6.1</dom4j.version>
-        <org.slf4j.version>1.7.26</org.slf4j.version>
+        <org.slf4j.version>1.7.28</org.slf4j.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-codec.version>1.13</commons-codec.version>
         <com.github.pagehelper.version>5.1.10</com.github.pagehelper.version>
@@ -51,6 +51,21 @@
 
 
     <dependencies>
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${org.projectlombok.lombok}</version>
+        </dependency>
+
+        <!-- log -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- apache -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -83,7 +98,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -147,21 +161,6 @@
             <version>${com.alibaba.fastjson}</version>
         </dependency>
         
-
-        <!-- lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${org.projectlombok.lombok}</version>
-        </dependency>
-
-        <!-- log -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${org.slf4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -220,9 +219,9 @@
 
     <distributionManagement>
         <repository>
-            <id>kangce-snapshots</id>
-            <name>kangce snapshots repos</name>
-            <url>http://192.168.31.144:8081/repository/kangce-snapshots/</url>
+            <id>haolun-releases</id>
+            <name>haolun-releases repos</name>
+            <url>http://101.37.247.18:8081/repository/haolun-releases/</url>
             <layout>default</layout>
         </repository>
     </distributionManagement>

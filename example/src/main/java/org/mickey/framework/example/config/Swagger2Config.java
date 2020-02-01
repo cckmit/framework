@@ -33,7 +33,7 @@ public class Swagger2Config {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("kangce APIs")
+        return new ApiInfoBuilder().title("haolun APIs")
                 .description("simple apis")
                 .termsOfServiceUrl("http://www.gm.com")
                 .contact(new Contact("suliyea", "http://xxx", "suliyea@qq.com"))
