@@ -3,6 +3,7 @@ package org.mickey.framework.filemanager.api;
 import org.junit.Before;
 import org.junit.Test;
 import org.mickey.framework.common.dto.ActionResult;
+import org.mickey.framework.common.util.UUIDUtils;
 import org.mickey.framework.filemanager.dto.PolicyRequestDto;
 import org.mickey.framework.filemanager.dto.PolicyResultDto;
 import org.mickey.framework.filemanager.dto.UploadCallbackDto;
@@ -38,7 +39,7 @@ public class FileControllerTest extends BaseSpringTest {
 
     @Test
     public void callback() {
-        String fileId = "FF808081702CFDCD01703483D0910013";
+        String fileId = UUIDUtils.getUuid();
 
         UploadCallbackDto uploadCallbackDto = new UploadCallbackDto();
         uploadCallbackDto.setBucket("asvinos001-1252065669");
