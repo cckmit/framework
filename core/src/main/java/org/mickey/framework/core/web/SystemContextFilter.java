@@ -38,7 +38,7 @@ public class SystemContextFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         try{
-            log.error("system context init");
+            log.debug("system context init");
             Enumeration<String> headerNames = request.getHeaderNames();
             while (headerNames.hasMoreElements()) {
                 String currentHeader = headerNames.nextElement();
@@ -88,6 +88,6 @@ public class SystemContextFilter implements Filter {
     }
 
     private void printSystemContextSetLog(String requestURI, String systemConstant, String headerValue) {
-        log.error("request {} has  header: {}, with value {}", requestURI, systemConstant, headerValue);
+        log.debug("request {} has  header: {}, with value {}", requestURI, systemConstant, headerValue);
     }
 }
