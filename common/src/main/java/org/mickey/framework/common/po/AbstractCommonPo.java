@@ -18,6 +18,7 @@ import java.util.Date;
  * @author mickey
  * @date 2020-01-10
  */
+@Data
 public abstract class AbstractCommonPo implements Serializable, Cloneable {
 
     @ApiModelProperty(value = "主键，新增时不需要传值 系统自动生成，更新及删除时为必填参数", position = 1)
@@ -52,62 +53,4 @@ public abstract class AbstractCommonPo implements Serializable, Cloneable {
     @Column(insertable = false, columnDefinition = "datetime(6)")
     protected Date updateTime;
 
-    public Date getCreateTime() {
-        return (Date) this.createTime.clone();
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = (Date) createTime.clone();
-    }
-
-    public Date getUpdateTime() {
-        return (Date) this.updateTime.clone();
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = (Date) updateTime.clone();
-    }
-
-    // region generate Geter and Seter code
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Integer getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-    // endregion
 }

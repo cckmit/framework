@@ -36,4 +36,6 @@ public class OsFilePo extends BasePo {
     private String bucket;
     @Column(columnDefinition = "varchar(50) null comment '文件md5标记'")
     private String etag;
+    @Column(columnDefinition = "varchar(50) null comment '存储库所在地区'")
+    private String region;
 }

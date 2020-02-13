@@ -6,6 +6,7 @@ import org.mickey.framework.core.web.SystemRestTemplate;
 import org.mickey.framework.dbinspector.autoconfigure.DbInspect;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -24,6 +25,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @DbInspect(basePackages = "org.mickey.framework.filemanager.po")
 @MapperScan("org.mickey.framework.filemanager.mapper")
 @SpringBootApplication
+@EnableAutoConfiguration
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy
