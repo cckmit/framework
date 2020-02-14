@@ -2,11 +2,9 @@ package org.mickey.framework.example.service.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.mickey.framework.core.test.BaseSpringTest;
 import org.mickey.framework.example.po.UserPo;
-import org.mickey.framework.example.test.BaseSpringTest;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.Resource;
 
 /**
  * description

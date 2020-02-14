@@ -5,6 +5,7 @@ import com.tencent.cloud.CosStsClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.mickey.framework.common.SpringUtils;
 import org.mickey.framework.common.SystemContext;
 import org.mickey.framework.common.util.DateUtils;
 import org.mickey.framework.common.util.FileUtil;
@@ -16,6 +17,7 @@ import org.mickey.framework.filemanager.service.IFileCredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.TreeMap;
 
 /**
@@ -31,8 +33,21 @@ public class TencentFileCredentialServiceImpl implements IFileCredentialService 
     @Autowired
     private CosProperties cosProperties;
 
+    @PostConstruct
+    public void init() {
+         this.cosProperties = getCosProperties();
+    }
+
+    private CosProperties getCosProperties() {
+        if (cosProperties == null) {
+            cosProperties = SpringUtils.getBean(CosProperties.class);
+        }
+        return cosProperties;
+    }
+
     @Override
     public PolicyResultDto getPolicy(PolicyRequestDto request) {
+        cosProperties = getCosProperties();
         JSONObject credential = getCredential(request);
 
         PolicyResultDto policyResult = JSON.parseObject(credential.toString(), PolicyResultDto.class);
@@ -61,7 +76,6 @@ public class TencentFileCredentialServiceImpl implements IFileCredentialService 
                 config.put("allowActions", new String[] { "name/cos:" + req.getAction()});
             }
 
-//            config.put("allowActions", getAllowActions());
             JSONObject credential = CosStsClient.getCredential(config);
             //成功返回临时密钥信息，如下打印密钥信息
             log.info(JSON.toJSONString(credential));
@@ -74,11 +88,30 @@ public class TencentFileCredentialServiceImpl implements IFileCredentialService 
     }
 
     private String getAllowPrefix(String rootFolder) {
-        String lastChar = StringUtils.substring(rootFolder, rootFolder.length() - 1, rootFolder.length());
-        if (!StringUtils.equals(FileUtil.fileSeparator, lastChar)) {
+        if (!equalsLastCharAndFileSeparator()) {
             rootFolder += FileUtil.fileSeparator;
         }
         return rootFolder + "*";
+    }
+
+    @Override
+    public String getAllowPath(String path) {
+        cosProperties = getCosProperties();
+        String rootFolder = cosProperties.getRootFolder();
+        if (!equalsLastCharAndFileSeparator()) {
+            rootFolder += FileUtil.fileSeparator;
+        }
+        return rootFolder + path;
+    }
+
+    /**
+     * 判断root folder配置的结尾是否包含文件夹分隔符("/")
+     * @return
+     */
+    private boolean equalsLastCharAndFileSeparator () {
+        String rootFolder = cosProperties.getRootFolder();
+        String lastChar = StringUtils.substring(rootFolder, rootFolder.length() - 1, rootFolder.length());
+        return StringUtils.equals(FileUtil.fileSeparator, lastChar);
     }
 
     private String[] getAllowActions() {
@@ -107,13 +140,13 @@ public class TencentFileCredentialServiceImpl implements IFileCredentialService 
      * @return
      */
     private String generatorFilePath() {
-        String curDate = DateUtils.format(DateUtils.getCurrentDate(), DateUtils.YMD);
         StringBuilder builder = new StringBuilder();
-        builder.append(cosProperties.getRootFolder())
-                .append(FileUtil.fileSeparator).append(SystemContext.getTenantId())
+        builder.append(SystemContext.getTenantId())
                 .append(FileUtil.fileSeparator).append(SystemContext.getAppId())
-                .append(FileUtil.fileSeparator).append(curDate)
+                .append(FileUtil.fileSeparator).append(DateUtils.getYear(DateUtils.getCurrentDate()))
+                .append(FileUtil.fileSeparator).append(DateUtils.getMonth(DateUtils.getCurrentDate()))
+                .append(FileUtil.fileSeparator).append(DateUtils.getDay(DateUtils.getCurrentDate()))
                 .append(FileUtil.fileSeparator);
-        return builder.toString();
+        return getAllowPath(builder.toString());
     }
 }

@@ -3,13 +3,17 @@ package org.mickey.framework.filemanager.api;
 import org.junit.Before;
 import org.junit.Test;
 import org.mickey.framework.common.dto.ActionResult;
+import org.mickey.framework.common.util.FileUtil;
 import org.mickey.framework.common.util.UUIDUtils;
+import org.mickey.framework.core.test.BaseSpringTest;
+import org.mickey.framework.filemanager.client.FileClient;
 import org.mickey.framework.filemanager.dto.PolicyRequestDto;
 import org.mickey.framework.filemanager.dto.PolicyResultDto;
 import org.mickey.framework.filemanager.dto.UploadCallbackDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * description
@@ -51,10 +55,22 @@ public class FileControllerTest extends BaseSpringTest {
         uploadCallbackDto.setSize(52353);
         uploadCallbackDto.setType(".png");
 
-//        callbackController.delete(fileId);
-
         ActionResult actionResult = callbackController.callback(uploadCallbackDto);
 
         print(actionResult);
+
+        callbackController.delete(fileId);
+    }
+
+    @Test
+    public void upload4Java() throws IOException {
+        File file = new File("C:\\Users\\micke\\Pictures\\e2b_export_1.png");
+
+        FileClient.updateByteFileToTemp("test_upload_java_file.png", FileUtil.getByteArray(file));
+    }
+
+    @Test
+    public void downloadBasee64String() throws Exception {
+        print(FileClient.downloadBase64String("https://asvinos001-1252065669.cos.ap-chengdu.myqcloud.com/dev/haolun/temp/test_upload_java_file.png"));
     }
 }

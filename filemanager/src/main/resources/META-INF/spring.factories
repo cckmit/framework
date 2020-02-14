@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.mickey.framework.filemanager.client.FileClient,\
+org.mickey.framework.filemanager.config.CosProperties

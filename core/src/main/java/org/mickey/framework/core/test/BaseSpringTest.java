@@ -1,4 +1,4 @@
-package org.mickey.framework.filemanager.api;
+package org.mickey.framework.core.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

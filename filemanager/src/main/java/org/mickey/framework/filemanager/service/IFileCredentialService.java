@@ -18,4 +18,11 @@ public interface IFileCredentialService {
      * @return
      */
     PolicyResultDto getPolicy(@RequestBody PolicyRequestDto request);
+
+    /**
+     * 根据参数路径返回服务器允许操作的绝对路径
+     * @param path
+     * @return
+     */
+    String getAllowPath(String path);
 }
