@@ -42,6 +42,7 @@
         <module>job</module>
         <module>i18n</module>
         <module>filemanager</module>
+        <module>e2b</module>
     </modules>
 
     <parent>

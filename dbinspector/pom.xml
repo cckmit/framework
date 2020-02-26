@@ -46,6 +46,10 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${com.alibaba.druid}</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
 
 

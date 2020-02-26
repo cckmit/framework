@@ -1,6 +1,8 @@
 package org.mickey.framework.dbinspector;
 
+import com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema;
 import lombok.extern.slf4j.Slf4j;
+import org.mickey.framework.common.util.StringUtil;
 
 import java.sql.*;
 import java.util.*;
@@ -29,8 +31,21 @@ public class DatabaseResolver {
 
     public Table getTable(Connection conn, String sqlTableName) throws Exception {
         DatabaseMetaData dbMetaData = conn.getMetaData();
-        ResultSet rs = dbMetaData.getTables(catalog, schema, sqlTableName, null);
+
+        if (StringUtil.isBlank(catalog)) {
+            catalog = conn.getCatalog();
+        }
+//        if (StringUtil.isBlank(schema)) {
+//            schema = conn.getSchema();
+//        }
+
+        ResultSet rs = dbMetaData.getTables(catalog, schema, sqlTableName, new String[] {"TABLE"});
         while (rs.next()) {
+            log.debug("TABLE_CAT : " + rs.getString("TABLE_CAT"));
+            log.debug("TABLE_SCHEM : " + rs.getString("TABLE_SCHEM"));
+            log.debug("TABLE_NAME : " + rs.getString("TABLE_NAME"));
+            log.debug("TABLE_TYPE : " + rs.getString("TABLE_TYPE"));
+
             return createTable(conn, rs);
         }
         return null;
@@ -38,6 +53,14 @@ public class DatabaseResolver {
 
     public List<Table> getTables(Connection conn, String tableNamePattern) throws Exception {
         DatabaseMetaData dbMetaData = conn.getMetaData();
+
+        if (StringUtil.isBlank(catalog)) {
+            catalog = conn.getCatalog();
+        }
+//        if (StringUtil.isBlank(schema)) {
+//            schema = conn.getSchema();
+//        }
+
         ResultSet rs = dbMetaData.getTables(catalog, schema, tableNamePattern, null);
         List<Table> tables = new ArrayList<>();
         while (rs.next()) {
@@ -55,6 +78,7 @@ public class DatabaseResolver {
             return null;
         }
         Table table = new Table();
+        table.setSchema(schemaName);
         table.setTableName(realTableName);
         if ("SYNONYM".equals(tableType) && isOracleDataBase(connection)) {
             table.setOwnerSynonymName(getSynonymOwner(connection, realTableName));

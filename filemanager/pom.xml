@@ -27,6 +27,11 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
         <!-- 2.腾讯云sdk的 -->
         <dependency>
             <groupId>com.qcloud</groupId>
