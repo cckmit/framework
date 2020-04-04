@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,13 +36,35 @@ public class FileControllerTest extends BaseSpringTest {
     }
 
     @Test
-    public void test() {
-        int max = 188;
-        List<Integer> arr = Arrays.asList(50, 42, 9, 15, 105, 63,14,30);
+    public void function(int max, String priceStr) {
+        List<Integer> priceArr = parseToList(priceStr);
+        // 从小到大排序
+        priceArr.sort(Integer::compareTo);
+        int money = 0;
+        for (int i = 1; i < priceArr.size(); i++) {
+            int next = priceArr.subList(0, i).stream().mapToInt(x -> x).sum();
+            print(next);
+            if (next > max)  {
+                print(money);
+                return;
+            } else {
+                money = next;
+            }
+        }
+    }
 
-        arr.sort(Integer::compareTo);
-
-        print(arr);
+    private List<Integer> parseToList(String priceStr) {
+        String[] strings = priceStr.split(" ");
+        List<Integer> priceArr = new ArrayList<>();
+        for (String s: strings) {
+            try {
+                int parseInt = Integer.parseInt(s);
+                priceArr.add(parseInt);
+            } catch (NumberFormatException e) {
+                System.out.println("输入的单价格式错误，请检查输入");
+            }
+        }
+        return priceArr;
     }
 
     @Test
