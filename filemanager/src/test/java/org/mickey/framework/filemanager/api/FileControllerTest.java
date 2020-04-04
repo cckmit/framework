@@ -36,6 +36,10 @@ public class FileControllerTest extends BaseSpringTest {
     }
 
     @Test
+    public void test() {
+        function(188, "50 42 9 15 105 63 14 30");
+    }
+
     public void function(int max, String priceStr) {
         List<Integer> priceArr = parseToList(priceStr);
         // 从小到大排序
@@ -66,6 +70,26 @@ public class FileControllerTest extends BaseSpringTest {
         }
         return priceArr;
     }
+
+    @Test
+    public void test2() {
+        function2("3 8", "HAPPY");
+    }
+
+    public void function2(String date, String data) {
+        List<String> origin = Arrays.asList("ABCDEFGHI", "JKLMNOPQR", "STUVWXYZ*");
+        String[] strings = date.split(" ");
+        int month = Integer.parseInt(strings[0]);
+        int day = Integer.parseInt(strings[1]);
+
+        int monthInx = (month -1) % 3;
+        int dayInx = (day -1) % 9;
+//        List<String> current = origin.subList(monthInx, origin.size());
+//        current.addAll(origin.subList(0, monthInx));
+        print(dayInx);
+
+    }
+
 
     @Test
     public void getPolicy() {
