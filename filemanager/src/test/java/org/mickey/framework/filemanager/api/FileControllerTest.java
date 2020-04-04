@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * description
@@ -30,6 +32,16 @@ public class FileControllerTest extends BaseSpringTest {
 
     @Before
     public void setUp() throws Exception {
+    }
+
+    @Test
+    public void test() {
+        int max = 188;
+        List<Integer> arr = Arrays.asList(50, 42, 9, 15, 105, 63,14,30);
+
+        arr.sort(Integer::compareTo);
+
+        print(arr);
     }
 
     @Test
