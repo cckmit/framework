@@ -82,10 +82,21 @@ public class FileControllerTest extends BaseSpringTest {
         int month = Integer.parseInt(strings[0]);
         int day = Integer.parseInt(strings[1]);
 
+        // 月份左移量
         int monthInx = (month -1) % 3;
+        // 日子左移量
         int dayInx = (day -1) % 9;
-//        List<String> current = origin.subList(monthInx, origin.size());
-//        current.addAll(origin.subList(0, monthInx));
+        // 先计算月份左移
+        List<String> current = origin.subList(monthInx, origin.size());
+        current.addAll(origin.subList(0, monthInx));
+
+        // 再计算日子左移
+        for (String item :
+                current) {
+            item = item.substring(dayInx) + item.substring(0, dayInx);
+        }
+
+        // 找出输入字符串每个字符所在的位置
         print(dayInx);
 
     }
