@@ -1,4 +1,4 @@
-git bash 主题色调整如图：
+# git bash 主题色调整如图
 
 ![git bash command](./gitbash.png)
 
