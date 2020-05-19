@@ -1,16 +1,12 @@
 package org.mickey.framework.example.api;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mickey.framework.common.SystemContext;
-import org.mickey.framework.common.util.JsonUtil;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-
-import static org.junit.Assert.*;
 
 /**
  * description
@@ -31,8 +27,8 @@ public class Test1ControllerTest {
         SystemContext.setAppId("equipment");
     }
 
-    @Test
-    public void get() {
-        JsonUtil.print(controller.get());
-    }
+//    @Test
+//    public void get() {
+//        JsonUtil.print(controller.get());
+//    }
 }

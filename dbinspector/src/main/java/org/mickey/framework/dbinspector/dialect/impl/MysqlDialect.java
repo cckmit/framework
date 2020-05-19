@@ -67,7 +67,9 @@ public class MysqlDialect implements Dialect {
 
     @Override
     public String buildUpdateColumnClause(Column paramColumn) {
-        if (paramColumn == null) {return null;}
+        if (paramColumn == null) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         builder.append("alter table ")
                 .append(paramColumn.getTable().getSqlName())
@@ -80,7 +82,9 @@ public class MysqlDialect implements Dialect {
 
     @Override
     public String buildIndexClause(Index paramIndex) {
-        if (paramIndex == null) {return null;}
+        if (paramIndex == null) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         builder.append("create ")
                 .append(paramIndex.isUnique() ? "unique" : " ")
@@ -124,7 +128,7 @@ public class MysqlDialect implements Dialect {
                     definition = "double";
                     break;
                 case DataType.DT_BigDecimal:
-                    definition = "decimal("+column.getLength()+","+column.getScale()+")";
+                    definition = "decimal(" + column.getLength() + "," + column.getScale() + ")";
                     break;
                 case DataType.DT_Float:
                 case DataType.DT_float:
@@ -143,6 +147,8 @@ public class MysqlDialect implements Dialect {
                     definition = "varchar(255)";
                     break;
             }
+        } else if (DataType.DT_ENUM == dataType) {
+            definition = "varchar(" + column.getLength() + ")";
         } else {
             definition = "text";
         }
@@ -150,8 +156,12 @@ public class MysqlDialect implements Dialect {
             definition = definition + " not null";
         }
         if (column.getDefaultValue() != null) {
-            definition = definition + " default '"+column.getDefaultValue()+"'";
+            definition = definition + " default '" + column.getDefaultValue() + "'";
         }
+        if (StringUtils.isNotBlank(column.getSqlComment())) {
+            definition += " comment '" + column.getSqlComment() + "'";
+        }
+
         return definition;
     }
 

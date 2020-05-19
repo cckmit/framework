@@ -2,6 +2,7 @@ package org.mickey.framework.core.api;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -27,23 +28,29 @@ public abstract class BaseController<S extends IBaseService, T extends AbstractC
     private S service;
 
     @PostMapping("")
-    @ApiOperation(value = "insert po", notes = "注意关注点")
+    @ApiOperation(value = "insert po")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "created"),
             @ApiResponse(code = 400, message = "字段验证失败"),
-            @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
+            @ApiResponse(code = 417, message = "逻辑异常")
     })
-    public ActionResult insert(@Validated(value = Groups.Insert.class) @RequestBody T dto) {
+    public ActionResult insert(@Validated(value = Groups.Insert.class)
+                               @RequestBody
+                               @ApiParam(
+                                       example = "{\n" +
+                                               "  \"userName\": \"string\"\n" +
+                                               "}"
+                               ) T dto) {
         service.insert(dto);
         return ActionResult.created();
     }
 
     @PutMapping("")
-    @ApiOperation(value = "update po", notes = "注意关注点")
+    @ApiOperation(value = "update po")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "updated"),
             @ApiResponse(code = 400, message = "字段验证失败"),
-            @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
+            @ApiResponse(code = 417, message = "逻辑异常")
     })
     public ActionResult update(@Validated(value = Groups.Update.class) @RequestBody T dto) {
         service.update(dto);
@@ -55,7 +62,7 @@ public abstract class BaseController<S extends IBaseService, T extends AbstractC
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "字段验证失败"),
-            @ApiResponse(code = 417, message = "逻辑异常", response = ActionResult.class)
+            @ApiResponse(code = 417, message = "逻辑异常")
     })
     public ActionResult<T> query(@PathVariable String id) {
         T query = (T)service.query(id);

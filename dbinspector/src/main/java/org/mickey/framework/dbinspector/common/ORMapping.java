@@ -1,5 +1,6 @@
 package org.mickey.framework.dbinspector.common;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -10,8 +11,8 @@ import org.mickey.framework.common.annotation.Sharding;
 import org.mickey.framework.common.database.JoinColumn;
 import org.mickey.framework.common.database.Table;
 import org.mickey.framework.common.database.*;
-import org.mickey.framework.common.po.BaseExtPo;
 import org.mickey.framework.common.po.AbstractCommonPo;
+import org.mickey.framework.common.po.BaseExtPo;
 import org.mickey.framework.common.util.DataType;
 import org.mickey.framework.common.util.ReflectUtils;
 import org.mickey.framework.common.util.ReflectionUtils;
@@ -79,6 +80,10 @@ public class ORMapping {
                 column.setJavaName(field.getName());
                 column.setJavaTypeName(field.getType().getName());
                 column.setJavaType(field.getType());
+                ApiModelProperty modelProperty = field.getAnnotation(ApiModelProperty.class);
+                if (modelProperty != null) {
+                    column.setSqlComment(modelProperty.value());
+                }
                 column.setPk(field.getAnnotation(Id.class) != null);
                 // TODO set FK
                 column.setFk(false);
