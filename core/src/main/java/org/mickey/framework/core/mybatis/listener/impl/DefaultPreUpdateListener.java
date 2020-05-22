@@ -29,7 +29,7 @@ public class DefaultPreUpdateListener implements PreUpdateListener {
                 po.setUpdateTime(new Date());
             }
             if (po.getIsDeleted() == null) {
-                po.setIsDeleted(0);
+                po.setIsDeleted(Boolean.FALSE);
             }
         }
 //        if (object instanceof BasePo) {

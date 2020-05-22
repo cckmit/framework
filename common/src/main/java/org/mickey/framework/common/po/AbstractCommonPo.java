@@ -29,8 +29,8 @@ public abstract class AbstractCommonPo implements Serializable, Cloneable {
     protected String id;
 
     @ApiModelProperty(value = "is deleted ; 0 false , 1 true", position = 95)
-    @Column(columnDefinition = "tinyint not null default 0 comment 'is deleted ; 0 false , 1 true'")
-    protected Integer isDeleted;
+    @Column(columnDefinition = "tinyint(1) not null default 0 comment 'is deleted ; 0 false , 1 true'")
+    protected Boolean isDeleted;
 
     @ApiModelProperty(value = "不需要传值，系统自动维护", position = 96)
     @Version

@@ -110,9 +110,11 @@ public class MysqlDialect implements Dialect {
                 case DataType.DT_byte:
                 case DataType.DT_Short:
                 case DataType.DT_short:
+                    definition = "tinyint";
+                    break;
                 case DataType.DT_Boolean:
                 case DataType.DT_boolean:
-                    definition = "tinyint";
+                    definition = "tinyint(1)";
                     break;
                 case DataType.DT_int:
                 case DataType.DT_Integer:
