@@ -43,6 +43,7 @@
         <module>i18n</module>
         <module>filemanager</module>
         <module>e2b</module>
+        <module>omp</module>
     </modules>
 
     <parent>

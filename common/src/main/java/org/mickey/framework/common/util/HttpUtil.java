@@ -55,7 +55,7 @@ public class HttpUtil {
     private static Lock lock = new ReentrantLock();
     private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
-    public static Response get(String url, Map<String, Object> params, Map<String, Object> headers) throws IOException {
+    public static <T> Response<T> get(String url, Map<String, Object> params, Map<String, Object> headers) throws IOException {
         url = addParamsToUrl(url, params);
         HttpRequestBase httpGet = new HttpGet(url);
         return getResponse(callHttpGet(url, headers, httpGet));
@@ -156,7 +156,7 @@ public class HttpUtil {
         return callHttp(headers, httpClient, httpPost);
     }
 
-    private static Response getResponse(HttpResponse httpResponse) throws IOException {
+    private static T Response<T> getResponse(HttpResponse httpResponse) throws IOException {
         Response response = new Response();
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         response.setStatusCode(HttpStatusEnum.valueOf(statusCode));
@@ -275,10 +275,12 @@ public class HttpUtil {
         return url;
     }
 
-    public static class Response {
+    public static class Response<T>  {
         HttpStatusEnum statusCode;
 
         String result;
+
+        T object;
 
         HttpEntity httpEntity;
 
@@ -298,6 +300,7 @@ public class HttpUtil {
 
         public void setResult(String result) {
             this.result = result;
+
         }
 
         public HttpEntity getHttpEntity() {
