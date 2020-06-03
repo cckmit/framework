@@ -1,9 +1,10 @@
 package org.mickey.framework.common.util;
 
+import org.apache.commons.codec.Encoder;
 import org.apache.commons.codec.binary.Base64;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Encoder;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -384,17 +385,5 @@ public class EncryptUtils {
             e.printStackTrace();
         }
         return tgtValue;
-    }
-
-    public static String hmacSHA256(String data, String secretKey)
-            throws NoSuchAlgorithmException, InvalidKeyException,
-            IllegalStateException, UnsupportedEncodingException {
-        Mac mac = Mac.getInstance("HmacSHA256");
-        mac.init(new SecretKeySpec(secretKey.getBytes(CHARACTER_ENCODING),
-                "HmacSHA256"));
-        byte[] signature = mac.doFinal(data.getBytes(CHARACTER_ENCODING));
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-        return new String(base64Encoder.encode(signature).getBytes(),
-                CHARACTER_ENCODING);
     }
 }

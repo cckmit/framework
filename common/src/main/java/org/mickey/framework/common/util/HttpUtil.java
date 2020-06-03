@@ -156,8 +156,8 @@ public class HttpUtil {
         return callHttp(headers, httpClient, httpPost);
     }
 
-    private static T Response<T> getResponse(HttpResponse httpResponse) throws IOException {
-        Response response = new Response();
+    private static <T> Response<T> getResponse(HttpResponse httpResponse) throws IOException {
+        Response<T> response = new Response<>();
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         response.setStatusCode(HttpStatusEnum.valueOf(statusCode));
 

@@ -245,6 +245,12 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
+                    <encoding>utf-8</encoding>
+<!--                    <compilerArguments>-->
+<!--&lt;!&ndash;                        <verbose />&ndash;&gt;-->
+<!--                        &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                        <bootclasspath>${JAVA_HOME}\jre\lib\rt.jar;${JAVA_HOME}\jre\lib\jce.jar</bootclasspath>-->
+<!--                    </compilerArguments>-->
                 </configuration>
             </plugin>
         </plugins>
