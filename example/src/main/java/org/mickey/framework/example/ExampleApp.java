@@ -32,7 +32,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy
 @EnableSwagger2Doc
-@ComponentScan(basePackages = {"org.mickey.framework.example.config", "org.mickey.framework.example.service", "org.mickey.framework.example.api"})
+//@ComponentScan(basePackages = {"org.mickey.framework.example.config", "org.mickey.framework.example.service", "org.mickey.framework.example.api"})
 public class ExampleApp {
     public static void main(String[] args) {
         SpringApplication.run(ExampleApp.class, args);

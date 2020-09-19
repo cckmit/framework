@@ -22,7 +22,7 @@ import org.mickey.framework.filemanager.dto.PolicyResultDto;
 import org.mickey.framework.filemanager.po.OsFilePo;
 import org.mickey.framework.filemanager.service.IFileCredentialService;
 import org.mickey.framework.filemanager.service.IOsFileService;
-import org.mickey.framework.filemanager.service.impl.OsFileServiceImpl;
+import org.mickey.framework.filemanager.service.impl.OsFileServiceBaseImpl;
 import org.mickey.framework.filemanager.service.impl.TencentFileCredentialServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -54,7 +54,7 @@ public class FileClient {
         cosProperties = SpringUtils.getBean(CosProperties.class);
 
         fileCredentialService = new TencentFileCredentialServiceImpl();
-        osFileService = new OsFileServiceImpl();
+        osFileService = new OsFileServiceBaseImpl();
     }
 
     public static String updateByteFileToTemp(String fileName, byte[] fileBytes) {

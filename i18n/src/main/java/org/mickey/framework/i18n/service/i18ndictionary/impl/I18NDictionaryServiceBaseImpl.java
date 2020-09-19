@@ -8,7 +8,7 @@ import org.mickey.framework.common.query.v2.Criteria;
 import org.mickey.framework.common.util.CollectionConverter;
 import org.mickey.framework.common.util.CollectionUtil;
 import org.mickey.framework.common.util.StringUtil;
-import org.mickey.framework.core.service.GenericService;
+import org.mickey.framework.core.service.GenericServiceBase;
 import org.mickey.framework.i18n.mapper.I18nDictionaryMapper;
 import org.mickey.framework.i18n.po.I18nDictionary;
 import org.mickey.framework.i18n.service.i18ndictionary.II18nDictionaryService;
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Slf4j
 @Service
-public class I18nDictionaryServiceImpl extends GenericService<I18nDictionaryMapper, I18nDictionary> implements II18nDictionaryService {
+public class I18NDictionaryServiceBaseImpl extends GenericServiceBase<I18nDictionaryMapper, I18nDictionary> implements II18nDictionaryService {
 
     @Resource
     private I18nDictionaryMapper mapper;

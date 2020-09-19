@@ -1,5 +1,6 @@
 package org.mickey.framework.dbinspector.common;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -65,6 +66,10 @@ public class ORMapping {
             String name = tableAnnotation.name();
             if (StringUtils.isBlank(name)) {
                 name = k.getSimpleName();
+            }
+            ApiModel modelAnnotation = k.getAnnotation(ApiModel.class);
+            if (modelAnnotation != null) {
+                table.setComment(modelAnnotation.description());
             }
             table.setSqlName(StringUtil.camelToUnderline(name));
             table.setCatalog(tableAnnotation.catalog());

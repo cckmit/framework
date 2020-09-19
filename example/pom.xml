@@ -52,6 +52,12 @@
             <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
             <version>${spring-cloud-starter-netflix-eureka-client.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.3.0</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

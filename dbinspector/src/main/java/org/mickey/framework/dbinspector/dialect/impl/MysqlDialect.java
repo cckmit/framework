@@ -47,6 +47,9 @@ public class MysqlDialect implements Dialect {
             builder.deleteCharAt(builder.length() - 1);
         }
         builder.append(")");
+        builder.append(" comment '");
+        builder.append(org.mickey.framework.common.util.StringUtil.valueOf(paramTable.getComment()));
+        builder.append("'");
         return builder.toString();
     }
 

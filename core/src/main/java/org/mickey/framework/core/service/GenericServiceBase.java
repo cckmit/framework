@@ -16,7 +16,7 @@ import java.util.List;
  * 23/07/2019
  */
 @Slf4j
-public abstract class GenericService<M extends BaseMapper<T>, T extends AbstractCommonPo> {
+public abstract class GenericServiceBase<M extends BaseMapper<T>, T extends AbstractCommonPo> {
 
     @Autowired
     private M mapper;

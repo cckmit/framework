@@ -1,0 +1,1 @@
+docker run --name bingjob -d -p 9096:9096 -v /Users/wangmeng/OneDrive/pictures/BingImages/images/:/Users/wangmeng/OneDrive/pictures/BingImages/images/ job:2.0

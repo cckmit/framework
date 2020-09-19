@@ -9,9 +9,22 @@ public enum GenderEnum {
     女(2),
     男(1);
 
-    private Integer code;
+    private int code;
 
-    GenderEnum(Integer code) {
+    int getValue() {
+        return code;
+    }
+
+    GenderEnum(int code) {
         this.code = code;
+    }
+
+    public static GenderEnum parse(int value) {
+        for (GenderEnum code : values()) {
+            if (code.getValue() == value) {
+                return code;
+            }
+        }
+        return null;
     }
 }

@@ -96,7 +96,7 @@ public class DateUtils {
     }
 
     public static String getCurrent() {
-        return getCurrent(YMDHMS);
+        return getCurrent(datefullPatternWithLine);
     }
 
     public static String getCurrent(String pattern) {
@@ -104,7 +104,7 @@ public class DateUtils {
     }
 
     public static String format(Date date) {
-        return format(date, YMDHMS);
+        return format(date, datefullPatternWithLine);
     }
 
     public static void main(String[] args) {
