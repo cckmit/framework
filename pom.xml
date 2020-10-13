@@ -236,4 +236,17 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>axuyun-releases</id>
+            <name>mickey-framework-REPOSITORY</name>
+            <url>http://101.37.247.18:8081/repository/axuyun-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>axuyun-snapshots</id>
+            <name>mickey-framework-SNAPSHOTS</name>
+            <url>http://101.37.247.18:8081/repository/axuyun-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
