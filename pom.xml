@@ -13,7 +13,7 @@
     <groupId>org.mickey.framework</groupId>
     <artifactId>framework</artifactId>
     <packaging>pom</packaging>
-    <version>${org.mickey.framework.version}</version>
+    <version>1.0</version>
     <modules>
         <module>common</module>
         <module>dbinspector</module>
@@ -232,11 +232,15 @@
 
     <distributionManagement>
         <repository>
-            <id>kangce-snapshots</id>
-            <name>kangce snapshots repos</name>
-            <url>http://192.168.31.144:8081/repository/kangce-snapshots/</url>
-            <layout>default</layout>
+            <id>axuyun-releases</id>
+            <name>mickey-framework-REPOSITORY</name>
+            <url>http://101.37.247.18:8081/repository/axuyun-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>axuyun-snapshots</id>
+            <name>mickey-framework-SNAPSHOTS</name>
+            <url>http://101.37.247.18:8081/repository/axuyun-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
 </project>
