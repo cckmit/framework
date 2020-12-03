@@ -1,0 +1,81 @@
+{
+    "root": {
+        "data": {
+            "id": "c7j54f7cms80",
+            "created": 1606997646466,
+            "text": "框架功能设计"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "c7j54zw6bvk0",
+                    "created": 1606997691503,
+                    "text": "common",
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c7j56wex59c0",
+                            "created": 1606997840658,
+                            "text": "通用的工具类"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c7j5741kteo0",
+                            "created": 1606997857265,
+                            "text": "通用 POJO"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c7j57cmtobk0",
+                    "created": 1606997875964,
+                    "text": "自动建表"
+                },
+                "children": []
+            },
+            {
+                "data": {
+                    "id": "c7j58pwsff40",
+                    "created": 1606997983229,
+                    "text": "文件服务"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c7j58wpfjq80",
+                            "created": 1606997998022,
+                            "text": "OSS"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c7j592c8odk0",
+                            "created": 1606998010285,
+                            "text": "local"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c7j59b9swf40",
+                    "created": 1606998029728,
+                    "text": "rest job"
+                },
+                "children": []
+            }
+        ]
+    },
+    "template": "filetree",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}
