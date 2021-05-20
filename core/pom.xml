@@ -5,7 +5,7 @@
     <parent>
         <artifactId>framework</artifactId>
         <groupId>org.mickey.framework</groupId>
-        <version>2.0</version>
+        <version>${framework.version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,13 +15,13 @@
         <dependency>
             <groupId>org.mickey.framework</groupId>
             <artifactId>common</artifactId>
-            <version>2.0</version>
+            <version>${framework.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.mickey.framework</groupId>
             <artifactId>dbinspector</artifactId>
-            <version>2.0</version>
+            <version>${framework.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -49,14 +49,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-                       <!-- <scope>provided</scope> -->
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
-            <version>${org.springframework.boot.version}</version>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>org.springframework.boot</groupId>-->
+        <!--    <artifactId>spring-boot-test</artifactId>-->
+        <!--    <version>${org.springframework.boot.version}</version>-->
+        <!--    <scope>test</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator</artifactId>
@@ -80,16 +79,16 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${org.mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>${org.mybatis.spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>org.mybatis</groupId>-->
+        <!--    <artifactId>mybatis</artifactId>-->
+        <!--    <version>${org.mybatis.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--    <groupId>org.mybatis</groupId>-->
+        <!--    <artifactId>mybatis-spring</artifactId>-->
+        <!--    <version>${org.mybatis.spring.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
@@ -103,7 +102,7 @@
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
-            <version>${javax.persistence.version}</version>
+            <version>${javax.persistence-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

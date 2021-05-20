@@ -1,13 +1,12 @@
 package org.mickey.framework.common.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
-import org.springframework.http.HttpStatus;
+import org.apache.http.HttpStatus;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,19 +20,19 @@ import java.util.List;
 public class ActionResult<T> implements Serializable {
 
     public static ActionResult ok() {
-        return new ActionResult(Boolean.TRUE, HttpStatus.OK);
+        return new ActionResult(Boolean.TRUE, HttpStatus.SC_OK);
     }
 
     public static <T> ActionResult<T> ok(T obj) {
-        return new ActionResult<>(Boolean.TRUE, HttpStatus.OK, obj);
+        return new ActionResult<>(Boolean.TRUE, HttpStatus.SC_OK, obj);
     }
 
     public static ActionResult created() {
-        return new ActionResult(Boolean.TRUE, HttpStatus.CREATED);
+        return new ActionResult(Boolean.TRUE, HttpStatus.SC_CREATED);
     }
 
     public static ActionResult updated() {
-        return new ActionResult(Boolean.TRUE, HttpStatus.NO_CONTENT);
+        return new ActionResult(Boolean.TRUE, HttpStatus.SC_NO_CONTENT);
     }
 
     public static ActionResult errors(ErrorInfo errorInfo) {
@@ -43,10 +42,9 @@ public class ActionResult<T> implements Serializable {
     public static ActionResult errors(List<ErrorInfo> errors) {
         return new ActionResult<>(errors);
     }
-
-    @JsonIgnore
-    private HttpStatus httpStatus;
-
+    
+    
+    private int httpStatus;
     private int code = 0;
     private boolean success;
     private String message;
@@ -64,12 +62,12 @@ public class ActionResult<T> implements Serializable {
         super();
     }
 
-    private ActionResult(Boolean success, HttpStatus httpStatus) {
+    private ActionResult(Boolean success, int httpStatus) {
         fillSuccessAndCode(success);
         this.httpStatus = httpStatus;
     }
 
-    private ActionResult(Boolean success, HttpStatus httpStatus, T obj) {
+    private ActionResult(Boolean success, int httpStatus, T obj) {
         fillSuccessAndCode(success);
         this.httpStatus = httpStatus;
         this.data = obj;
@@ -77,13 +75,13 @@ public class ActionResult<T> implements Serializable {
 
     private ActionResult(ErrorInfo errorInfo) {
         fillSuccessAndCode(Boolean.FALSE);
-        this.httpStatus = HttpStatus.EXPECTATION_FAILED;
-        this.errors = Arrays.asList(errorInfo);
+        this.httpStatus = HttpStatus.SC_EXPECTATION_FAILED;
+        this.errors = Collections.singletonList(errorInfo);
     }
 
     private ActionResult(List<ErrorInfo> errors) {
         fillSuccessAndCode(Boolean.FALSE);
-        this.httpStatus = HttpStatus.EXPECTATION_FAILED;
+        this.httpStatus = HttpStatus.SC_EXPECTATION_FAILED;
         this.errors = errors;
     }
 
