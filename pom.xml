@@ -23,7 +23,7 @@
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-codec.version>1.13</commons-codec.version>
         <com.github.pagehelper.version>5.1.10</com.github.pagehelper.version>
-        <org.mybatis.spring.boot.autoconfigure.version>2.0.1</org.mybatis.spring.boot.autoconfigure.version>
+        <org.mybatis.spring.boot.autoconfigure.version>2.1.0</org.mybatis.spring.boot.autoconfigure.version>
         <javax.persistence.version>2.2</javax.persistence.version>
         <spring-cloud-starter-openfeign.version>2.1.3.RELEASE</spring-cloud-starter-openfeign.version>
         <spring-cloud-starter-netflix-eureka-client.version>2.1.3.RELEASE</spring-cloud-starter-netflix-eureka-client.version>
@@ -90,7 +90,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
-                <!-- Exclude the Tomcat dependency -->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -108,7 +107,6 @@
             <version>${org.springframework.boot.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -222,6 +220,10 @@
         </dependency>
     </dependencies>
 
+    <dependencyManagement>
+
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -238,14 +240,14 @@
 
     <distributionManagement>
         <repository>
-            <id>axuyun-releases</id>
+            <id>axuyum-releases</id>
             <name>mickey-framework-REPOSITORY</name>
-            <url>http://101.37.247.18:8081/repository/axuyun-releases/</url>
+            <url>http://101.37.247.18:8081/repository/axuyum-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>axuyun-snapshots</id>
+            <id>axuyum-snapshots</id>
             <name>mickey-framework-SNAPSHOTS</name>
-            <url>http://101.37.247.18:8081/repository/axuyun-snapshots/</url>
+            <url>http://101.37.247.18:8081/repository/axuyum-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
